@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+.yarn
+*.tsbuildinfo
+*.pnp.*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
