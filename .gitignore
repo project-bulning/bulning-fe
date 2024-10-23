@@ -17,6 +17,8 @@ dist-ssr
 *.pnp.*
 storybook-static
 
+.env*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
