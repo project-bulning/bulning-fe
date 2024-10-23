@@ -15,6 +15,7 @@ dist-ssr
 .yarn
 *.tsbuildinfo
 *.pnp.*
+storybook-static
 
 # Editor directories and files
 .vscode/*
