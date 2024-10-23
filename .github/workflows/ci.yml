@@ -6,8 +6,9 @@ on:
   pull_request:
     branches:
       - 'develop/**'
+      - 'feature/**'
 jobs:
-  test:
+  init:
     runs-on: ubuntu-latest
     steps:
       - name: checkout source code
@@ -20,5 +21,9 @@ jobs:
         run: corepack enable && yarn set version berry
       - name: install dependencies
         run: yarn
-      - name: run test
-        run: yarn ci
+      - name: run eslint
+        run: yarn lint
+      - name: run vitest
+        run: yarn test:ci
+      - name: build test
+        run: yarn build
