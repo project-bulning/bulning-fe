@@ -14,12 +14,6 @@ export default meta;
 
 type Story = StoryObj<typeof Avatar>;
 
-export const AvatarImage: Story = {
-  args: {
-    src: 'https://picsum.photos/200',
-  },
-};
-
 export const DefaultAvatar: Story = {
   args: {
   },
