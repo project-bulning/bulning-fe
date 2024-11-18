@@ -1,19 +1,19 @@
 import { css, CSSObject } from '@emotion/react';
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 import { breakPoints } from '@styles/breakpoints';
 import { BreakpointKey } from '@/styles';
 
 type ResponsiveColumns = number | Partial<Record<BreakpointKey, number>>;
 
-interface GridProps {
+interface GridProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   columns?: ResponsiveColumns;
   gap?: string;
-  cssOverride?: CSSObject;
+  css?: CSSObject;
 }
 
 function Grid({
-  children, columns, gap, cssOverride,
+  children, columns, gap, css: cssOverride, ...rest
 }: GridProps) {
   const gridStyle = css`
     display: grid;
@@ -21,7 +21,7 @@ function Grid({
   `;
   const columnStyle = getGridColumnStyle(columns);
   return (
-    <div css={[gridStyle, columnStyle, cssOverride]}>
+    <div css={css([gridStyle, columnStyle, cssOverride])} {...rest}>
       {children}
     </div>
   );
