@@ -1,7 +1,8 @@
-import { ReactNode } from 'react';
-import { css, CSSObject } from '@emotion/react';
+import { HTMLAttributes, ReactNode } from 'react';
+import { CSSObject } from '@emotion/react';
+import useContainerStyle from '@components/container/useContainerStyle';
 
-export interface ContainerProps {
+export interface ContainerProps extends HTMLAttributes<HTMLDivElement> {
   children?: ReactNode;
   direction?: 'row' | 'column';
   justify?: 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
@@ -11,40 +12,17 @@ export interface ContainerProps {
   gap?: string;
   padding?: string;
   boxSizing?: 'border-box' | 'content-box';
-  cssOverride?: CSSObject;
-}
-
-function StyledContainer({
-  children, direction, justify, align, width, height, gap, padding, boxSizing, cssOverride,
-}: ContainerProps) {
-  const style = css`
-    display: flex;
-    flex-direction: ${direction || 'row'};
-    justify-content: ${justify || 'center'};
-    align-items: ${align || 'center'};
-    width: ${width || '100%'};
-    height: ${height || 'auto'};
-    gap: ${gap || '0'};
-    padding: ${padding || '0'};
-    box-sizing: ${boxSizing || 'border-box'};
-  `;
-
-  return (
-    <div css={[style, cssOverride]}>
-      {children}
-    </div>
-  );
+  css?: CSSObject;
 }
 
 function Container({
-  children, ...rest
+  css, children, ...rest
 }: ContainerProps) {
+  const { containerStyle } = useContainerStyle(rest);
   return (
-    <StyledContainer
-      {...rest}
-    >
+    <div css={[containerStyle, css]} {...rest}>
       {children}
-    </StyledContainer>
+    </div>
   );
 }
 
