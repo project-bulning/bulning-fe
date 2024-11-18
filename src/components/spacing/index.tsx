@@ -34,6 +34,5 @@ function getSpacingHeight(heights?: ResponsiveHeights) {
       }  
     `))
     .join(' ');
-  console.log(merged);
   return css(merged);
 }
