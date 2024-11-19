@@ -5,7 +5,7 @@ interface DefaultPaddedContainerProps extends ContainerProps {
 }
 
 export function DefaultPaddedContainer(
-  { children, ...rest }: DefaultPaddedContainerProps,
+  { children, css: cssOverride, ...rest }: DefaultPaddedContainerProps,
 ) {
   const paddedContainerStyle = css`
     box-sizing: border-box;
@@ -15,7 +15,7 @@ export function DefaultPaddedContainer(
   `;
 
   return (
-    <Container {...rest} cssOverride={paddedContainerStyle}>
+    <Container css={css([paddedContainerStyle, cssOverride])} {...rest}>
       {children}
     </Container>
   );
