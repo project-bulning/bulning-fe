@@ -1,7 +1,9 @@
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 
-function bottomSheetStyle() {
-  const BackgroundOverlay = (isVisible: boolean) => css`
+function useBottomSheetStyle() {
+  const theme = useTheme();
+
+  const backgroundOverlay = (isVisible: boolean) => css`
     position: fixed;
     top: 0;
     left: 0;
@@ -9,18 +11,18 @@ function bottomSheetStyle() {
     height: 100vh;
     z-index: 1000;
     background: rgba(0, 0, 0, 0.5);
-     transition: opacity 0.5s ease;
-     opacity: ${isVisible ? 1 : 0};
+    transition: opacity 0.5s ease;
+    opacity: ${isVisible ? 1 : 0};
   `;
 
-  const ModalStyle = (isVisible: boolean) => css`
+  const modalStyle = (isVisible: boolean) => css`
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
     height: fit-content;
     box-sizing: border-box;
-    background: white;
+    background: ${theme.colors.background.main};
     border-radius: 16px 16px 0 0;
     box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.5);
     z-index: 1001;
@@ -28,7 +30,7 @@ function bottomSheetStyle() {
     transform: ${isVisible ? 'translateY(0)' : 'translateY(100%)'};
   `;
 
-  const BottomHeader = css`
+  const bottomHeaderStyle = css`
     height: 40px;
     cursor: grab;
     user-select: none;
@@ -37,29 +39,29 @@ function bottomSheetStyle() {
     justify-content: center;
 `;
 
-  const HandleBar = css`
+  const handleBarStyle = css`
     width: 48px;
     height: 3px;
     background: #dfdfdf;
 `;
 
-  const SheetContentWrapper = css`
+  const contentWrapperStyle = css`
     width: 100%;
     box-sizing: border-box;
     padding: 20px 24px;
 `;
 
-  const SheetContent = css`
+  const contentStyle = css`
     width: 100%;
 `;
   return {
-    ModalStyle,
-    BackgroundOverlay,
-    BottomHeaderStyle: BottomHeader,
-    HandleBarStyle: HandleBar,
-    ContentWrapperStyle: SheetContentWrapper,
-    ContentStyle: SheetContent,
+    modalStyle,
+    backgroundOverlay,
+    bottomHeaderStyle,
+    handleBarStyle,
+    contentWrapperStyle,
+    contentStyle,
   };
 }
 
-export default bottomSheetStyle;
+export default useBottomSheetStyle;

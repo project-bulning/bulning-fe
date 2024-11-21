@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import bottomSheetStyle from '@components/bottomSheet/bottomSheetStyle';
+import useBottomSheetStyle from '@components/bottomSheet/useBottomSheetStyle';
 import { CSSObject } from '@emotion/react';
 
 interface BottomSheetProps {
@@ -9,50 +9,60 @@ interface BottomSheetProps {
   css?: CSSObject;
 }
 
+export const fadeOutAnimationState = {
+  FORWARDED: 'forwarded',
+  FADING: 'fading',
+  FADE_END: 'fade_end',
+  HIDDEN: 'hidden',
+};
+
 function BottomSheet({
   isOpen, onChange, children, css,
 }: BottomSheetProps) {
   const {
-    ModalStyle,
-    BackgroundOverlay,
-    BottomHeaderStyle,
-    HandleBarStyle,
-    ContentWrapperStyle,
-    ContentStyle,
-  } = bottomSheetStyle();
+    modalStyle,
+    backgroundOverlay,
+    bottomHeaderStyle,
+    handleBarStyle,
+    contentWrapperStyle,
+    contentStyle,
+  } = useBottomSheetStyle();
 
-  const [isRender, setIsRender] = useState(isOpen);
-  const [fade, setFade] = useState('');
+  const [animationState, setAnimationState] = useState(fadeOutAnimationState.HIDDEN);
 
   useEffect(() => {
     if (isOpen) {
-      setIsRender(true);
-      setTimeout(() => setFade('end'), 50);
+      setAnimationState(fadeOutAnimationState.FORWARDED);
+      setTimeout(() => {
+        setAnimationState(fadeOutAnimationState.FADING);
+      }, 50);
     } else {
-      setFade('');
-      setTimeout(() => setIsRender(false), 500);
+      setAnimationState(fadeOutAnimationState.FADE_END);
+      setTimeout(() => {
+        setAnimationState(fadeOutAnimationState.HIDDEN);
+      }, 500);
     }
   }, [isOpen]);
 
   const handleClose = () => {
     onChange?.(false);
-    setFade('');
+    setAnimationState(fadeOutAnimationState.FADE_END);
   };
 
-  if (!isRender) return null;
+  if (animationState === fadeOutAnimationState.HIDDEN) return null;
 
   return (
     <>
       <div
-        css={[BackgroundOverlay(fade === 'end'), css]}
+        css={[backgroundOverlay(animationState === fadeOutAnimationState.FADING), css]}
         onClick={handleClose}
       />
-      <div css={ModalStyle(fade === 'end')}>
-        <div css={BottomHeaderStyle}>
-          <div css={HandleBarStyle} />
+      <div css={modalStyle(animationState === fadeOutAnimationState.FADING)}>
+        <div css={bottomHeaderStyle}>
+          <div css={handleBarStyle} />
         </div>
-        <div css={ContentWrapperStyle}>
-          <div css={ContentStyle}>{children}</div>
+        <div css={contentWrapperStyle}>
+          <div css={contentStyle}>{children}</div>
         </div>
       </div>
     </>

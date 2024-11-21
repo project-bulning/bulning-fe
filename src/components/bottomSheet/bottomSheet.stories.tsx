@@ -91,7 +91,7 @@ export const DefaultBottomSheet: Story = {
                 <Button css={BtnStyle}>갤러리 열기</Button>
                 <Button css={BtnStyle} variant="primary">촬영하기</Button>
               </Container>
-              <Container cssOverride={RejectBtnStyle}>
+              <Container css={RejectBtnStyle}>
                 사진 없이 진행하기
               </Container>
             </Container>
