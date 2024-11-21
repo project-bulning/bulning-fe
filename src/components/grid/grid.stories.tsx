@@ -55,6 +55,10 @@ export const ResponsiveColumns: Story = {
       md: 3,
       lg: 4,
     },
-    children: <ChildComponent />,
   },
+  render: () => (
+    <Grid css={{ backgroundColor: 'blue' }} gap="0" columns={{ initial: 1, sm: 2, md: 3, lg: 4 }}>
+      <ChildComponent />
+    </Grid>
+  ),
 };

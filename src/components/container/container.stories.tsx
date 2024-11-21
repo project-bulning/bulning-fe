@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { DefaultPaddedContainer } from '@components/container/variants';
 import Container from '.';
 
 const meta: Meta<typeof Container> = {
@@ -48,11 +49,24 @@ export const CustomWidthHeight: Story = {
 
 export const CustomStyles: Story = {
   args: {
-    cssOverride: {
+    css: {
       border: '2px solid black',
       borderRadius: '10px',
       backgroundColor: '#f0f0f0',
     },
     padding: '20px',
   },
+};
+
+export const DefaultPadded: Story = {
+  args: {
+  },
+  render: () => (
+    <DefaultPaddedContainer css={{
+      border: '2px solid black',
+      borderRadius: '10px',
+      height: '200px',
+    }}
+    />
+  ),
 };
