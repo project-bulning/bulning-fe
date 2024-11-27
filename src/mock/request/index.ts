@@ -1,0 +1,68 @@
+import logo from '@assets/icons/alarm.svg';
+
+export const mockRequestList = [
+  {
+    id: 1,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+  {
+    id: 2,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+  {
+    id: 3,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+  {
+    id: 4,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+  {
+    id: 5,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+  {
+    id: 6,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+  {
+    id: 7,
+    title: '용병 구함',
+    location: '금정구 장전1동',
+    how_far: '100m',
+    how_long: '10분 전',
+    price: '5000',
+    image_url: { logo },
+  },
+
+];
