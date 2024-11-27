@@ -1,4 +1,4 @@
-export interface Request {
+export interface CatchRequest {
   id: number;
   title: string;
   location: string;
@@ -8,4 +8,4 @@ export interface Request {
   image_url: string;
 }
 
-export type RequestDetail = Request;
+export type CatchRequestDetail = CatchRequest;
