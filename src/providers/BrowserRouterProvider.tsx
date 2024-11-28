@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
-import UserProfilePage from '@pages/LoginAuthPage.tsx';
 import LoginPage from '@pages/LoginPage.tsx';
 import MainPage from '@pages/MainPage.tsx';
+import LoginAuthPage from '@pages/LoginAuthPage';
 
 const router = createBrowserRouter([
   {
@@ -20,7 +20,7 @@ const router = createBrowserRouter([
   {
     path: routePaths.LOGIN_AUTH,
     element: (
-      <UserProfilePage />
+      <LoginAuthPage />
     ),
   },
 ]);
