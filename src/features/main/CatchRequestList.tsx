@@ -4,6 +4,7 @@ import Container from '@components/container';
 import Grid from '@components/grid';
 import CatchRequestListItem from '@features/main/CatchRequestListItem';
 import { DefaultPaddedContainer } from '@components/container/variants';
+import viewDetails from '@assets/icons/view-details.svg';
 import { CatchRequest } from '@/types/request';
 import { mockRequestList } from '@/mock/request';
 
@@ -17,8 +18,9 @@ function CatchRequestList() {
   return (
     <DefaultPaddedContainer>
       <Container direction="column">
-        <Container justify="space-between" css={{ marginBottom: '10px' }}>
-          <Heading.H3>우리동네 사냥 정보</Heading.H3>
+        <Container justify="flex-start" align="center" gap="6px" css={{ marginBottom: '10px' }}>
+          <Heading.H3 css={{ fontWeight: 600 }}>우리동네 사냥 정보</Heading.H3>
+          <img src={viewDetails} alt="상세보기" css={{ marginBottom: '4px' }} />
         </Container>
         <Container justify="flex-end" />
         <Container direction="column">
