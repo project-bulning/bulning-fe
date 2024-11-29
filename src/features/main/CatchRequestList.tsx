@@ -40,7 +40,7 @@ function CatchRequestList() {
                   request={request}
                 />
               ))
-                            }
+            }
           </Grid>
         </Container>
       </Container>
