@@ -6,8 +6,6 @@ import { User } from '@/types/user';
 interface UserContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  login: (userData: User) => void;
-  logout: () => void;
 }
 
 const UserContext = createContext<UserContextType | null>(null);
@@ -15,22 +13,10 @@ const UserContext = createContext<UserContextType | null>(null);
 export function UserProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
-  const login = (userData: User) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
-  };
-
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem('user');
-  };
-
   const value = useMemo(
     () => ({
       user,
       setUser,
-      login,
-      logout,
     }),
     [user],
   );
