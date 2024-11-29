@@ -39,7 +39,7 @@ function CatchRequestListItem({ request }: RequestItemProps) {
       >
         <Container justify="flex-start" gap="2px">
           <img src={urgency} alt="urgency" css={{ width: '21px', height: '21px' }} />
-          <Paragraph css={{ ...paragraphStyle, fontWeight: 500 }}>{request.title}</Paragraph>
+          <Paragraph weight="medium" css={{ ...paragraphStyle }}>{request.title}</Paragraph>
         </Container>
         <Container justify="space-between" css={{ paddingLeft: '19px' }}>
           <Paragraph css={{ ...subParagraphStyle, flex: 2 }}>{request.location}</Paragraph>
@@ -49,7 +49,7 @@ function CatchRequestListItem({ request }: RequestItemProps) {
           <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
           <Paragraph css={{ ...subParagraphStyle, flex: 1.2 }}>{request.how_long}</Paragraph>
         </Container>
-        <Paragraph variant="small" css={{ ...paragraphStyle, paddingLeft: '19px', fontWeight: 600 }}>
+        <Paragraph variant="small" weight="semi-bold" css={{ ...paragraphStyle, paddingLeft: '19px' }}>
           {request.price}
           원
         </Paragraph>
