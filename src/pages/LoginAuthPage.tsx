@@ -14,10 +14,10 @@ function LoginAuthPage() {
     if (accessToken) {
       localStorage.setItem('access_token', accessToken);
       console.log('Access token saved:', accessToken);
-      navigate(routePaths.MAIN);
     } else {
       console.log('Access token not found in the URL.');
     }
+    navigate(routePaths.MAIN);
   }, [navigate]);
 
   return null;
