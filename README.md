@@ -62,3 +62,14 @@ yarn storybook
 ```bash
 yarn ci
 ```
+
+## 협업 가이드라인
+
+### 브랜치 전략
+브랜치 전략은 [이 링크](https://www.notion.so/apptive/145e3d4189a580e4bc52c015307d0b96)를 참조해주세요.
+
+### Commit Message Convention
+커밋 메시지 컨벤션은 [AngularJS Commit Message Convention](https://gist.github.com/stephenparish/9941e89d80e2bc58a153)을 따릅니다.
+
+### Code Convention
+코드 컨벤션은 airbnb javascript style guide를 따릅니다. eslint를 통해 코드 품질을 관리하므로 IDE에서 eslint 관련 설정이 필요할 수 있습니다. 
