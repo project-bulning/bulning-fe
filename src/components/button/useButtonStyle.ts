@@ -10,9 +10,9 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
 
   const variantStyles = {
     default: {
-      backgroundColor: globalTheme.colors.background.main,
+      backgroundColor: globalTheme.colors.background.darken,
       color: globalTheme.colors.text.prominent,
-      border: `1px solid ${globalTheme.colors.text.subtle}`,
+      border: 'none',
       hoverBackgroundColor: globalTheme.colors.background.darken,
       hoverColor: globalTheme.colors.text.prominent,
       hoverBorderColor: globalTheme.colors.border.prominent,
