@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { tokenStorage } from '@/utils/tokenStorage';
 
 const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -7,7 +8,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   const nextConfig = config;
 
-  const token = localStorage.getItem('access_token');
+  const token = tokenStorage.get();
   if (!token) {
     return nextConfig;
   }
