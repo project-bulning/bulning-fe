@@ -3,33 +3,38 @@ import React, {
 } from 'react';
 import { User } from '@/types/user';
 
-interface UserContextType {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+interface CurrentUserContextType {
+  currentUser: User | undefined;
+  setCurrentUser: React.Dispatch<React.SetStateAction<User | undefined>>;
+  isLoggedIn: boolean;
+  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const UserContext = createContext<UserContextType | null>(null);
+const CurrentUserContext = createContext<CurrentUserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [currentUser, setCurrentUser] = useState<User>();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const value = useMemo(
     () => ({
-      user,
-      setUser,
+      currentUser,
+      setCurrentUser,
+      isLoggedIn,
+      setIsLoggedIn,
     }),
-    [user],
+    [currentUser, isLoggedIn],
   );
 
   return (
-    <UserContext.Provider value={value}>
+    <CurrentUserContext.Provider value={value}>
       {children}
-    </UserContext.Provider>
+    </CurrentUserContext.Provider>
   );
 }
 
-export const useUser = () => {
-  const context = useContext(UserContext);
+export const useCurrentUser = () => {
+  const context = useContext(CurrentUserContext);
   if (!context) {
     throw new Error('useUser는 UserProvider 내부에서만 사용할 수 있습니다.');
   }
