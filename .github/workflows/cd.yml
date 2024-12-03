@@ -1,0 +1,46 @@
+name: test/deploy
+on:
+  push:
+    branches: # 추후에 main, develop 배포 환경 분리
+      - main
+      - develop
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout source code
+        uses: 'actions/checkout@v4'
+      - name: init yarn
+        uses: 'actions/setup-node@v4'
+        with:
+          node-version: '20'
+      - name: yarn berry setup
+        run: corepack enable && yarn set version berry
+      - name: install dependencies
+        run: yarn
+      - name: run eslint
+        run: yarn lint
+      - name: run vitest
+        run: yarn test:ci
+      - name: build
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+        run: yarn build
+      - name: Move files from dist to web root
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_URL }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          script: |
+            rm -rf ${{ secrets.DEPLOY_WEBDIR }}/assets ${{ secrets.DEPLOY_WEBDIR }}/index.html
+      - name: Copy files to Lightsail
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEPLOY_URL }}
+          username: ${{ secrets.DEPLOY_USERNAME }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          port: 22
+          source: "dist/*"
+          target: ${{ secrets.DEPLOY_WEBDIR }}/
