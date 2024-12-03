@@ -54,6 +54,7 @@ function BottomSheet({
   return (
     <>
       <div
+        role="presentation"
         css={[backgroundOverlay(animationState === fadeOutAnimationState.FADING), css]}
         onClick={handleClose}
       />
