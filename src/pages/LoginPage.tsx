@@ -7,7 +7,7 @@ import logo from '@/assets/bulning-logo.svg';
 
 function LoginPage() {
   const theme = useTheme();
-  const kakaoLoginHandler = () => {
+  const handleLoginClick = () => {
     window.location.href = `${import.meta.env.VITE_BASE_URL}/user/login/kakao`;
   };
   return (
@@ -21,7 +21,7 @@ function LoginPage() {
         <Container direction="column">
           <Paragraph variant="small" color={theme.colors.text.moderate}>SNS 계정으로 간편 가입하기</Paragraph>
           <Button
-            onClick={kakaoLoginHandler}
+            onClick={handleLoginClick}
             css={{
               height: '50px',
               width: '100%',
