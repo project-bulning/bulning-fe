@@ -7,8 +7,8 @@ function useContainerStyle({
   const containerStyle = css`
     display: flex;
     flex-direction: ${direction || 'row'};
-    justify-content: ${justify || 'center'};
-    align-items: ${align || 'center'};
+    justify-content: ${justify || 'flex-start'};
+    align-items: ${align || 'stretch'};
     width: ${width || '100%'};
     height: ${height || 'auto'};
     gap: ${gap || '0'};
