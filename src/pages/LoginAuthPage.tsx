@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths';
+import { tokenStorage } from '@/utils/tokenStorage';
 
 function LoginAuthPage() {
   const navigate = useNavigate();
@@ -12,10 +13,7 @@ function LoginAuthPage() {
     const accessToken = params.get('access_token');
 
     if (accessToken) {
-      localStorage.setItem('access_token', accessToken);
-      console.log('Access token saved:', accessToken);
-    } else {
-      console.log('Access token not found in the URL.');
+      tokenStorage.set(accessToken);
     }
     navigate(routePaths.MAIN);
   }, [navigate]);
