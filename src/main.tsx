@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { UserProvider } from '@providers/UserProvider.tsx';
+import { CurrentUserProvider } from '@providers/CurrentUserProvider.tsx';
 import { ThemeProvider } from '@emotion/react';
 import theme from '@styles/theme';
 import BrowserRouterProvider from '@providers/BrowserRouterProvider.tsx';
@@ -8,10 +8,10 @@ import BrowserRouterProvider from '@providers/BrowserRouterProvider.tsx';
 createRoot(document.getElementById('root')!).render(
 
   <StrictMode>
-    <UserProvider>
+    <CurrentUserProvider>
       <ThemeProvider theme={theme}>
         <BrowserRouterProvider />
       </ThemeProvider>
-    </UserProvider>
+    </CurrentUserProvider>
   </StrictMode>,
 );

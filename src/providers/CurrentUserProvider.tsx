@@ -12,7 +12,7 @@ interface CurrentUserContextType {
 
 const CurrentUserContext = createContext<CurrentUserContextType | undefined>(undefined);
 
-export function UserProvider({ children }: { children: React.ReactNode }) {
+export function CurrentUserProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User>();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -36,7 +36,7 @@ export function UserProvider({ children }: { children: React.ReactNode }) {
 export const useCurrentUser = () => {
   const context = useContext(CurrentUserContext);
   if (!context) {
-    throw new Error('useUser는 UserProvider 내부에서만 사용할 수 있습니다.');
+    throw new Error('useUser는 CurrentUserProvider 내부에서만 사용할 수 있습니다.');
   }
   return context;
 };
