@@ -2,7 +2,7 @@ import { ElementType, HTMLAttributes, ReactNode } from 'react';
 import styled from '@emotion/styled';
 import { useTheme } from '@emotion/react';
 
-export type FontWeight = 'regular' | 'medium' | 'bold' | 'lighter' | 'bolder';
+export type FontWeight = 'lighter' | 'regular' | 'medium' | 'semi-bold' | 'bold' | 'bolder';
 
 interface TextProps extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphElement> {
   children: ReactNode;
@@ -17,7 +17,24 @@ interface VariantTextProps extends TextProps {
 }
 
 const Text = styled.p<TextProps>`
-  font-weight: ${({ weight }) => weight || 'regular'};
+  font-weight: ${({ weight }) => {
+    switch (weight) {
+      case 'regular':
+        return 400;
+      case 'medium':
+        return 500;
+      case 'semi-bold':
+        return 600;
+      case 'bold':
+        return 700;
+      case 'lighter':
+        return 300;
+      case 'bolder':
+        return 900;
+      default:
+        return 400;
+    }
+  }};
   margin: 0;
   ${({ fontSize }) => fontSize && `font-size: ${fontSize};`};
   ${({ color }) => color && `color: ${color};`};
