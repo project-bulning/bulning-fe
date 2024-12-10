@@ -10,7 +10,7 @@ function useBottomSheetStyle() {
     width: 100vw;
     height: 100vh;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.5);
+    background: ${theme.colors.background.passive};
     transition: opacity 0.5s ease;
     opacity: ${isVisible ? 1 : 0};
   `;
