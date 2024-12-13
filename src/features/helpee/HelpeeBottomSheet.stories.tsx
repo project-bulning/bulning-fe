@@ -1,7 +1,10 @@
-import { Meta, Story } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
+import BugInputPage from '@pages/helpee/BugInputPage';
 import AnnouncementBottomSheet from './AnnouncementBottomSheet';
 import CameraRequestBottomSheet from './CameraRequestBottomSheet';
+
+type Story = StoryObj<typeof BugInputPage>;
 
 export default {
   title: 'Features/HelpeeBottomSheet',
@@ -10,15 +13,22 @@ export default {
   },
 } as Meta;
 
-// Template for AnnouncementBottomSheet
-const AnnouncementTemplate: Story = (args) => {
-  const [isOpen, setIsOpen] = useState(args.isOpen);
+interface BottomSheetProps {
+  isOpen: boolean;
+}
 
-  const handleToggle = () => setIsOpen((prev) => !prev);
+// @ts-ignore
+// eslint-disable-next-line react/function-component-definition,react/prop-types
+const AnnouncementTemplate: Story<BottomSheetProps> = ({ isOpen: initialIsOpen }) => {
+  const [isOpen, setIsOpen] = useState(initialIsOpen);
+
+  const handleToggle = () => setIsOpen((prev: any) => !prev);
 
   return (
     <>
-      <button onClick={handleToggle}>Toggle Announcement Bottom Sheet</button>
+      <button type="button" onClick={handleToggle}>
+        Toggle Announcement Bottom Sheet
+      </button>
       <AnnouncementBottomSheet
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -27,15 +37,18 @@ const AnnouncementTemplate: Story = (args) => {
   );
 };
 
-// Template for CameraRequestBottomSheet
-const CameraRequestTemplate: Story = (args) => {
-  const [isOpen, setIsOpen] = useState(args.isOpen);
+// @ts-ignore
+// eslint-disable-next-line react/function-component-definition,react/prop-types
+const CameraRequestTemplate: Story<BottomSheetProps> = ({ isOpen: initialIsOpen }) => {
+  const [isOpen, setIsOpen] = useState(initialIsOpen);
 
-  const handleToggle = () => setIsOpen((prev) => !prev);
+  const handleToggle = () => setIsOpen((prev: any) => !prev);
 
   return (
     <>
-      <button onClick={handleToggle}>Toggle Camera Request Bottom Sheet</button>
+      <button type="button" onClick={handleToggle}>
+        Toggle Camera Request Bottom Sheet
+      </button>
       <CameraRequestBottomSheet
         isOpen={isOpen}
         onClose={() => setIsOpen(false)}
@@ -44,7 +57,6 @@ const CameraRequestTemplate: Story = (args) => {
   );
 };
 
-// Stories
 export const AnnouncementBottomSheetStory = AnnouncementTemplate.bind({});
 AnnouncementBottomSheetStory.args = {
   isOpen: false,
