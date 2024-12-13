@@ -12,6 +12,7 @@ interface CameraRequestBottomSheetProps {
 function CameraRequestBottomSheet({ isOpen, onClose }: CameraRequestBottomSheetProps) {
   const {
     BtnStyle,
+    CancelBtnStyle,
     RejectBtnStyle,
   } = useBottomSheetBtnStyle();
   return (
@@ -32,10 +33,10 @@ function CameraRequestBottomSheet({ isOpen, onClose }: CameraRequestBottomSheetP
           <Paragraph>실시간으로 카메라를 연동해서</Paragraph>
           <Paragraph>사진을 촬영할 예정이에요.</Paragraph>
           <Container justify="space-between" gap="14px">
-            <Button css={BtnStyle}>갤러리 열기</Button>
+            <Button css={CancelBtnStyle}>갤러리 열기</Button>
             <Button css={BtnStyle} variant="primary">촬영하기</Button>
           </Container>
-          <Container css={RejectBtnStyle}>
+          <Container justify="center" css={RejectBtnStyle}>
             사진 없이 진행하기
           </Container>
         </Container>
