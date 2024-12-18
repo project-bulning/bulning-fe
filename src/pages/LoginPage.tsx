@@ -1,7 +1,7 @@
 import { DefaultPaddedContainer } from '@components/container/variants';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
-import { useTheme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import Button from '@components/button';
 import logo from '@/assets/bulning-logo.svg';
 
@@ -10,6 +10,17 @@ function LoginPage() {
   const handleLoginClick = () => {
     window.location.href = `${import.meta.env.VITE_BASE_URL}/user/login/kakao`;
   };
+  const loginButtonStyle = css`
+    height: 50px;
+    width: 100%;
+    border-radius: ${theme.corners.small};
+    background-color: #FEE500;
+    margin-top: 15px;
+    border: none;
+    &:hover {
+      border: none;
+    }
+  `;
   return (
     <DefaultPaddedContainer>
       <Container height="100dvh" direction="column" justify="space-between" css={{ paddingBottom: '61px', paddingTop: '89px' }}>
@@ -22,17 +33,11 @@ function LoginPage() {
           <Paragraph variant="small" color={theme.colors.text.moderate}>SNS 계정으로 간편 가입하기</Paragraph>
           <Button
             onClick={handleLoginClick}
-            css={{
-              height: '50px',
-              width: '100%',
-              borderRadius: '8px',
-              backgroundColor: '#FEE500',
-              fontSize: '18px',
-              marginTop: '15px',
-              border: 'none',
-            }}
+            css={loginButtonStyle}
           >
-            카카오톡으로 시작하기
+            <Paragraph variant="medium">
+              카카오톡으로 시작하기
+            </Paragraph>
           </Button>
         </Container>
       </Container>
