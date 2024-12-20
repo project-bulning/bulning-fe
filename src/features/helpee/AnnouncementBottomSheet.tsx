@@ -11,8 +11,8 @@ interface AnnouncementBottomSheetProps {
 
 function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetProps) {
   const {
-    BtnStyle,
-    CancelBtnStyle,
+    btnStyle,
+    cancelBtnStyle,
   } = useBottomSheetBtnStyle();
   return (
     <BottomSheet isOpen={isOpen} onChange={onClose} hideHandleBar>
@@ -41,8 +41,8 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
             </ul>
           </Container>
           <Container direction="column" gap="6px">
-            <Button css={{ ...BtnStyle, marginTop: '21px' }} variant="primary">동의하고 진행하기</Button>
-            <Button css={{ ...CancelBtnStyle, margin: 0 }}>취소</Button>
+            <Button css={{ ...btnStyle, marginTop: '21px' }} variant="primary">동의하고 진행하기</Button>
+            <Button css={{ ...cancelBtnStyle, margin: 0 }}>취소</Button>
           </Container>
         </Container>
       </Container>
