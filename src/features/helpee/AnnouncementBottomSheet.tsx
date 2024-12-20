@@ -15,7 +15,7 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
     CancelBtnStyle,
   } = useBottomSheetBtnStyle();
   return (
-    <BottomSheet isOpen={isOpen} onChange={onClose} handleBar={false}>
+    <BottomSheet isOpen={isOpen} onChange={onClose} hideHandleBar>
       <Container
         direction="column"
         justify="flex-start"

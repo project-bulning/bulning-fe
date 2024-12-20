@@ -5,7 +5,7 @@ import { CSSObject } from '@emotion/react';
 interface BottomSheetProps {
   isOpen: boolean;
   onChange?: (isOpen: boolean) => void;
-  handleBar?: boolean;
+  hideHandleBar?: boolean;
   children: React.ReactNode;
   css?: CSSObject;
 }
@@ -18,7 +18,7 @@ export const fadeOutAnimationState = {
 };
 
 function BottomSheet({
-  isOpen, onChange, handleBar = true, children, css,
+  isOpen, onChange, hideHandleBar = false, children, css,
 }: BottomSheetProps) {
   const {
     modalStyle,
@@ -61,7 +61,7 @@ function BottomSheet({
       />
       <div css={modalStyle(animationState === fadeOutAnimationState.FADING)}>
         <div css={bottomHeaderStyle}>
-          {handleBar && <div css={handleBarStyle} />}
+          {!hideHandleBar && <div css={handleBarStyle} />}
         </div>
         <div css={contentWrapperStyle}>
           <div css={contentStyle}>{children}</div>
