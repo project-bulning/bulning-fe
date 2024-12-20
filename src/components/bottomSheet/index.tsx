@@ -18,7 +18,7 @@ export const fadeOutAnimationState = {
 };
 
 function BottomSheet({
-  isOpen, onChange, hideHandleBar = false, children, css,
+  isOpen, onChange, hideHandleBar, children, css,
 }: BottomSheetProps) {
   const {
     modalStyle,
