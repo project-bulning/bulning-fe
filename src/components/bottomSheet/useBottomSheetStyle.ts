@@ -31,7 +31,8 @@ function useBottomSheetStyle() {
   `;
 
   const bottomHeaderStyle = css`
-    height: 40px;
+    margin-top: 14px;
+    margin-bottom: 10px;
     cursor: grab;
     user-select: none;
     display: flex;
