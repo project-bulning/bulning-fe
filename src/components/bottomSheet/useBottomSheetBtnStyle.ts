@@ -1,7 +1,7 @@
 import { CSSObject } from '@emotion/react';
 
 function useBottomSheetBtnStyle() {
-  const BtnStyle: CSSObject = {
+  const btnStyle: CSSObject = {
     width: ' 100%',
     height: '50px',
     fontSize: '16px',
@@ -9,7 +9,7 @@ function useBottomSheetBtnStyle() {
     borderRadius: '8px',
   };
 
-  const CancelBtnStyle: CSSObject = {
+  const cancelBtnStyle: CSSObject = {
     backgroundColor: '#EBEBEB',
     border: 'none',
     width: ' 100%',
@@ -19,7 +19,7 @@ function useBottomSheetBtnStyle() {
     borderRadius: '8px',
   };
 
-  const RejectBtnStyle: CSSObject = {
+  const rejectBtnStyle: CSSObject = {
     fontSize: '11px',
     color: '#9B9B9B',
     fontWeight: '600',
@@ -31,9 +31,9 @@ function useBottomSheetBtnStyle() {
   };
 
   return {
-    BtnStyle,
-    CancelBtnStyle,
-    RejectBtnStyle,
+    btnStyle,
+    cancelBtnStyle,
+    rejectBtnStyle,
   };
 }
 
