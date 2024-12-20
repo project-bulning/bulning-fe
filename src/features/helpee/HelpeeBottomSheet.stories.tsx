@@ -1,10 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import BugInputPage from '@pages/helpee/BugInputPage';
 import AnnouncementBottomSheet from './AnnouncementBottomSheet';
 import CameraRequestBottomSheet from './CameraRequestBottomSheet';
 
-type Story = StoryObj<typeof BugInputPage>;
+type Story = StoryObj<BottomSheetProps>;
 
 export default {
   title: 'Features/HelpeeBottomSheet',
@@ -15,54 +14,43 @@ export default {
 
 interface BottomSheetProps {
   isOpen: boolean;
+  toggleText: string;
+  Component: React.FC<{ isOpen: boolean; onClose: () => void }>;
 }
 
-// @ts-ignore
-// eslint-disable-next-line react/function-component-definition,react/prop-types
-const AnnouncementTemplate: Story<BottomSheetProps> = ({ isOpen: initialIsOpen }) => {
-  const [isOpen, setIsOpen] = useState(initialIsOpen);
+function BottomSheetTemplate({
+  isOpen: initialIsOpen,
+  toggleText,
+  Component,
+}: BottomSheetProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(initialIsOpen);
 
-  const handleToggle = () => setIsOpen((prev: any) => !prev);
-
-  return (
-    <>
-      <button type="button" onClick={handleToggle}>
-        Toggle Announcement Bottom Sheet
-      </button>
-      <AnnouncementBottomSheet
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
-    </>
-  );
-};
-
-// @ts-ignore
-// eslint-disable-next-line react/function-component-definition,react/prop-types
-const CameraRequestTemplate: Story<BottomSheetProps> = ({ isOpen: initialIsOpen }) => {
-  const [isOpen, setIsOpen] = useState(initialIsOpen);
-
-  const handleToggle = () => setIsOpen((prev: any) => !prev);
+  const handleToggle = () => setIsOpen((prev) => !prev);
 
   return (
     <>
       <button type="button" onClick={handleToggle}>
-        Toggle Camera Request Bottom Sheet
+        {toggleText}
       </button>
-      <CameraRequestBottomSheet
-        isOpen={isOpen}
-        onClose={() => setIsOpen(false)}
-      />
+      <Component isOpen={isOpen} onClose={() => setIsOpen(false)} />
     </>
   );
-};
+}
 
-export const AnnouncementBottomSheetStory = AnnouncementTemplate.bind({});
+export const AnnouncementBottomSheetStory: Story = {
+  render: (args) => <BottomSheetTemplate {...args} />,
+};
 AnnouncementBottomSheetStory.args = {
   isOpen: false,
+  toggleText: 'Toggle Announcement Bottom Sheet',
+  Component: AnnouncementBottomSheet,
 };
 
-export const CameraRequestBottomSheetStory = CameraRequestTemplate.bind({});
+export const CameraRequestBottomSheetStory: Story = {
+  render: (args) => <BottomSheetTemplate {...args} />,
+};
 CameraRequestBottomSheetStory.args = {
   isOpen: false,
+  toggleText: 'Toggle Camera Request Bottom Sheet',
+  Component: CameraRequestBottomSheet,
 };
