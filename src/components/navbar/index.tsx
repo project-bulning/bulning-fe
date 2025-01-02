@@ -1,4 +1,5 @@
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
+import { Link } from 'react-router-dom';
 import Container from '@components/container';
 import HomeIcon from '@assets/icons/home.svg';
 import CoinIcon from '@assets/icons/coin.svg';
@@ -6,8 +7,10 @@ import ProfileIcon from '@assets/icons/profile.svg';
 import { Paragraph } from '@components/text';
 
 function Navbar() {
+  const theme = useTheme();
+
   const textStyle = css`
-      color: #012962;
+      color: ${theme.colors.primary.darken};
       text-align: center;
       font-size: 12px;
       font-weight: bold;
@@ -19,28 +22,46 @@ function Navbar() {
       left: 0;
       background-color: #F7FAFE;
       z-index: 10;
+      width: 100%;
+  `;
+
+  const linkStyle = css`
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      color: inherit;
+      height: 100%;
+      width: 100%;
   `;
 
   return (
-    <Container height="80px" direction="row" justify="space-between" css={navbarStyle}>
-      <Container height="100%" justify="center" direction="column" gap="8px">
-        <Container justify="center">
-          <img src={HomeIcon} alt="Home" />
+    <Container height="80px" justify="space-between" css={navbarStyle}>
+      <Link to="/" css={linkStyle}>
+        <Container height="100%" justify="center" direction="column" gap="8px">
+          <Container justify="center">
+            <img src={HomeIcon} alt="Home" />
+          </Container>
+          <Paragraph css={textStyle}>홈</Paragraph>
         </Container>
-        <Paragraph css={textStyle}>홈</Paragraph>
-      </Container>
-      <Container height="100%" justify="center" direction="column" gap="8px">
-        <Container justify="center">
-          <img src={CoinIcon} alt="Coin" />
+      </Link>
+      <Link to="/" css={linkStyle}>
+        <Container height="100%" justify="center" direction="column" gap="8px">
+          <Container justify="center">
+            <img src={CoinIcon} alt="Coin" />
+          </Container>
+          <Paragraph css={textStyle}>사냥</Paragraph>
         </Container>
-        <Paragraph css={textStyle}>사냥</Paragraph>
-      </Container>
-      <Container height="100%" justify="center" direction="column" gap="8px">
-        <Container justify="center">
-          <img src={ProfileIcon} alt="Profile" />
+      </Link>
+      <Link to="/" css={linkStyle}>
+        <Container height="100%" justify="center" direction="column" gap="8px">
+          <Container justify="center">
+            <img src={ProfileIcon} alt="Profile" />
+          </Container>
+          <Paragraph css={textStyle}>프로필</Paragraph>
         </Container>
-        <Paragraph css={textStyle}>프로필</Paragraph>
-      </Container>
+      </Link>
     </Container>
   );
 }
