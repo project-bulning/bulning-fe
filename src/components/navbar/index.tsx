@@ -1,5 +1,4 @@
-import { css, useTheme } from '@emotion/react';
-import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
 import Container from '@components/container';
 import HomeIcon from '@assets/icons/home.svg';
 import CoinIcon from '@assets/icons/coin.svg';
@@ -8,10 +7,8 @@ import { Paragraph } from '@components/text';
 import routePaths from '@constants/routePaths';
 
 function Navbar() {
-  const theme = useTheme();
-
   const textStyle = css`
-      color: ${theme.colors.primary.darken};
+      color: #012962;
       text-align: center;
       font-size: 12px;
       font-weight: bold;
