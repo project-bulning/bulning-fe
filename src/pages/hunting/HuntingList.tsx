@@ -4,7 +4,7 @@ import Container from '@components/container';
 import Grid from '@components/grid';
 import { DefaultPaddedContainer } from '@components/container/variants';
 import search from '@assets/icons/search.svg';
-import alarmLight from '@assets/icons/alarm-light.svg';
+import alarmLight from '@assets/icons/alarm-lighter.svg';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
 import Button from '@components/button';
 import { CatchRequest } from '@/types/request';
