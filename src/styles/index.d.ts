@@ -16,11 +16,13 @@ export type Colors = {
     prominent: string;
     moderate: string;
     subtle: string;
+    darken_white: string;
   };
   background: {
     main: string;
     lighten: string;
     darken: string;
+    light_blue: string;
   };
   border: {
     subtle: string;
