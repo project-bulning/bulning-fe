@@ -11,11 +11,13 @@ const colorTheme: Colors = {
     prominent: '#191B1C',
     moderate: '#71787F',
     subtle: '#B2B6BB',
+    darken_white: '#F7FAFE',
   },
   background: {
     main: '#FFFFFF',
     lighten: '#FFFFFF',
     darken: '#F2F3F4',
+    light_blue: '#F7FAFE',
   },
   border: {
     subtle: '#ECEDEE',
