@@ -30,8 +30,8 @@ function CameraRequestBottomSheet({ isOpen, onClose }: CameraRequestBottomSheetP
           align="flex-start"
           gap="6px"
         >
-          <Paragraph>실시간으로 카메라를 연동해서</Paragraph>
-          <Paragraph>사진을 촬영할 예정이에요.</Paragraph>
+          <Paragraph variant="large">실시간으로 카메라를 연동해서</Paragraph>
+          <Paragraph variant="large">사진을 촬영할 예정이에요.</Paragraph>
           <Container justify="space-between" gap="14px">
             <Button css={cancelBtnStyle}>갤러리 열기</Button>
             <Button css={btnStyle} variant="primary">촬영하기</Button>

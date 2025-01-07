@@ -5,7 +5,7 @@ function useBottomSheetBtnStyle() {
     width: ' 100%',
     height: '50px',
     fontSize: '16px',
-    marginTop: '25px',
+    marginTop: '34px',
     borderRadius: '8px',
   };
 
@@ -15,7 +15,7 @@ function useBottomSheetBtnStyle() {
     width: ' 100%',
     height: '50px',
     fontSize: '16px',
-    marginTop: '25px',
+    marginTop: '34px',
     borderRadius: '8px',
   };
 

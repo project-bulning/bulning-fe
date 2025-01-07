@@ -15,19 +15,16 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
     cancelBtnStyle,
   } = useBottomSheetBtnStyle();
   return (
-    <BottomSheet isOpen={isOpen} onChange={onClose} hideHandleBar>
+    <BottomSheet isOpen={isOpen} onChange={onClose}>
       <Container
         direction="column"
-        justify="flex-start"
         align="flex-start"
         gap="15px"
       >
-        <Heading.H4 weight="bold">안내사항을 확인해주세요</Heading.H4>
+        <Heading.H3_5 weight="semi-bold">안내사항을 확인해주세요</Heading.H3_5>
         <Container
           direction="column"
-          justify="flex-start"
           align="flex-start"
-          gap="6px"
         >
           <Container padding="0 20px">
             <ul css={{
@@ -41,7 +38,7 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
             </ul>
           </Container>
           <Container direction="column" gap="6px">
-            <Button css={{ ...btnStyle, marginTop: '21px' }} variant="primary">동의하고 진행하기</Button>
+            <Button css={{ ...btnStyle }} variant="primary">동의하고 진행하기</Button>
             <Button css={{ ...cancelBtnStyle, margin: 0 }}>취소</Button>
           </Container>
         </Container>
