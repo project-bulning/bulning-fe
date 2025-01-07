@@ -75,6 +75,11 @@ export const Heading = {
       {children}
     </Text>
   ),
+  H3_5: ({ children, weight, ...rest }: TextProps) => (
+    <Text fontSize="22px" weight={weight} {...rest}>
+      {children}
+    </Text>
+  ),
   H4: ({ children, weight, ...rest }: TextProps) => (
     <Text as="h4" fontSize="20px" weight={weight} {...rest}>
       {children}
