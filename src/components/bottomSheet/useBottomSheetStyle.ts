@@ -30,26 +30,10 @@ function useBottomSheetStyle() {
     transform: ${isVisible ? 'translateY(0)' : 'translateY(100%)'};
   `;
 
-  const bottomHeaderStyle = css`
-    margin-top: 14px;
-    margin-bottom: 10px;
-    cursor: grab;
-    user-select: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-`;
-
-  const handleBarStyle = css`
-    width: 48px;
-    height: 3px;
-    background: #dfdfdf;
-`;
-
   const contentWrapperStyle = css`
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 24px;
+    padding: 40px 24px 10px 24px;
 `;
 
   const contentStyle = css`
@@ -58,8 +42,6 @@ function useBottomSheetStyle() {
   return {
     modalStyle,
     backgroundOverlay,
-    bottomHeaderStyle,
-    handleBarStyle,
     contentWrapperStyle,
     contentStyle,
   };
