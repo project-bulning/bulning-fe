@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 const meta: Meta<typeof TempChatPage> = {
   title: 'Pages/AfterHunt/TempChatPage',
   component: TempChatPage,
+  parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
       <MemoryRouter initialEntries={['/']}>
