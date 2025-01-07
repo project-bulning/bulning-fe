@@ -1,6 +1,6 @@
 import { CSSObject, useTheme } from '@emotion/react';
 
-function useBugInputPageStyle() {
+function useFormPageStyle() {
   const theme = useTheme();
 
   const inputTextStyle: CSSObject = {
@@ -19,13 +19,16 @@ function useBugInputPageStyle() {
 
   const inputBtnStyle: CSSObject = {
     flexDirection: 'column',
+    alignItems: 'flex-start',
     marginTop: '20px',
+    div: {
+      gap: '15px',
+    },
     button: {
       border: `0.5px solid ${theme.colors.primary.darken}`,
       padding: '4px 15px',
       color: theme.colors.primary.darken,
       fontSize: '14px',
-
       '&:hover': {
         backgroundColor: theme.colors.primary.darken,
         color: 'white',
@@ -55,4 +58,4 @@ function useBugInputPageStyle() {
   };
 }
 
-export default useBugInputPageStyle;
+export default useFormPageStyle;

@@ -5,7 +5,7 @@ import close from '@assets/icons/close.svg';
 import logo from '@assets/bulning-logo.svg';
 import Input from '@components/input';
 import Button from '@components/button';
-import useBugInputPageStyle from '@pages/helpee/useBugInputPageStyle';
+import useFormPageStyle from '@pages/helpee/useFormPageStyle';
 import { FormErrorMessage } from '@components/text/variants';
 import {
   Control, FormState, useForm, UseFormRegister, UseFormSetValue,
@@ -26,7 +26,7 @@ function BugInputPage() {
     inputTextStyle,
     ulStyle,
     inputBtnStyle,
-  } = useBugInputPageStyle();
+  } = useFormPageStyle();
   const {
     register,
     handleSubmit,

@@ -1,7 +1,7 @@
 import { useState, forwardRef } from 'react';
 import { UseFormSetValue } from 'react-hook-form';
 import Container from '@components/container';
-import useBugInputPageStyle from '@pages/helpee/useBugInputPageStyle';
+import useFormPageStyle from '@pages/helpee/useFormPageStyle';
 import { Paragraph } from '@components/text';
 import Button from '@components/button';
 import Input from '@components/input';
@@ -17,7 +17,7 @@ interface ButtonSelectorProps {
 const ButtonSelector = forwardRef<HTMLDivElement, ButtonSelectorProps>(({
   label, options, name, setValue, etcBtn = true,
 }: ButtonSelectorProps, ref) => {
-  const { selectedBtnStyle, inputTextStyle } = useBugInputPageStyle();
+  const { selectedBtnStyle, inputTextStyle } = useFormPageStyle();
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [etcValue, setEtcValue] = useState('');
 
