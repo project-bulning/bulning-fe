@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 function useBugInputPageStyle() {
   const headingStyle = css`
       display: block;
-      font-size: 20px;
+      font-size: 22px;
       line-height: 27px;
       letter-spacing: -0.32px;
       margin-top: 96px;

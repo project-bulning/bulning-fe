@@ -1,4 +1,3 @@
-import { css } from '@emotion/react';
 import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
@@ -17,10 +16,6 @@ function HuntEndBottomSheet({ isOpen, onClose }: HuntEndBottomSheetProps) {
     cancelBtnStyle,
   } = useBottomSheetBtnStyle();
 
-  const headingStyle = css`
-      font-size: 22px;
-  `;
-
   const navigate = useNavigate();
 
   const handleStartDeal = () => {
@@ -34,7 +29,7 @@ function HuntEndBottomSheet({ isOpen, onClose }: HuntEndBottomSheetProps) {
         align="flex-start"
         gap="15px"
       >
-        <Heading.H4 weight="semi-bold" css={headingStyle}>사냥이 끝났나요?</Heading.H4>
+        <Heading.H3_5 weight="semi-bold">사냥이 끝났나요?</Heading.H3_5>
         <Container
           direction="column"
           align="flex-start"
