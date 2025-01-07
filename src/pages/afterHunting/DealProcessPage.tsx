@@ -37,10 +37,10 @@ function DealProcessPage() {
     <DefaultPaddedContainer>
       <Container direction="column" css={headingStyle}>
         <Container>
-          <Heading.H4 weight="semi-bold">계좌이체</Heading.H4>
+          <Heading.H3_5 weight="semi-bold">계좌이체</Heading.H3_5>
           나
           <div style={{ width: '8px' }} />
-          <Heading.H4 weight="semi-bold">현금</Heading.H4>
+          <Heading.H3_5 weight="semi-bold">현금</Heading.H3_5>
           으로
         </Container>
         <div>거래를 진행해주세요</div>
