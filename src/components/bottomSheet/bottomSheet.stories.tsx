@@ -89,7 +89,7 @@ export const DefaultBottomSheet: Story = {
               <Paragraph>사진을 촬영할 예정이에요.</Paragraph>
               <Container justify="space-between" gap="14px">
                 <Button css={BtnStyle}>갤러리 열기</Button>
-                <Button css={BtnStyle} variant="primary">촬영하기</Button>
+                <Button css={BtnStyle}>촬영하기</Button>
               </Container>
               <Container css={RejectBtnStyle}>
                 사진 없이 진행하기
