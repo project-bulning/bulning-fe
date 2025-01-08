@@ -2,7 +2,6 @@ import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading } from '@components/text';
-import useBottomSheetBtnStyle from '@components/bottomSheet/useBottomSheetBtnStyle';
 
 interface AnnouncementBottomSheetProps {
   isOpen: boolean;
@@ -10,10 +9,6 @@ interface AnnouncementBottomSheetProps {
 }
 
 function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetProps) {
-  const {
-    btnStyle,
-    cancelBtnStyle,
-  } = useBottomSheetBtnStyle();
   return (
     <BottomSheet isOpen={isOpen} onChange={onClose}>
       <Container
@@ -25,6 +20,7 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
         <Container
           direction="column"
           align="flex-start"
+          gap="34px"
         >
           <Container padding="0 20px">
             <ul css={{
@@ -38,8 +34,8 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
             </ul>
           </Container>
           <Container direction="column" gap="6px">
-            <Button css={{ ...btnStyle }} variant="primary">동의하고 진행하기</Button>
-            <Button css={{ ...cancelBtnStyle, margin: 0 }}>취소</Button>
+            <Button>동의하고 진행하기</Button>
+            <Button variant="secondary">취소</Button>
           </Container>
         </Container>
       </Container>
