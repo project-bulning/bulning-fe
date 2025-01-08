@@ -178,7 +178,6 @@ function BugInputPage() {
             </ul>
           </Container>
           <Button
-            variant="primary"
             type="submit"
             css={{ borderRadius: '8px', marginTop: '27px', marginBottom: '32px' }}
           >

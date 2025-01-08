@@ -38,6 +38,7 @@ const ButtonSelector = forwardRef<HTMLDivElement, ButtonSelectorProps>(({
       <Container justify="space-between">
         {options.map((option) => (
           <Button
+            variant="select"
             key={option}
             type="button"
             onClick={() => handleOptionClick(option)}
@@ -48,6 +49,7 @@ const ButtonSelector = forwardRef<HTMLDivElement, ButtonSelectorProps>(({
         ))}
         {etcBtn && (
           <Button
+            variant="select"
             type="button"
             onClick={() => handleOptionClick('etc')}
             css={selectedOption === 'etc' ? selectedBtnStyle : undefined}
