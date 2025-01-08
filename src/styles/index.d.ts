@@ -1,7 +1,7 @@
 import { CSSObject } from '@emotion/react';
 import { breakPoints } from '@styles/breakpoints';
 
-export type ButtonVariants = 'default' | 'dark' | 'primary';
+export type ButtonVariants = 'default' | 'select' | 'secondary';
 
 export type TagVariants = 'default' | 'primary';
 
