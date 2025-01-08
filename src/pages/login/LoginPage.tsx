@@ -25,6 +25,7 @@ function LoginPage() {
             css={{
               height: '50px',
               width: '100%',
+              color: 'black',
               borderRadius: '8px',
               backgroundColor: '#FEE500',
               fontSize: '18px',
