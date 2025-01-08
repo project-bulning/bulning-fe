@@ -42,7 +42,7 @@ function MatchCompleteBanner() {
       <Paragraph css={paragraphStyle}>
         채팅을 시작하고 사냥을 시작해보세요
       </Paragraph>
-      <Button type="button" variant="primary" css={buttonStyle} onClick={handleOpenQuickChat}>
+      <Button type="button" css={buttonStyle} onClick={handleOpenQuickChat}>
         퀵챗 열기
       </Button>
     </Container>

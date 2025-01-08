@@ -42,7 +42,7 @@ function RequestHelpBanner() {
       <Container justify="center" css={iconStyle}>
         <img src={RedAlertIcon} alt="RedAlertIcon" />
       </Container>
-      <Button type="button" variant="primary" css={buttonStyle} onClick={handleInfoRegist}>
+      <Button type="button" css={buttonStyle} onClick={handleInfoRegist}>
         빠르게 정보 등록하기
       </Button>
     </Container>
