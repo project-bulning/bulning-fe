@@ -11,7 +11,7 @@ function Navbar() {
   const theme = useTheme();
 
   const textStyle = css`
-      color: ${theme.colors.primary.darken};
+      color: ${theme.colors.primary.main};
       text-align: center;
       font-size: 12px;
       font-weight: bold;
