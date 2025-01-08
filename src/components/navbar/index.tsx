@@ -5,6 +5,7 @@ import HomeIcon from '@assets/icons/home.svg';
 import CoinIcon from '@assets/icons/coin.svg';
 import ProfileIcon from '@assets/icons/profile.svg';
 import { Paragraph } from '@components/text';
+import routePaths from '@constants/routePaths';
 
 function Navbar() {
   const theme = useTheme();
@@ -26,19 +27,14 @@ function Navbar() {
   `;
 
   const linkStyle = css`
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       text-decoration: none;
-      color: inherit;
       height: 100%;
       width: 100%;
   `;
 
   return (
     <Container height="80px" justify="space-between" css={navbarStyle}>
-      <Link to="/" css={linkStyle}>
+      <Link to={routePaths.MAIN} css={linkStyle}>
         <Container height="100%" justify="center" direction="column" gap="8px">
           <Container justify="center">
             <img src={HomeIcon} alt="Home" />
@@ -46,7 +42,7 @@ function Navbar() {
           <Paragraph css={textStyle}>홈</Paragraph>
         </Container>
       </Link>
-      <Link to="/" css={linkStyle}>
+      <Link to={routePaths.MAIN} css={linkStyle}>
         <Container height="100%" justify="center" direction="column" gap="8px">
           <Container justify="center">
             <img src={CoinIcon} alt="Coin" />
@@ -54,7 +50,7 @@ function Navbar() {
           <Paragraph css={textStyle}>사냥</Paragraph>
         </Container>
       </Link>
-      <Link to="/" css={linkStyle}>
+      <Link to={routePaths.MAIN} css={linkStyle}>
         <Container height="100%" justify="center" direction="column" gap="8px">
           <Container justify="center">
             <img src={ProfileIcon} alt="Profile" />
