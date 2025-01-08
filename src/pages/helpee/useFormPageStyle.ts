@@ -5,15 +5,33 @@ function useFormPageStyle() {
 
   const inputTextStyle: CSSObject = {
     flexDirection: 'column',
-    input: {
-      backgroundColor: '#F2F3F6',
-      fontSize: '15px',
-    },
+    gap: '10px',
     label: {
-      marginTop: '20px',
+      marginTop: '24px',
       padding: 0,
       color: 'black',
+      fontSize: '18px',
+    },
+    input: {
+      backgroundColor: '#F2F3F6',
       fontSize: '16px',
+    },
+  };
+
+  const inputSelectStyle: CSSObject = {
+    flexDirection: 'column',
+    gap: '10px',
+    label: {
+      marginTop: '24px',
+      marginBottom: '10px',
+      padding: 0,
+      color: 'black',
+      fontSize: '18px',
+    },
+    select: {
+      backgroundColor: '#F2F3F6',
+      fontSize: '16px',
+      width: '100%',
     },
   };
 
@@ -25,12 +43,12 @@ function useFormPageStyle() {
       gap: '15px',
     },
     button: {
-      border: `0.5px solid ${theme.colors.primary.darken}`,
+      border: `0.5px solid ${theme.colors.primary.main}`,
       padding: '4px 15px',
-      color: theme.colors.primary.darken,
+      color: theme.colors.primary.main,
       fontSize: '14px',
       '&:hover': {
-        backgroundColor: theme.colors.primary.darken,
+        backgroundColor: theme.colors.primary.main,
         color: 'white',
       },
     },
@@ -47,11 +65,12 @@ function useFormPageStyle() {
 
   const selectedBtnStyle: CSSObject = {
     color: 'white !important',
-    backgroundColor: theme.colors.primary.darken,
+    backgroundColor: theme.colors.primary.main,
   };
 
   return {
     inputTextStyle,
+    inputSelectStyle,
     inputBtnStyle,
     ulStyle,
     selectedBtnStyle,
