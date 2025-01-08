@@ -2,9 +2,9 @@ import { Colors } from '@/styles';
 
 const colorTheme: Colors = {
   primary: {
-    main: '#48CFCB',
-    lighten: '#0BD9D3',
-    darken: '#012962',
+    main: '#012962',
+    lighten: '#EBEBEB',
+    darken: '#48CFCB',
     passive: 'rgba(72, 207, 203, 0.13)',
   },
   text: {
