@@ -4,6 +4,9 @@ import MembershipPage from '@pages/login/MembershipPage';
 const meta: Meta<typeof MembershipPage> = {
   title: 'Pages/Login/MembershipPage',
   component: MembershipPage,
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
 export default meta;

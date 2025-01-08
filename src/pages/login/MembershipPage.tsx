@@ -138,13 +138,13 @@ function MembershipPage() {
   };
 
   return (
-    <DefaultPaddedContainer height="32px" css={{ lineHeight: '32px' }}>
+    <DefaultPaddedContainer>
       <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
         <Container direction="column" justify="center">
-          <Container justify="center">
-            <Heading.H3>사냥 정보 입력</Heading.H3>
+          <Container justify="center" padding="18px 33px 0">
+            <Heading.H3_5>회원가입</Heading.H3_5>
           </Container>
-          <Container direction="column" padding="24px 0">
+          <Container direction="column">
             <Container css={inputTextStyle}>
               <Input
                 type="text"
