@@ -15,7 +15,6 @@ function DealProcessPage() {
     ulStyle,
     btnPositionStyle,
     explainStyle,
-    btnStyle,
   } = useDealProcessPageStyle();
 
   const [bugReportData, setBugReportData] = useState<BugReport>();
@@ -60,7 +59,7 @@ function DealProcessPage() {
       </Container>
       <Container css={btnPositionStyle}>
         <Paragraph css={explainStyle}>계좌이체의 경우 송금 내역을 확인 후 버튼을 눌러주세요.</Paragraph>
-        <Button variant="primary" css={btnStyle} onClick={handleNavigate}>완료했어요</Button>
+        <Button onClick={handleNavigate}>완료했어요</Button>
       </Container>
     </DefaultPaddedContainer>
   );
