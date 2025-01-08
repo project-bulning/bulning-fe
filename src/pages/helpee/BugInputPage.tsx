@@ -78,14 +78,14 @@ function BugInputPage() {
   };
 
   return (
-    <DefaultPaddedContainer height="32px" css={{ lineHeight: '32px' }}>
+    <DefaultPaddedContainer height="32px">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <Container direction="column">
+        <Container direction="column" padding="10px 0">
           <Container>
             <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
-            <Heading.H3 css={{ marginLeft: '62px' }}>사냥 정보 입력</Heading.H3>
+            <Heading.H3_5 css={{ marginLeft: '62px' }}>사냥 정보 입력</Heading.H3_5>
           </Container>
-          <Container direction="column" padding="24px 0">
+          <Container direction="column" padding="40px 0">
             <img src={logo} alt="logo" css={{ width: '70px', height: '70px', borderRadius: '8px' }} />
             <Container css={inputTextStyle}>
               <Input

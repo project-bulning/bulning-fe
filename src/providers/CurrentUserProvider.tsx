@@ -1,7 +1,9 @@
 import React, {
-  createContext, useState, useContext, useMemo,
+  createContext, useState, useContext, useMemo, useEffect,
 } from 'react';
 import { User } from '@/types/user';
+import { tokenStorage } from '@/utils/tokenStorage';
+import { getMyInfo } from '@/api/user';
 
 interface CurrentUserContextType {
   currentUser: User | undefined;
@@ -15,6 +17,23 @@ const CurrentUserContext = createContext<CurrentUserContextType | undefined>(und
 export function CurrentUserProvider({ children }: { children: React.ReactNode }) {
   const [currentUser, setCurrentUser] = useState<User>();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = tokenStorage.get();
+    if (token) {
+      getMyInfo()
+        .then((data) => {
+          setCurrentUser(data);
+          setIsLoggedIn(true);
+        })
+        .catch((error) => {
+          console.error('Failed to fetch user info:', error);
+          setIsLoggedIn(false);
+        });
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
 
   const value = useMemo(
     () => ({

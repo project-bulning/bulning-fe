@@ -6,6 +6,7 @@ function useSelectStyle() {
   const selectContainerStyle = (
     css`
       position: relative;
+      width: 100%;
     `
   );
 
@@ -14,8 +15,10 @@ function useSelectStyle() {
       outline: none;
       border: 1px solid ${theme.colors.border.subtle};
       border-radius: ${theme.corners.small};
-      height: 30px;
-      padding: 5px;
+      background-color: #F2F3F6;
+      height: 40px;
+      padding: 8px;
+      font-size: 15px;
       &::after {
         color: ${theme.colors.text.subtle};
       }

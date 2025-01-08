@@ -10,11 +10,11 @@ function useFormPageStyle() {
       marginTop: '24px',
       padding: 0,
       color: 'black',
-      fontSize: '18px',
+      fontSize: '16px',
     },
     input: {
       backgroundColor: '#F2F3F6',
-      fontSize: '16px',
+      fontSize: '14px',
     },
   };
 
