@@ -3,13 +3,13 @@ import Container from '@components/container';
 import { Heading } from '@components/text';
 import Input from '@components/input';
 import Button from '@components/button';
-import useBugInputPageStyle from '@pages/helpee/useBugInputPageStyle';
 import { FormErrorMessage } from '@components/text/variants';
 import {
   Control, FormState, useForm, UseFormRegister, UseFormSetValue,
 } from 'react-hook-form';
 import Select from '@components/select';
 import { useEffect, useState } from 'react';
+import useFormPageStyle from '@pages/helpee/useFormPageStyle';
 import { MembershipResponse } from '@/types/user';
 
 export interface MembershipProps {
@@ -26,7 +26,7 @@ declare global {
 }
 
 function MembershipPage() {
-  const { inputTextStyle } = useBugInputPageStyle();
+  const { inputTextStyle, inputSelectStyle } = useFormPageStyle();
   const [nicknameValue, setNicknameValue] = useState<string>('');
   const [sidoList, setSidoList] = useState<any[]>([]);
   const [sigugunList, setSigugunList] = useState<any[]>([]);
@@ -140,11 +140,11 @@ function MembershipPage() {
   return (
     <DefaultPaddedContainer>
       <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
-        <Container direction="column" justify="center">
-          <Container justify="center" padding="18px 33px 0">
-            <Heading.H3_5>회원가입</Heading.H3_5>
-          </Container>
+        <Container height="100dvh" direction="column" justify="space-between" padding="10px 0">
           <Container direction="column">
+            <Container justify="center" padding="18px 33px 0">
+              <Heading.H3_5>회원가입</Heading.H3_5>
+            </Container>
             <Container css={inputTextStyle}>
               <Input
                 type="text"
@@ -165,10 +165,9 @@ function MembershipPage() {
               />
               <FormErrorMessage errors={errors} name="nickname" />
             </Container>
-            <Container css={inputTextStyle}>
+            <Container css={inputSelectStyle}>
               <Select
                 label="활동 지역"
-                css={{ width: '100%', marginBottom: '12px' }}
                 value={selectedLocation.sido}
                 {...register('location', validations.location)}
                 onChange={(e) => handleLocationChange(e, 'sido')}
@@ -182,7 +181,6 @@ function MembershipPage() {
               </Select>
               <Container width="100%" justify="space-between" align="center" gap="12px">
                 <Select
-                  css={{ width: '155px' }}
                   value={selectedLocation.sigugun}
                   onChange={(e) => handleLocationChange(e, 'sigugun')}
                 >
@@ -194,7 +192,6 @@ function MembershipPage() {
                   ))}
                 </Select>
                 <Select
-                  css={{ width: '155px' }}
                   value={selectedLocation.dong}
                   onChange={(e) => handleLocationChange(e, 'dong')}
                 >
@@ -208,24 +205,8 @@ function MembershipPage() {
               </Container>
               <FormErrorMessage errors={errors} name="location" />
             </Container>
-
-            <Button
-              variant="primary"
-              type="submit"
-              css={{
-                position: 'fixed',
-                bottom: '16px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                width: '90%',
-                maxWidth: '342px',
-                height: '50px',
-                borderRadius: '8px',
-              }}
-            >
-              다음
-            </Button>
           </Container>
+          <Button type="submit">다음</Button>
         </Container>
       </form>
     </DefaultPaddedContainer>
