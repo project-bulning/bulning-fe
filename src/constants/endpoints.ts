@@ -1,4 +1,4 @@
-const prefix = '';
+const prefix = '/api';
 
 const endpoints = {
   myInfo: `${prefix}/my-info`,
