@@ -10,29 +10,41 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
 
   const variantStyles = {
     default: {
+      fontSize: '18px',
+      height: '50px',
+      padding: '0',
+      backgroundColor: globalTheme.colors.primary.main,
+      color: globalTheme.colors.absolute.white,
+      border: 'none',
+      borderRadius: '8px',
+      hoverBackgroundColor: globalTheme.colors.absolute.black,
+      hoverColor: globalTheme.colors.primary.main,
+      hoverBorderColor: 'transparent',
+      disabledBackgroundColor: globalTheme.colors.primary.passive,
+      disabledColor: globalTheme.colors.text.subtle,
+    },
+    select: {
+      fontSize: '14px',
+      height: '21px',
+      padding: '4px 15px',
       backgroundColor: globalTheme.colors.background.main,
-      color: globalTheme.colors.text.prominent,
-      border: `1px solid ${globalTheme.colors.text.subtle}`,
+      color: globalTheme.colors.primary.main,
+      border: `0.5px solid ${globalTheme.colors.primary.main}`,
+      borderRadius: '100px',
       hoverBackgroundColor: globalTheme.colors.background.darken,
       hoverColor: globalTheme.colors.text.prominent,
       hoverBorderColor: globalTheme.colors.border.prominent,
       disabledBackgroundColor: globalTheme.colors.background.darken,
       disabledColor: globalTheme.colors.text.subtle,
     },
-    dark: {
-      backgroundColor: globalTheme.colors.text.prominent,
-      color: globalTheme.colors.primary.main,
-      border: '1px solid transparent',
-      hoverBackgroundColor: globalTheme.colors.primary.main,
-      hoverColor: globalTheme.colors.text.prominent,
-      hoverBorderColor: 'transparent',
-      disabledBackgroundColor: globalTheme.colors.border.subtle,
-      disabledColor: globalTheme.colors.text.subtle,
-    },
-    primary: {
-      backgroundColor: globalTheme.colors.primary.darken,
-      color: globalTheme.colors.absolute.white,
-      border: '1px solid transparent',
+    secondary: {
+      fontSize: '18px',
+      height: '50px',
+      padding: '0',
+      backgroundColor: globalTheme.colors.primary.lighten,
+      color: globalTheme.colors.text.prominent,
+      border: 'none',
+      borderRadius: '8px',
       hoverBackgroundColor: globalTheme.colors.absolute.black,
       hoverColor: globalTheme.colors.primary.main,
       hoverBorderColor: 'transparent',
@@ -44,12 +56,15 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
   const styles = variantStyles[variant];
 
   const buttonStyle = css`
+    width: 100%;
+    height: ${styles.height};
+    font-size: ${styles.fontSize};  
     display: flex;
     align-items: center;
     justify-content: center;
     outline: none;
-    padding: 10px 18px;
-    border-radius: 100px;
+    padding: ${styles.padding};
+    border-radius: ${styles.borderRadius};
     color: ${styles.color};
     border: ${styles.border};
     background-color: ${styles.backgroundColor};
