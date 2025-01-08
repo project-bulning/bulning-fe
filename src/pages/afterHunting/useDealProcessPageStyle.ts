@@ -4,7 +4,7 @@ function useBugInputPageStyle() {
   const headingStyle = css`
       display: block;
       font-size: 22px;
-      line-height: 27px;
+      line-height: 30px;
       letter-spacing: -0.32px;
       margin-top: 96px;
       margin-bottom: 37px;
@@ -49,16 +49,8 @@ function useBugInputPageStyle() {
       font-weight: 400;
       line-height: 16px;
       letter-spacing: -0.32px;
+      margin-bottom: 12px;
       color: #9B9B9B;
-  `;
-
-  const btnStyle = css`
-      width: 100%;
-      height: 50px;
-      margin-top: 12px;
-      margin-bottom: 23px;
-      font-size: 16px;
-      border-radius: 8px;
   `;
 
   return {
@@ -67,7 +59,6 @@ function useBugInputPageStyle() {
     ulStyle,
     btnPositionStyle,
     explainStyle,
-    btnStyle,
   };
 }
 
