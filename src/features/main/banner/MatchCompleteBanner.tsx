@@ -1,8 +1,9 @@
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import Container from '@components/container';
 import Button from '@components/button';
 import { Heading, Paragraph } from '@components/text';
 import { useNavigate } from 'react-router-dom';
+import useBannerStyle from '@features/main/banner/useBannerStyle';
 
 function MatchCompleteBanner() {
   const navigate = useNavigate();
@@ -11,13 +12,7 @@ function MatchCompleteBanner() {
     navigate('/');
   };
 
-  const theme = useTheme();
-
-  const bannerStyle = css`
-      padding: 22px 26px 16px 26px;
-      background-color: ${theme.colors.background.light_blue};
-      border-radius: 8px;
-  `;
+  const { bannerStyle } = useBannerStyle();
 
   const HeadingStyle = css`
       line-height: 32px;

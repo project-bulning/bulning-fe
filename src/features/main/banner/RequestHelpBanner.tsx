@@ -1,9 +1,10 @@
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import Container from '@components/container';
 import Button from '@components/button';
 import { Heading } from '@components/text';
 import RedAlertIcon from '@assets/icons/red-alert.svg';
 import { useNavigate } from 'react-router-dom';
+import useBannerStyle from '@features/main/banner/useBannerStyle';
 
 function RequestHelpBanner() {
   const navigate = useNavigate();
@@ -12,13 +13,7 @@ function RequestHelpBanner() {
     navigate('/');
   };
 
-  const theme = useTheme();
-
-  const bannerStyle = css`
-      padding: 22px 26px 16px 26px;
-      background-color: ${theme.colors.background.light_blue};
-      border-radius: 8px;
-  `;
+  const { bannerStyle } = useBannerStyle();
 
   const textStyle = css`
       line-height: 32px;
