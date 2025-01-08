@@ -5,6 +5,7 @@ import { MemoryRouter } from 'react-router-dom';
 const meta: Meta<typeof Navbar> = {
   title: 'Components/Navbar',
   component: Navbar,
+  parameters: { layout: 'fullscreen' },
   decorators: [
     (Story) => (
       <MemoryRouter initialEntries={['/']}>
