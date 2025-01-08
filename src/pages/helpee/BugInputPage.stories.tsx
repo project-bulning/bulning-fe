@@ -4,6 +4,9 @@ import BugInputPage from '@pages/helpee/BugInputPage';
 const meta: Meta<typeof BugInputPage> = {
   title: 'Pages/BugInputPage',
   component: BugInputPage,
+  parameters: {
+    layout: 'fullscreen',
+  },
 };
 
 export default meta;
