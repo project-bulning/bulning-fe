@@ -10,7 +10,7 @@ const colorTheme: Colors = {
   text: {
     prominent: '#191B1C',
     moderate: '#71787F',
-    subtle: '#B2B6BB',
+    subtle: '#9B9B9B',
     darken_white: '#F7FAFE',
   },
   background: {
