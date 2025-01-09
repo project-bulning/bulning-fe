@@ -1,9 +1,9 @@
 import { Meta, StoryObj } from '@storybook/react';
-import infoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage';
+import InfoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage';
 
-const meta: Meta<typeof infoSentAwaitPage> = {
-  title: 'Pages/HunterMatching/infoSentAwaitPage',
-  component: infoSentAwaitPage,
+const meta: Meta<typeof InfoSentAwaitPage> = {
+  title: 'Pages/HunterMatching/InfoSentAwaitPage',
+  component: InfoSentAwaitPage,
   parameters: {
     layout: 'fullscreen',
   },
@@ -11,9 +11,9 @@ const meta: Meta<typeof infoSentAwaitPage> = {
 
 export default meta;
 
-type Story = StoryObj<typeof infoSentAwaitPage>;
+type Story = StoryObj<typeof InfoSentAwaitPage>;
 
-export const infoSentAwaitScreenDefault: Story = {
+export const InfoSentAwaitPageDefault: Story = {
   args: {
 
   },
