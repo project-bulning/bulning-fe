@@ -1,6 +1,7 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import MoveToQuickChatBottomSheet from '@features/hunterMatching/MoveToQuickChatBottomSheet';
+import ConfirmCancelMatchingBottomSheet from '@features/hunterMatching/ConfirmCancelMatchingBottomSheet';
 
 type Story = StoryObj<BottomSheetProps>;
 
@@ -45,11 +46,11 @@ MoveToQuickChatBottomSheetStory.args = {
   Component: MoveToQuickChatBottomSheet,
 };
 
-// export const CameraRequestBottomSheetStory: Story = {
-//   render: (args) => <BottomSheetTemplate {...args} />,
-// };
-// CameraRequestBottomSheetStory.args = {
-//   isOpen: false,
-//   toggleText: 'Toggle Camera Request Bottom Sheet',
-//   Component: CameraRequestBottomSheet,
-// };
+export const ConfirmCancelMatchingBottomSheetStory: Story = {
+  render: (args) => <BottomSheetTemplate {...args} />,
+};
+ConfirmCancelMatchingBottomSheetStory.args = {
+  isOpen: false,
+  toggleText: 'Toggle Camera Request Bottom Sheet',
+  Component: ConfirmCancelMatchingBottomSheet,
+};
