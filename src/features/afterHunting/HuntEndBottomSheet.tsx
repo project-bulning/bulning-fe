@@ -3,13 +3,9 @@ import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import { useNavigate } from 'react-router-dom';
+import { HandleBottomSheetProps } from '@components/bottomSheet/handleBottomSheetProps';
 
-interface HuntEndBottomSheetProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-function HuntEndBottomSheet({ isOpen, onClose }: HuntEndBottomSheetProps) {
+function HuntEndBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
   const navigate = useNavigate();
 
   const handleStartDeal = () => {
