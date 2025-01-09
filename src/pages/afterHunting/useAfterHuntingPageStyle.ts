@@ -6,7 +6,7 @@ function useAfterHuntingPageStyle() {
   const headingStyle = css`
       line-height: 30px;
       margin-top: 96px;
-      margin-bottom: 37px;
+      margin-bottom: 37px; 
   `;
 
   const priceStyle = css`
