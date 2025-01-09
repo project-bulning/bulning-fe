@@ -2,7 +2,7 @@ import { DefaultPaddedContainer } from '@components/container/variants';
 import Button from '@components/button';
 import { Heading, Paragraph } from '@components/text';
 import Container from '@components/container';
-import useDealProcessPageStyle from '@pages/afterHunting/useDealProcessPageStyle';
+import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
 import { useState, useEffect } from 'react';
 import mockBugReport from 'mock/bug-report';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +15,7 @@ function DealProcessPage() {
     ulStyle,
     btnPositionStyle,
     explainStyle,
-  } = useDealProcessPageStyle();
+  } = useAfterHuntingPageStyle();
 
   const [bugReportData, setBugReportData] = useState<BugReport>();
 
@@ -36,13 +36,12 @@ function DealProcessPage() {
     <DefaultPaddedContainer>
       <Container direction="column" css={headingStyle}>
         <Container>
-          <Heading.H3_5 weight="semi-bold">계좌이체</Heading.H3_5>
-          나
-          <div style={{ width: '8px' }} />
-          <Heading.H3_5 weight="semi-bold">현금</Heading.H3_5>
-          으로
+          <Heading.H3_5 weight="semi-bold">계좌이체나 현금</Heading.H3_5>
+          <Heading.H3_5>으로</Heading.H3_5>
         </Container>
-        <div>거래를 진행해주세요</div>
+        <Container>
+          <Heading.H3_5>거래를 진행해주세요</Heading.H3_5>
+        </Container>
       </Container>
       <Container gap="22px" align="center" justify="center">
         <Heading.H4>계약 금액</Heading.H4>

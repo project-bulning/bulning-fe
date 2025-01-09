@@ -2,7 +2,7 @@ import { DefaultPaddedContainer } from '@components/container/variants';
 import Button from '@components/button';
 import { Heading } from '@components/text';
 import Container from '@components/container';
-import useDealProcessPageStyle from '@pages/afterHunting/useDealProcessPageStyle';
+import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ function DealWaitingPage() {
   const {
     headingStyle,
     btnPositionStyle,
-  } = useDealProcessPageStyle();
+  } = useAfterHuntingPageStyle();
 
   const navigate = useNavigate();
 
