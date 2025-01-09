@@ -17,6 +17,7 @@ export type Colors = {
     moderate: string;
     subtle: string;
     darken_white: string;
+    explain_gray: string;
   };
   background: {
     main: string;

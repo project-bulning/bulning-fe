@@ -12,6 +12,7 @@ const colorTheme: Colors = {
     moderate: '#71787F',
     subtle: '#B2B6BB',
     darken_white: '#F7FAFE',
+    explain_gray: '#9B9B9B',
   },
   background: {
     main: '#FFFFFF',
