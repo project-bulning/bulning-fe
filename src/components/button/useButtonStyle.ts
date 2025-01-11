@@ -10,7 +10,7 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
 
   const variantStyles = {
     default: {
-      fontSize: '18px',
+      fontSize: '16px',
       height: '50px',
       padding: '0',
       backgroundColor: globalTheme.colors.primary.main,
@@ -38,7 +38,7 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
       disabledColor: globalTheme.colors.text.subtle,
     },
     secondary: {
-      fontSize: '18px',
+      fontSize: '16px',
       height: '50px',
       padding: '0',
       backgroundColor: globalTheme.colors.primary.lighten,
