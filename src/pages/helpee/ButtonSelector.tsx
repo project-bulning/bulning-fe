@@ -34,7 +34,7 @@ const ButtonSelector = forwardRef<HTMLDivElement, ButtonSelectorProps>(({
 
   return (
     <div ref={ref}>
-      <Paragraph>{label}</Paragraph>
+      <Paragraph css={{ marginBottom: '8px' }}>{label}</Paragraph>
       <Container justify="space-between">
         {options.map((option) => (
           <Button
