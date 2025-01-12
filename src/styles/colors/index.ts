@@ -12,12 +12,14 @@ const colorTheme: Colors = {
     moderate: '#71787F',
     subtle: '#B2B6BB',
     darken_white: '#F7FAFE',
+    explain_gray: '#9B9B9B',
   },
   background: {
     main: '#FFFFFF',
     lighten: '#FFFFFF',
     darken: '#F2F3F4',
     light_blue: '#F7FAFE',
+    disabled: '#EBEBEB',
   },
   border: {
     subtle: '#ECEDEE',

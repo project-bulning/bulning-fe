@@ -17,12 +17,14 @@ export type Colors = {
     moderate: string;
     subtle: string;
     darken_white: string;
+    explain_gray: string;
   };
   background: {
     main: string;
     lighten: string;
     darken: string;
     light_blue: string;
+    disabled: string;
   };
   border: {
     subtle: string;
