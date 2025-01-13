@@ -91,6 +91,7 @@ function TermsBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
               onChange={handleAllCheck}
               id="allCheck"
             />
+            {/* eslint-disable jsx-a11y/label-has-associated-control */}
             <label htmlFor="allCheck">
               <Heading.H5 weight="semi-bold">약관 전체동의</Heading.H5>
             </label>
@@ -111,6 +112,7 @@ function TermsBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('consignment')}
+                role="presentation"
               />
             </Container>
 
@@ -128,6 +130,7 @@ function TermsBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('privacy')}
+                role="presentation"
               />
             </Container>
 
@@ -145,6 +148,7 @@ function TermsBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('third_party')}
+                role="presentation"
               />
             </Container>
 
@@ -162,6 +166,7 @@ function TermsBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('face_info')}
+                role="presentation"
               />
             </Container>
           </Container>
