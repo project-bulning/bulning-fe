@@ -20,8 +20,8 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
       hoverBackgroundColor: globalTheme.colors.absolute.black,
       hoverColor: globalTheme.colors.primary.main,
       hoverBorderColor: 'transparent',
-      disabledBackgroundColor: globalTheme.colors.primary.passive,
-      disabledColor: globalTheme.colors.text.subtle,
+      disabledBackgroundColor: globalTheme.colors.background.disabled,
+      disabledColor: globalTheme.colors.text.explain_gray,
     },
     select: {
       fontSize: '14px',
@@ -80,9 +80,10 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
     }
 
     &:disabled, &:disabled:hover {
-      background-color: ${styles.disabledBackgroundColor};
-      color: ${styles.disabledColor};
-      border: 1px solid transparent;
+        background-color: ${styles.disabledBackgroundColor};
+        color: ${styles.disabledColor};
+        border: 1px solid transparent;
+        cursor: default;
     }
   `;
 
