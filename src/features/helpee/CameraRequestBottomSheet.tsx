@@ -3,6 +3,8 @@ import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import useBottomSheetBtnStyle from '@components/bottomSheet/useBottomSheetBtnStyle';
+import routePaths from '@constants/routePaths.ts';
+import { Link } from 'react-router-dom';
 
 interface CameraRequestBottomSheetProps {
   isOpen: boolean;
@@ -34,9 +36,12 @@ function CameraRequestBottomSheet({ isOpen, onClose }: CameraRequestBottomSheetP
             <Button variant="secondary">갤러리 열기</Button>
             <Button>촬영하기</Button>
           </Container>
-          <Container justify="center" css={rejectBtnStyle}>
-            사진 없이 진행하기
-          </Container>
+          <Link to={routePaths.BUG} css={{ display: 'block', width: '100%' }}>
+            <Container justify="center" css={rejectBtnStyle}>
+              사진 없이 진행하기
+            </Container>
+          </Link>
+
         </Container>
       </Container>
     </BottomSheet>

@@ -42,7 +42,7 @@ function Navbar() {
           <Paragraph css={textStyle}>홈</Paragraph>
         </Container>
       </Link>
-      <Link to={routePaths.MAIN} css={linkStyle}>
+      <Link to={routePaths.BUG_REPORT} css={linkStyle}>
         <Container height="100%" justify="center" direction="column" gap="8px">
           <Container justify="center">
             <img src={CoinIcon} alt="Coin" />
