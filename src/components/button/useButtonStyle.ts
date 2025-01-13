@@ -10,7 +10,7 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
 
   const variantStyles = {
     default: {
-      fontSize: '18px',
+      fontSize: '16px',
       height: '50px',
       padding: '0',
       backgroundColor: globalTheme.colors.primary.main,
@@ -25,20 +25,20 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
     },
     select: {
       fontSize: '14px',
-      height: '21px',
-      padding: '4px 15px',
+      height: 'auto',
+      padding: '5px 15px',
       backgroundColor: globalTheme.colors.background.main,
       color: globalTheme.colors.primary.main,
       border: `0.5px solid ${globalTheme.colors.primary.main}`,
       borderRadius: '100px',
-      hoverBackgroundColor: globalTheme.colors.background.darken,
-      hoverColor: globalTheme.colors.text.prominent,
+      hoverBackgroundColor: globalTheme.colors.primary.main,
+      hoverColor: 'white',
       hoverBorderColor: globalTheme.colors.border.prominent,
       disabledBackgroundColor: globalTheme.colors.background.darken,
       disabledColor: globalTheme.colors.text.subtle,
     },
     secondary: {
-      fontSize: '18px',
+      fontSize: '16px',
       height: '50px',
       padding: '0',
       backgroundColor: globalTheme.colors.primary.lighten,
@@ -73,6 +73,7 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
     gap: 5px;
     
     &:hover {
+      width: 100%;
       background-color: ${styles.hoverBackgroundColor};
       color: ${styles.hoverColor};
       border: 1px solid ${styles.hoverBorderColor};

@@ -2,7 +2,7 @@ import { Meta, StoryObj } from '@storybook/react';
 import HunterInfoInputPage from '@pages/hunting/HunterInfoInputPage';
 
 const meta: Meta<typeof HunterInfoInputPage> = {
-  title: 'Pages/HunterInfoInputPage',
+  title: 'Pages/Hunting/HunterInfoInputPage',
   component: HunterInfoInputPage,
   parameters: {
     layout: 'fullscreen',

@@ -5,9 +5,9 @@ function useFormPageStyle() {
 
   const inputTextStyle: CSSObject = {
     flexDirection: 'column',
-    gap: '10px',
+    gap: '3px',
     label: {
-      marginTop: '24px',
+      marginBottom: '4px',
       padding: 0,
       color: 'black',
       fontSize: '16px',
@@ -38,19 +38,8 @@ function useFormPageStyle() {
   const inputBtnStyle: CSSObject = {
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginTop: '20px',
     div: {
-      gap: '15px',
-    },
-    button: {
-      border: `0.5px solid ${theme.colors.primary.main}`,
-      padding: '4px 15px',
-      color: theme.colors.primary.main,
-      fontSize: '14px',
-      '&:hover': {
-        backgroundColor: theme.colors.primary.main,
-        color: 'white',
-      },
+      gap: '18px',
     },
 
   };
@@ -64,6 +53,7 @@ function useFormPageStyle() {
   };
 
   const selectedBtnStyle: CSSObject = {
+    ...inputBtnStyle,
     color: 'white !important',
     backgroundColor: theme.colors.primary.main,
   };
