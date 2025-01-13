@@ -6,6 +6,11 @@ const routePaths = {
   BUG_REPORT: '/bug-report',
   BUG_REPORT_DETAIL: '/bug-report-detail',
   BUG: '/bug',
+  HUNTER_INFO: '/hunter',
+  DEAL_WAITING: '/deal-waiting',
+  INFO_SENT: '/info-sent',
+  HUNTER_APPROVAL: '/hunter-approval',
+  DEAL_PROCESS: '/deal-process',
 };
 
 export default routePaths;

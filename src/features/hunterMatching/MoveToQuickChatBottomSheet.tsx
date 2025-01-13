@@ -2,6 +2,8 @@ import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
+import { useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 
 interface MoveToQuickChatBottomSheetProps {
   isOpen: boolean;
@@ -9,6 +11,11 @@ interface MoveToQuickChatBottomSheetProps {
 }
 
 function MoveToQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSheetProps) {
+  const navigate = useNavigate();
+  const handleBtnClick = () => {
+    navigate(routePaths.INFO_SENT);
+  };
+
   return (
     <BottomSheet isOpen={isOpen} onChange={onClose}>
       <Container
@@ -23,7 +30,7 @@ function MoveToQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSh
           <Paragraph variant="medium" weight="regular">빠르게 도움을 요청하세요</Paragraph>
         </Container>
         <Container direction="column">
-          <Button>대화하러 가기</Button>
+          <Button onClick={handleBtnClick}>대화하러 가기</Button>
         </Container>
       </Container>
     </BottomSheet>

@@ -6,6 +6,12 @@ import LoginAuthPage from '@pages/login/LoginAuthPage';
 import MembershipPage from '@pages/login/MembershipPage';
 import HuntingList from '@pages/hunting/HuntingList';
 import BugInputPage from '@pages/helpee/BugInputPage';
+import HuntingListDetailPage from '@pages/hunting/HuntingListDetailPage.tsx';
+import HunterInfoInputPage from '@pages/hunting/HunterInfoInputPage.tsx';
+import DealWaitingPage from '@pages/afterHunting/DealWaitingPage.tsx';
+import InfoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage.tsx';
+import HunterApprovalPage from '@pages/hunterMatching/HunterApprovalPage.tsx';
+import DealProcessPage from '@pages/afterHunting/DealProcessPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -39,9 +45,45 @@ const router = createBrowserRouter([
     ),
   },
   {
+    path: routePaths.BUG_REPORT_DETAIL,
+    element: (
+      <HuntingListDetailPage />
+    ),
+  },
+  {
     path: routePaths.BUG,
     element: (
       <BugInputPage />
+    ),
+  },
+  {
+    path: routePaths.HUNTER_INFO,
+    element: (
+      <HunterInfoInputPage />
+    ),
+  },
+  {
+    path: routePaths.INFO_SENT,
+    element: (
+      <InfoSentAwaitPage />
+    ),
+  },
+  {
+    path: routePaths.HUNTER_APPROVAL,
+    element: (
+      <HunterApprovalPage />
+    ),
+  },
+  {
+    path: routePaths.DEAL_WAITING,
+    element: (
+      <DealWaitingPage />
+    ),
+  },
+  {
+    path: routePaths.DEAL_PROCESS,
+    element: (
+      <DealProcessPage />
     ),
   },
 ]);

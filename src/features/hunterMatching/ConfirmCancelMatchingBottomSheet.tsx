@@ -2,6 +2,8 @@ import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
+import { useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 
 interface ConfirmCancelMatchingBottomSheetProps {
   isOpen: boolean;
@@ -12,6 +14,10 @@ function ConfirmCancelMatchingBottomSheet({
   isOpen,
   onClose,
 }: ConfirmCancelMatchingBottomSheetProps) {
+  const navigate = useNavigate();
+  const handleCancelBtn = () => {
+    navigate(routePaths.BUG_REPORT_DETAIL);
+  };
   return (
     <BottomSheet isOpen={isOpen} onChange={onClose}>
       <Container
@@ -26,8 +32,8 @@ function ConfirmCancelMatchingBottomSheet({
           <Paragraph variant="medium" weight="regular">시간이 더 걸릴 수 있어요</Paragraph>
         </Container>
         <Container gap="14px">
-          <Button variant="secondary">매칭 돌아가기</Button>
-          <Button>취소하기</Button>
+          <Button variant="secondary" onClick={onClose}>매칭 돌아가기</Button>
+          <Button onClick={handleCancelBtn}>취소하기</Button>
         </Container>
       </Container>
     </BottomSheet>

@@ -47,7 +47,7 @@ function HuntingList() {
             css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
           >
             {requests.slice(0, visibleCount).map((request) => (
-              <Link to={routePaths.MAIN} css={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link to={routePaths.BUG_REPORT_DETAIL} css={{ textDecoration: 'none', color: 'inherit' }}>
                 <HuntingListItem
                   key={`notice-item-${request.id}`}
                   request={request}
