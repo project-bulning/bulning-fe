@@ -22,7 +22,6 @@ function useFormPageStyle() {
     flexDirection: 'column',
     gap: '10px',
     label: {
-      marginTop: '24px',
       marginBottom: '10px',
       padding: 0,
       color: 'black',

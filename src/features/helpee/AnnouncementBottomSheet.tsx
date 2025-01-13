@@ -2,6 +2,8 @@ import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading } from '@components/text';
+import { useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 
 interface AnnouncementBottomSheetProps {
   isOpen: boolean;
@@ -9,6 +11,10 @@ interface AnnouncementBottomSheetProps {
 }
 
 function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetProps) {
+  const navigate = useNavigate();
+  const handleNextBtn = () => {
+    navigate(routePaths.BUG_REPORT_DETAIL);
+  };
   return (
     <BottomSheet isOpen={isOpen} onChange={onClose}>
       <Container
@@ -34,8 +40,8 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
             </ul>
           </Container>
           <Container direction="column" gap="6px">
-            <Button>동의하고 진행하기</Button>
-            <Button variant="secondary">취소</Button>
+            <Button onClick={handleNextBtn}>동의하고 진행하기</Button>
+            <Button variant="secondary" onClick={onClose}>취소</Button>
           </Container>
         </Container>
       </Container>
