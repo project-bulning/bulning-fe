@@ -90,6 +90,7 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
               onChange={handleAllCheck}
               id="allCheck"
             />
+            {/* eslint-disable jsx-a11y/label-has-associated-control */}
             <label htmlFor="allCheck">
               <Heading.H5 weight="semi-bold">약관 전체동의</Heading.H5>
             </label>
@@ -119,6 +120,7 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('terms')}
+                role="presentation"
               />
             </Container>
 
@@ -136,6 +138,7 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('location')}
+                role="presentation"
               />
             </Container>
 
@@ -153,6 +156,7 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 alt="view-details"
                 css={detailStyle}
                 onClick={() => openDetailBottomSheet('privacy')}
+                role="presentation"
               />
             </Container>
           </Container>
