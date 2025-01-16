@@ -12,6 +12,7 @@ import DealWaitingPage from '@pages/afterHunting/DealWaitingPage';
 import InfoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage';
 import HunterApprovalPage from '@pages/hunterMatching/HunterApprovalPage';
 import DealProcessPage from '@pages/afterHunting/DealProcessPage';
+import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -66,6 +67,12 @@ const router = createBrowserRouter([
     path: routePaths.INFO_SENT,
     element: (
       <InfoSentAwaitPage />
+    ),
+  },
+  {
+    path: routePaths.HUNT_CANCELLED,
+    element: (
+      <HuntCancelledPage />
     ),
   },
   {

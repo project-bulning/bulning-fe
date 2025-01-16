@@ -9,6 +9,7 @@ const routePaths = {
   HUNTER_INFO: '/hunter',
   DEAL_WAITING: '/deal-waiting',
   INFO_SENT: '/info-sent',
+  HUNT_CANCELLED: '/cancelled',
   HUNTER_APPROVAL: '/hunter-approval',
   DEAL_PROCESS: '/deal-process',
 };
