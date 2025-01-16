@@ -10,7 +10,7 @@ import {
 import Select from '@components/select';
 import { useEffect, useState } from 'react';
 import useFormPageStyle from '@pages/helpee/useFormPageStyle';
-import SignUpBottomSheet from '@features/signUp/SignUpBottomSheet.tsx';
+import SignUpBottomSheet from '@features/signUp/SignUpBottomSheet';
 import { MembershipResponse } from '@/types/user';
 
 export interface MembershipProps {

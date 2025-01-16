@@ -6,12 +6,12 @@ import LoginAuthPage from '@pages/login/LoginAuthPage';
 import MembershipPage from '@pages/login/MembershipPage';
 import HuntingList from '@pages/hunting/HuntingList';
 import BugInputPage from '@pages/helpee/BugInputPage';
-import HuntingListDetailPage from '@pages/hunting/HuntingListDetailPage.tsx';
-import HunterInfoInputPage from '@pages/hunting/HunterInfoInputPage.tsx';
-import DealWaitingPage from '@pages/afterHunting/DealWaitingPage.tsx';
-import InfoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage.tsx';
-import HunterApprovalPage from '@pages/hunterMatching/HunterApprovalPage.tsx';
-import DealProcessPage from '@pages/afterHunting/DealProcessPage.tsx';
+import HuntingListDetailPage from '@pages/hunting/HuntingListDetailPage';
+import HunterInfoInputPage from '@pages/hunting/HunterInfoInputPage';
+import DealWaitingPage from '@pages/afterHunting/DealWaitingPage';
+import InfoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage';
+import HunterApprovalPage from '@pages/hunterMatching/HunterApprovalPage';
+import DealProcessPage from '@pages/afterHunting/DealProcessPage';
 
 const router = createBrowserRouter([
   {
