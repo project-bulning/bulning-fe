@@ -3,9 +3,17 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import Button from '@components/button';
 import { useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 
 function InfoSentAwaitPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const handleBtnClick = () => {
+    navigate(routePaths.HUNTER_APPROVAL);
+  };
+
   return (
     <DefaultPaddedContainer>
       <Container direction="column" justify="space-between" padding="96px 0 10px 0" height="100dvh">
@@ -15,7 +23,7 @@ function InfoSentAwaitPage() {
         </Container>
         <Container direction="column" align="center" gap="13px">
           <Paragraph css={{ fontSize: '12px', color: `${theme.colors.text.subtle}` }}>헬피가 사냥에 동의하면 버튼이 활성화돼요</Paragraph>
-          <Button>확인</Button>
+          <Button onClick={handleBtnClick}>확인</Button>
         </Container>
       </Container>
     </DefaultPaddedContainer>

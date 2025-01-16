@@ -5,9 +5,16 @@ import Button from '@components/button';
 import { useTheme } from '@emotion/react';
 import arrowBack from '@assets/icons/arrow-back.svg';
 import location from '@assets/icons/location.svg';
+import routePaths from '@constants/routePaths.ts';
+import { useNavigate } from 'react-router-dom';
 
 function HuntingListDetailPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
+
+  const handleBtnClick = () => {
+    navigate(routePaths.HUNTER_INFO);
+  };
   return (
     <DefaultPaddedContainer>
       <Container direction="column" padding="10px 0 10px 0">
@@ -53,7 +60,7 @@ function HuntingListDetailPage() {
           <Paragraph variant="small" weight="medium">부산광역시 금정구 장전1동</Paragraph>
           <Paragraph variant="xsmall">부산대역에서 도보 5분</Paragraph>
         </Container>
-        <Button css={{ marginTop: '15px' }}>매칭 시작하기</Button>
+        <Button css={{ marginTop: '15px' }} onClick={handleBtnClick}>매칭 시작하기</Button>
       </Container>
     </DefaultPaddedContainer>
   );

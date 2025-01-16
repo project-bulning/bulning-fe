@@ -6,6 +6,7 @@ import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageSty
 import { useState, useEffect } from 'react';
 import mockBugReport from 'mock/bug-report';
 import { useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 import { BugReport } from '@/types/bug-report';
 
 function DealProcessPage() {
@@ -28,8 +29,7 @@ function DealProcessPage() {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    // TODO: api 연결 후 조건에 따라 AH-03(대기페이지) 또는 AH-04로 이동
-    navigate('/');
+    navigate(routePaths.DEAL_WAITING);
   };
 
   return (

@@ -10,6 +10,7 @@ import {
 import Select from '@components/select';
 import { useEffect, useState } from 'react';
 import useFormPageStyle from '@pages/helpee/useFormPageStyle';
+import SignUpBottomSheet from '@features/signUp/SignUpBottomSheet';
 import { MembershipResponse } from '@/types/user';
 
 export interface MembershipProps {
@@ -31,6 +32,14 @@ function MembershipPage() {
   const [sidoList, setSidoList] = useState<any[]>([]);
   const [sigugunList, setSigugunList] = useState<any[]>([]);
   const [dongList, setDongList] = useState<any[]>([]);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const handleNextBtn = ():void => {
+    setIsBottomSheetOpen(true);
+  };
+
+  const closeBottomSheet = (): void => {
+    setIsBottomSheetOpen(false);
+  };
   const [selectedLocation, setSelectedLocation] = useState({
     sido: '',
     sigugun: '',
@@ -138,78 +147,81 @@ function MembershipPage() {
   };
 
   return (
-    <DefaultPaddedContainer>
-      <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
-        <Container height="100dvh" direction="column" justify="space-between" padding="10px 0">
-          <Container direction="column">
-            <Container justify="center" padding="18px 33px 0">
-              <Heading.H3_5>회원가입</Heading.H3_5>
-            </Container>
-            <Container css={inputTextStyle}>
-              <Input
-                type="text"
-                label="이름"
-                placeholder="이름"
-                {...register('name', validations.name)}
-              />
-              <FormErrorMessage errors={errors} name="name" />
-            </Container>
-            <Container css={inputTextStyle}>
-              <Input
-                type="text"
-                label="닉네임"
-                placeholder="6자 이하의 닉네임을 입력해주세요."
-                {...register('nickname', validations.nickname)}
-                value={nicknameValue}
-                onChange={handleNicknameChange}
-              />
-              <FormErrorMessage errors={errors} name="nickname" />
-            </Container>
-            <Container css={inputSelectStyle}>
-              <Select
-                label="활동 지역"
-                value={selectedLocation.sido}
-                {...register('location', validations.location)}
-                onChange={(e) => handleLocationChange(e, 'sido')}
-              >
-                <option value="">시/도 선택</option>
-                {sidoList.map((code) => (
-                  <option key={code.sido} value={code.sido}>
-                    {code.codeNm}
-                  </option>
-                ))}
-              </Select>
-              <Container width="100%" justify="space-between" align="center" gap="12px">
-                <Select
-                  value={selectedLocation.sigugun}
-                  onChange={(e) => handleLocationChange(e, 'sigugun')}
-                >
-                  <option value="">구/군/시</option>
-                  {sigugunList.map((code) => (
-                    <option key={code.sigugun} value={code.sigugun}>
-                      {code.codeNm}
-                    </option>
-                  ))}
-                </Select>
-                <Select
-                  value={selectedLocation.dong}
-                  onChange={(e) => handleLocationChange(e, 'dong')}
-                >
-                  <option value="">동/읍/면</option>
-                  {dongList.map((code) => (
-                    <option key={code.dong} value={code.dong}>
-                      {code.codeNm}
-                    </option>
-                  ))}
-                </Select>
+    <>
+      <DefaultPaddedContainer>
+        <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
+          <Container height="100dvh" direction="column" justify="space-between" padding="10px 0">
+            <Container direction="column" gap="24px">
+              <Container justify="center" padding="18px 33px 0">
+                <Heading.H3_5>회원가입</Heading.H3_5>
               </Container>
-              <FormErrorMessage errors={errors} name="location" />
+              <Container css={inputTextStyle}>
+                <Input
+                  type="text"
+                  label="이름"
+                  placeholder="이름"
+                  {...register('name', validations.name)}
+                />
+                <FormErrorMessage errors={errors} name="name" />
+              </Container>
+              <Container css={inputTextStyle}>
+                <Input
+                  type="text"
+                  label="닉네임"
+                  placeholder="6자 이하의 닉네임을 입력해주세요."
+                  {...register('nickname', validations.nickname)}
+                  value={nicknameValue}
+                  onChange={handleNicknameChange}
+                />
+                <FormErrorMessage errors={errors} name="nickname" />
+              </Container>
+              <Container css={inputSelectStyle}>
+                <Select
+                  label="활동 지역"
+                  value={selectedLocation.sido}
+                  {...register('location', validations.location)}
+                  onChange={(e) => handleLocationChange(e, 'sido')}
+                >
+                  <option value="">시/도 선택</option>
+                  {sidoList.map((code) => (
+                    <option key={code.sido} value={code.sido}>
+                      {code.codeNm}
+                    </option>
+                  ))}
+                </Select>
+                <Container width="100%" justify="space-between" align="center" gap="12px">
+                  <Select
+                    value={selectedLocation.sigugun}
+                    onChange={(e) => handleLocationChange(e, 'sigugun')}
+                  >
+                    <option value="">구/군/시</option>
+                    {sigugunList.map((code) => (
+                      <option key={code.sigugun} value={code.sigugun}>
+                        {code.codeNm}
+                      </option>
+                    ))}
+                  </Select>
+                  <Select
+                    value={selectedLocation.dong}
+                    onChange={(e) => handleLocationChange(e, 'dong')}
+                  >
+                    <option value="">동/읍/면</option>
+                    {dongList.map((code) => (
+                      <option key={code.dong} value={code.dong}>
+                        {code.codeNm}
+                      </option>
+                    ))}
+                  </Select>
+                </Container>
+                <FormErrorMessage errors={errors} name="location" />
+              </Container>
             </Container>
+            <Button type="submit" onClick={handleNextBtn}>다음</Button>
           </Container>
-          <Button type="submit">다음</Button>
-        </Container>
-      </form>
-    </DefaultPaddedContainer>
+        </form>
+      </DefaultPaddedContainer>
+      <SignUpBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} />
+    </>
   );
 }
 

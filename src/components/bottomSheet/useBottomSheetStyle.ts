@@ -19,6 +19,7 @@ function useBottomSheetStyle() {
     position: fixed;
     bottom: 0;
     left: 0;
+    padding-bottom: 10px;
     width: 100%;
     height: fit-content;
     box-sizing: border-box;

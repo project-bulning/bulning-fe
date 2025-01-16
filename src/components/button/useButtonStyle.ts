@@ -57,6 +57,7 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
 
   const buttonStyle = css`
     width: 100%;
+    white-space: nowrap;
     height: ${styles.height};
     font-size: ${styles.fontSize};  
     display: flex;

@@ -7,6 +7,8 @@ import search from '@assets/icons/search.svg';
 import alarmLight from '@assets/icons/alarm-lighter.svg';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
 import Button from '@components/button';
+import routePaths from '@constants/routePaths.ts';
+import { Link } from 'react-router-dom';
 import { CatchRequest } from '@/types/request';
 import { mockRequestList } from '@/mock/request';
 
@@ -45,10 +47,12 @@ function HuntingList() {
             css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
           >
             {requests.slice(0, visibleCount).map((request) => (
-              <HuntingListItem
-                key={`notice-item-${request.id}`}
-                request={request}
-              />
+              <Link to={routePaths.BUG_REPORT_DETAIL} css={{ textDecoration: 'none', color: 'inherit' }}>
+                <HuntingListItem
+                  key={`notice-item-${request.id}`}
+                  request={request}
+                />
+              </Link>
             ))}
           </Grid>
           {visibleCount < requests.length && (

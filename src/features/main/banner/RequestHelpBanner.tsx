@@ -3,14 +3,19 @@ import Container from '@components/container';
 import Button from '@components/button';
 import { Heading } from '@components/text';
 import RedAlertIcon from '@assets/icons/red-alert.svg';
-import { useNavigate } from 'react-router-dom';
 import useBannerStyle from '@features/main/banner/useBannerStyle';
+import { useState } from 'react';
+import CameraRequestBottomSheet from '@features/helpee/CameraRequestBottomSheet';
 
 function RequestHelpBanner() {
-  const navigate = useNavigate();
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
 
   const handleInfoRegist = ():void => {
-    navigate('/');
+    setIsBottomSheetOpen(true);
+  };
+
+  const closeBottomSheet = (): void => {
+    setIsBottomSheetOpen(false);
   };
 
   const { bannerStyle } = useBannerStyle();
@@ -32,20 +37,23 @@ function RequestHelpBanner() {
   `;
 
   return (
-    <Container direction="column" css={bannerStyle}>
-      <Heading.H3 weight="semi-bold" css={textStyle}>
-        지금 벌레를 잡아줄 사람이
-      </Heading.H3>
-      <Heading.H3 weight="semi-bold" css={textStyle}>
-        필요하신가요?
-      </Heading.H3>
-      <Container justify="center" css={iconStyle}>
-        <img src={RedAlertIcon} alt="RedAlertIcon" />
+    <>
+      <Container direction="column" css={bannerStyle}>
+        <Heading.H3 weight="semi-bold" css={textStyle}>
+          지금 벌레를 잡아줄 사람이
+        </Heading.H3>
+        <Heading.H3 weight="semi-bold" css={textStyle}>
+          필요하신가요?
+        </Heading.H3>
+        <Container justify="center" css={iconStyle}>
+          <img src={RedAlertIcon} alt="RedAlertIcon" />
+        </Container>
+        <Button type="button" css={buttonStyle} onClick={handleInfoRegist}>
+          빠르게 정보 등록하기
+        </Button>
       </Container>
-      <Button type="button" css={buttonStyle} onClick={handleInfoRegist}>
-        빠르게 정보 등록하기
-      </Button>
-    </Container>
+      <CameraRequestBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} />
+    </>
   );
 }
 
