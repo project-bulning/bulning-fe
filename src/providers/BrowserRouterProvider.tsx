@@ -12,7 +12,7 @@ import DealWaitingPage from '@pages/afterHunting/DealWaitingPage';
 import InfoSentAwaitPage from '@pages/hunterMatching/InfoSentAwaitPage';
 import HunterApprovalPage from '@pages/hunterMatching/HunterApprovalPage';
 import DealProcessPage from '@pages/afterHunting/DealProcessPage';
-import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage.tsx';
+import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage';
 
 const router = createBrowserRouter([
   {
