@@ -2,6 +2,8 @@ import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
 import MoveToQuickChatBottomSheet from '@features/hunterMatching/MoveToQuickChatBottomSheet';
 import ConfirmCancelMatchingBottomSheet from '@features/hunterMatching/ConfirmCancelMatchingBottomSheet';
+import { MemoryRouter } from 'react-router-dom';
+import TermsBottomSheet from '@features/hunterMatching/TermsBottomSheet';
 
 type Story = StoryObj<BottomSheetProps>;
 
@@ -28,12 +30,12 @@ function BottomSheetTemplate({
   const handleToggle = () => setIsOpen((prev) => !prev);
 
   return (
-    <>
+    <MemoryRouter>
       <button type="button" onClick={handleToggle}>
         {toggleText}
       </button>
       <Component isOpen={isOpen} onClose={() => setIsOpen(false)} />
-    </>
+    </MemoryRouter>
   );
 }
 
@@ -53,4 +55,13 @@ ConfirmCancelMatchingBottomSheetStory.args = {
   isOpen: false,
   toggleText: 'Toggle Camera Request Bottom Sheet',
   Component: ConfirmCancelMatchingBottomSheet,
+};
+
+export const TermsBottomSheetStory: Story = {
+  render: (args) => <BottomSheetTemplate {...args} />,
+};
+TermsBottomSheetStory.args = {
+  isOpen: false,
+  toggleText: 'Terms Bottom Sheet',
+  Component: TermsBottomSheet,
 };

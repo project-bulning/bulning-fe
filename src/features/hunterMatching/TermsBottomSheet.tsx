@@ -8,35 +8,36 @@ import { useState } from 'react';
 import CheckBox from '@components/checkbox';
 import ViewDetailsIcon from '@assets/icons/view-details.svg';
 import useSignUpStyle from '@features/signUp/useSignUpStyle';
-import TermsDetailBottomSheet from '@features/signUp/TermsDetailBottomSheet';
-import LocationDetailBottomSheet from '@features/signUp/LocationDetailBottomSheet';
-import PrivacyDetailBottomSheet from '@features/signUp/PrivacyDetailBottomSheet';
+import ConsignmentDetailBottomSheet from '@features/hunterMatching/ConsignmentDetailBottomSheet';
+import PrivacyDetailBottomSheet from '@features/hunterMatching/PrivacyDetailBottomSheet';
+import ThirdPartyDetailBottomSheet from '@features/hunterMatching/ThirdPartyDetailBottomSheet';
+import FaceInfoDetailBottomSheet from '@features/hunterMatching/FaceInfoDetailBottomSheet';
 
 interface CheckType {
-  age: boolean;
-  terms: boolean;
-  location: boolean;
+  consignment: boolean;
   privacy: boolean;
+  third_party: boolean;
+  face_info: boolean;
 }
 
-function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
+function TermsBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
   const [allCheck, setAllCheck] = useState<boolean>(false);
 
   const [individualCheck, setIndividualCheck] = useState<CheckType>({
-    age: false,
-    terms: false,
-    location: false,
+    consignment: false,
     privacy: false,
+    third_party: false,
+    face_info: false,
   });
 
   const handleAllCheck = () => {
     const newCheckState = !allCheck;
     setAllCheck(newCheckState);
     setIndividualCheck({
-      age: newCheckState,
-      terms: newCheckState,
-      location: newCheckState,
+      consignment: newCheckState,
       privacy: newCheckState,
+      third_party: newCheckState,
+      face_info: newCheckState,
     });
   };
 
@@ -50,10 +51,10 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
   };
 
   const [detailVisibility, setDetailVisibility] = useState<CheckType>({
-    age: false,
-    terms: false,
-    location: false,
+    consignment: false,
     privacy: false,
+    third_party: false,
+    face_info: false,
   });
 
   const openDetailBottomSheet = (key: keyof CheckType) => {
@@ -97,47 +98,20 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
           </Container>
 
           <Container direction="column" gap="10px">
-            <Container align="center" gap="8px">
-              <CheckBox
-                checked={individualCheck.age}
-                onChange={() => handleIndividualCheck('age')}
-                id="checkAge"
-              />
-              <label htmlFor="checkAge">(필수) 만 19세 이상입니다.</label>
-            </Container>
-
             <Container justify="space-between">
               <Container align="center" gap="8px">
                 <CheckBox
-                  checked={individualCheck.terms}
-                  onChange={() => handleIndividualCheck('terms')}
-                  id="checkTerms"
+                  checked={individualCheck.consignment}
+                  onChange={() => handleIndividualCheck('consignment')}
+                  id="checkConsignment"
                 />
-                <label htmlFor="checkTerms">(필수) 서비스 이용약관 및 동의사항</label>
+                <label htmlFor="checkConsignment">(필수) 업무위수수탁약관</label>
               </Container>
               <img
                 src={ViewDetailsIcon}
                 alt="view-details"
                 css={detailStyle}
-                onClick={() => openDetailBottomSheet('terms')}
-                role="presentation"
-              />
-            </Container>
-
-            <Container justify="space-between">
-              <Container align="center" gap="8px">
-                <CheckBox
-                  checked={individualCheck.location}
-                  onChange={() => handleIndividualCheck('location')}
-                  id="checkLocation"
-                />
-                <label htmlFor="checkLocation">(필수) 위치기반서비스 이용약관</label>
-              </Container>
-              <img
-                src={ViewDetailsIcon}
-                alt="view-details"
-                css={detailStyle}
-                onClick={() => openDetailBottomSheet('location')}
+                onClick={() => openDetailBottomSheet('consignment')}
                 role="presentation"
               />
             </Container>
@@ -159,28 +133,68 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 role="presentation"
               />
             </Container>
+
+            <Container justify="space-between">
+              <Container align="center" gap="8px">
+                <CheckBox
+                  checked={individualCheck.third_party}
+                  onChange={() => handleIndividualCheck('third_party')}
+                  id="checkThirdParty"
+                />
+                <label htmlFor="checkThirdParty">(필수) 개인정보 제3자 제공 동의</label>
+              </Container>
+              <img
+                src={ViewDetailsIcon}
+                alt="view-details"
+                css={detailStyle}
+                onClick={() => openDetailBottomSheet('third_party')}
+                role="presentation"
+              />
+            </Container>
+
+            <Container justify="space-between">
+              <Container align="center" gap="8px">
+                <CheckBox
+                  checked={individualCheck.face_info}
+                  onChange={() => handleIndividualCheck('face_info')}
+                  id="checkFaceInfo"
+                />
+                <label htmlFor="checkFaceInfo">(필수) 얼굴 정보 수집, 이용 동의</label>
+              </Container>
+              <img
+                src={ViewDetailsIcon}
+                alt="view-details"
+                css={detailStyle}
+                onClick={() => openDetailBottomSheet('face_info')}
+                role="presentation"
+              />
+            </Container>
           </Container>
 
           <Button onClick={handleNavigateMain} disabled={!allCheck}>
-            시작하기
+            본인 사진 등록하기
           </Button>
         </Container>
       </BottomSheet>
 
-      <TermsDetailBottomSheet
-        isOpen={detailVisibility.terms}
-        onClose={() => closeDetailBottomSheet('terms')}
-      />
-      <LocationDetailBottomSheet
-        isOpen={detailVisibility.location}
-        onClose={() => closeDetailBottomSheet('location')}
+      <ConsignmentDetailBottomSheet
+        isOpen={detailVisibility.consignment}
+        onClose={() => closeDetailBottomSheet('consignment')}
       />
       <PrivacyDetailBottomSheet
         isOpen={detailVisibility.privacy}
         onClose={() => closeDetailBottomSheet('privacy')}
       />
+      <ThirdPartyDetailBottomSheet
+        isOpen={detailVisibility.third_party}
+        onClose={() => closeDetailBottomSheet('third_party')}
+      />
+      <FaceInfoDetailBottomSheet
+        isOpen={detailVisibility.face_info}
+        onClose={() => closeDetailBottomSheet('face_info')}
+      />
     </>
   );
 }
 
-export default SignUpBottomSheet;
+export default TermsBottomSheet;
