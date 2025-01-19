@@ -112,10 +112,8 @@ function KakaoMap({
           width: 270px;
           padding:8px;
           background:white;
-          border-radius:3px;
-          box-shadow:0 2px 6px rgba(0,0,0,0.3);
           font-size:14px;
-          "
+          " 
         >
           정확한 위치는 매칭 완료 후 표시됩니다.
         </div>
@@ -142,7 +140,6 @@ function KakaoMap({
         <div style="
           padding:8px;
           background:white;
-          border-radius:3px;
           font-size:14px;
           "
         >
@@ -165,17 +162,24 @@ function KakaoMap({
   }, [isMapLoaded, latitude, longitude, type, zoomLevel]);
 
   return (
-    <>
-      {!isMapLoaded && (
-        <Container width={width} height={height} justify="center" align="center">
+    <div>
+      {isMapLoaded ? (
+        <div
+          ref={mapRef}
+          css={{ width, height, borderRadius: '8px' }}
+        />
+      ) : (
+        <Container
+          width={width}
+          height={height}
+          justify="center"
+          align="center"
+          css={{ backgroundColor: '#efefef', borderRadius: '8px' }}
+        >
           <Spinner />
         </Container>
       )}
-      <div
-        ref={mapRef}
-        style={{ width, height: isMapLoaded ? height : 0 }}
-      />
-    </>
+    </div>
   );
 }
 
