@@ -6,11 +6,27 @@ import { useTheme } from '@emotion/react';
 import arrowBack from '@assets/icons/arrow-back.svg';
 import location from '@assets/icons/location.svg';
 import routePaths from '@constants/routePaths.ts';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { DetailedBugReport } from '@/types/bug-report';
+import { getBugReportDetail } from '@/api/bugReports';
 
 function HuntingListDetailPage() {
   const theme = useTheme();
   const navigate = useNavigate();
+  const { id } = useParams<{ id: string }>();
+  const [bugReport, setBugReport] = useState<DetailedBugReport | null>(null);
+
+  useEffect(() => {
+    if (id) {
+      getBugReportDetail(Number(id))
+        .then((data) => setBugReport(data.bug_report))
+        .catch((error) => {
+          console.error('Error fetching bug report details:', error);
+          navigate(routePaths.MAIN);
+        });
+    }
+  }, [id, navigate]);
 
   const handleBtnClick = () => {
     navigate(routePaths.HUNTER_INFO);
@@ -22,14 +38,18 @@ function HuntingListDetailPage() {
         <img src={arrowBack} alt="back" css={{ width: '100%', height: '142px', marginTop: '54px' }} />
         <Container direction="column" padding="35px 0 30px 0" gap="10px">
           <Heading.H5 weight="medium">닉네임</Heading.H5>
-          <Heading.H5 weight="medium">바퀴벌레 좀 잡아주세요 빨리ㅠ</Heading.H5>
+          <Heading.H5 weight="medium">{bugReport?.title}</Heading.H5>
           <Container>
             <Paragraph variant="xsmall">10분 전</Paragraph>
             <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
             <img src={location} alt="location" css={{ width: '18px', height: '18px', marginTop: '-3px' }} />
             <Paragraph variant="xsmall">500m</Paragraph>
           </Container>
-          <Paragraph variant="large" weight="semi-bold" css={{ marginTop: '8px' }}>12,000원</Paragraph>
+          <Paragraph variant="large" weight="semi-bold" css={{ marginTop: '8px' }}>
+            `$
+            {bugReport?.price}
+            원`
+          </Paragraph>
         </Container>
         <div
           css={{
