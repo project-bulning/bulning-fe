@@ -16,6 +16,7 @@ export interface DetailedBugReport extends BugReport {
   bug_size: string;
   equipment: string;
   note: string;
+  name: string;
 }
 
 export interface BugReportListResponse {

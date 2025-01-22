@@ -8,6 +8,8 @@ import location from '@assets/icons/location.svg';
 import routePaths from '@constants/routePaths.ts';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import KakaoMap from '@components/kakaoMap';
+import Spacing from '@components/spacing';
 import { DetailedBugReport } from '@/types/bug-report';
 import { getBugReportDetail } from '@/api/bugReports';
 
@@ -37,7 +39,7 @@ function HuntingListDetailPage() {
         <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
         <img src={arrowBack} alt="back" css={{ width: '100%', height: '142px', marginTop: '54px' }} />
         <Container direction="column" padding="35px 0 30px 0" gap="10px">
-          <Heading.H5 weight="medium">닉네임</Heading.H5>
+          <Heading.H5 weight="medium">{bugReport?.name}</Heading.H5>
           <Heading.H5 weight="medium">{bugReport?.title}</Heading.H5>
           <Container>
             <Paragraph variant="xsmall">10분 전</Paragraph>
@@ -46,9 +48,8 @@ function HuntingListDetailPage() {
             <Paragraph variant="xsmall">500m</Paragraph>
           </Container>
           <Paragraph variant="large" weight="semi-bold" css={{ marginTop: '8px' }}>
-            `$
             {bugReport?.price}
-            원`
+            원
           </Paragraph>
         </Container>
         <div
@@ -76,7 +77,15 @@ function HuntingListDetailPage() {
         <Container direction="column" padding="20px 0 0 0" gap="5px">
           <Paragraph variant="small" weight="semi-bold" css={{ color: theme.colors.text.subtle }}>설명</Paragraph>
           <Paragraph variant="small" css={{ lineHeight: '20px', marginBottom: '10px' }}>지금 바퀴벌레가 나왔는데 보수 더 드릴 수 있으니까 최대한 빨리 와서 잡아주실 분 구해요...... 중문이 있는 집이라서 주방에 가둬놨어요</Paragraph>
-          <Container width="342px" height="152px" css={{ borderRadius: '8px', backgroundColor: 'gray', marginBottom: '5px' }} />
+          <KakaoMap
+            latitude={bugReport?.latitude}
+            longitude={bugReport?.longitude}
+            type="range"
+            width="342px"
+            height="152px"
+            css={{ borderRadius: '8px', marginBottom: '15px' }}
+          />
+          <Spacing height="5px" />
           <Paragraph variant="small" weight="medium">부산광역시 금정구 장전1동</Paragraph>
           <Paragraph variant="xsmall">부산대역에서 도보 5분</Paragraph>
         </Container>
