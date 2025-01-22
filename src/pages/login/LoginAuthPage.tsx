@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import { tokenStorage } from '@/utils/tokenStorage';
+import { getMyInfo } from '@/api/user';
 
 function LoginAuthPage() {
   const navigate = useNavigate();
@@ -15,7 +16,18 @@ function LoginAuthPage() {
     if (accessToken) {
       tokenStorage.set(accessToken);
     }
-    navigate(routePaths.MAIN);
+    getMyInfo()
+      .then((data) => {
+        if (data.address === null) {
+          navigate(routePaths.MEMBERSHIP);
+        } else {
+          navigate(routePaths.MAIN);
+        }
+      })
+      .catch((error) => {
+        console.error('Failed to fetch user info:', error);
+        navigate(routePaths.MAIN);
+      });
   }, [navigate]);
 
   return null;

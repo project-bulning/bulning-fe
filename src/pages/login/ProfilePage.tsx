@@ -14,6 +14,7 @@ function ProfilePage() {
         setIsLoading(true);
         const myInfo = await getMyInfo();
         setInfo(myInfo);
+        console.log(myInfo);
       } catch (fetchError) {
         console.error('Error fetching my info:', fetchError);
         setError('정보를 불러오는 중 문제가 발생했습니다.');
