@@ -25,6 +25,7 @@ export type Colors = {
     darken: string;
     light_blue: string;
     disabled: string;
+    passive: string;
   };
   border: {
     subtle: string;

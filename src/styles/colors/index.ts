@@ -20,6 +20,7 @@ const colorTheme: Colors = {
     darken: '#F0F0F0',
     light_blue: '#F7FAFE',
     disabled: '#EBEBEB',
+    passive: 'rgba(0, 0, 0, 0.5)',
   },
   border: {
     subtle: '#ECEDEE',
