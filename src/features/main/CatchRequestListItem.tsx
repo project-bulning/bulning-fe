@@ -26,7 +26,16 @@ function CatchRequestListItem({ request }: RequestItemProps) {
   };
 
   return (
-    <Container padding="19px 35px 19px 12px" gap="10px" css={{ borderBottom: '0.5px solid rgba(77, 93, 117, 0.50)', minWidth: '342px', minHeight: '118px' }}>
+    <Container
+      padding="19px 35px 19px 12px"
+      gap="10px"
+      width="100%"
+      css={{
+        borderBottom: '0.5px solid rgba(77, 93, 117, 0.50)',
+        minWidth: '342px',
+        minHeight: '118px',
+      }}
+    >
       <img src={request.image_url} alt="image_url" css={{ width: '80px', height: '80px' }} />
       <Container
         direction="column"
@@ -41,7 +50,7 @@ function CatchRequestListItem({ request }: RequestItemProps) {
           <img src={urgency} alt="urgency" css={{ width: '21px', height: '21px' }} />
           <Paragraph weight="medium" css={{ ...paragraphStyle }}>{request.title}</Paragraph>
         </Container>
-        <Container justify="space-between" css={{ paddingLeft: '19px' }}>
+        <Container justify="space-between" align="center" css={{ paddingLeft: '19px' }}>
           <Paragraph css={{ ...subParagraphStyle, flex: 2 }}>{request.location}</Paragraph>
           <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
           <img src={location} alt="urgency" css={{ width: '18px', height: '18px' }} />
