@@ -13,6 +13,7 @@ const colorTheme: Colors = {
     subtle: '#9B9B9B',
     darken_white: '#F7FAFE',
     explain_gray: '#9B9B9B',
+    btn_secondary: '#474747',
   },
   background: {
     main: '#FFFFFF',
@@ -21,6 +22,7 @@ const colorTheme: Colors = {
     light_blue: '#F7FAFE',
     disabled: '#EBEBEB',
     passive: 'rgba(0, 0, 0, 0.5)',
+    btn_default_hover: 'rgba(1, 41, 98, 0.9)',
   },
   border: {
     subtle: '#ECEDEE',
