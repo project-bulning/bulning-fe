@@ -3,6 +3,7 @@ const routePaths = {
   LOGIN: '/login',
   LOGIN_AUTH: '/auth/login',
   MEMBERSHIP: '/user/info',
+  PROFILE: '/user/profile',
   BUG_REPORT: '/bug-report',
   BUG_REPORT_DETAIL: '/bug-report-detail',
   BUG: '/bug',
