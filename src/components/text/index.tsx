@@ -13,7 +13,7 @@ interface TextProps extends HTMLAttributes<HTMLHeadingElement | HTMLParagraphEle
 }
 
 interface VariantTextProps extends TextProps {
-  variant?: 'large' | 'medium' | 'small';
+  variant?: 'large' | 'medium' | 'small' | 'xsmall';
 }
 
 const Text = styled.p<TextProps>`
@@ -45,7 +45,7 @@ export default Text;
 export function ErrorText({ children, variant = 'medium', ...rest }: VariantTextProps) {
   const theme = useTheme();
   const textSizes = {
-    large: '16px', medium: '14px', small: '12px',
+    large: '16px', medium: '14px', small: '12px', xsmall: '10px',
   };
   return <Text as="p" fontSize={textSizes[variant]} color={theme.colors.other.error} {...rest}>{children}</Text>;
 }
@@ -54,7 +54,7 @@ export function Paragraph({
   children, variant = 'medium', weight, color, ...rest
 }: VariantTextProps) {
   const textSizes = {
-    large: '18px', medium: '16px', small: '14px',
+    large: '18px', medium: '16px', small: '14px', xsmall: '12px',
   };
   return <Text as="p" fontSize={textSizes[variant]} weight={weight} color={color} {...rest}>{children}</Text>;
 }
@@ -72,6 +72,11 @@ export const Heading = {
   ),
   H3: ({ children, weight, ...rest }: TextProps) => (
     <Text as="h3" fontSize="24px" weight={weight} {...rest}>
+      {children}
+    </Text>
+  ),
+  H3_5: ({ children, weight, ...rest }: TextProps) => (
+    <Text fontSize="22px" weight={weight} {...rest}>
       {children}
     </Text>
   ),

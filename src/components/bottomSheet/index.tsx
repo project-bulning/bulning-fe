@@ -22,8 +22,6 @@ function BottomSheet({
   const {
     modalStyle,
     backgroundOverlay,
-    bottomHeaderStyle,
-    handleBarStyle,
     contentWrapperStyle,
     contentStyle,
   } = useBottomSheetStyle();
@@ -59,9 +57,6 @@ function BottomSheet({
         onClick={handleClose}
       />
       <div css={modalStyle(animationState === fadeOutAnimationState.FADING)}>
-        <div css={bottomHeaderStyle}>
-          <div css={handleBarStyle} />
-        </div>
         <div css={contentWrapperStyle}>
           <div css={contentStyle}>{children}</div>
         </div>

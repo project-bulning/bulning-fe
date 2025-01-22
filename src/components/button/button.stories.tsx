@@ -9,7 +9,7 @@ const meta: Meta<typeof Button> = {
 
     variant: {
       control: 'radio',
-      options: ['default', 'dark', 'primary'],
+      options: ['default', 'secondary', 'select'],
     },
     disabled: {
       control: 'boolean',
@@ -34,10 +34,10 @@ export const Default: Story = {
   },
 };
 
-export const WithIcon: Story = {
+export const Secondary: Story = {
   args: {
-    variant: 'dark',
-    children: 'Dark Button',
+    variant: 'secondary',
+    children: 'secondary Button',
     icon,
   },
 };
@@ -55,10 +55,10 @@ export const CustomStyled: Story = {
   },
 };
 
-export const Disabled: Story = {
+export const Select: Story = {
   args: {
-    variant: 'primary',
-    children: 'Dark Button',
+    variant: 'select',
+    children: 'select Button',
     icon: '/src/assets/icons/eye.svg',
     disabled: true,
   },

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import routePaths from '@constants/routePaths';
+import routePaths from '@constants/routePaths.ts';
 import { tokenStorage } from '@/utils/tokenStorage';
 
 function LoginAuthPage() {

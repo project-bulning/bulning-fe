@@ -2,20 +2,24 @@ import { Colors } from '@/styles';
 
 const colorTheme: Colors = {
   primary: {
-    main: '#48CFCB',
-    lighten: '#0BD9D3',
-    darken: '#229799',
+    main: '#012962',
+    lighten: '#EBEBEB',
+    darken: '#48CFCB',
     passive: 'rgba(72, 207, 203, 0.13)',
   },
   text: {
     prominent: '#191B1C',
     moderate: '#71787F',
-    subtle: '#B2B6BB',
+    subtle: '#9B9B9B',
+    darken_white: '#F7FAFE',
+    explain_gray: '#9B9B9B',
   },
   background: {
     main: '#FFFFFF',
     lighten: '#FFFFFF',
-    darken: '#F2F3F4',
+    darken: '#F0F0F0',
+    light_blue: '#F7FAFE',
+    disabled: '#EBEBEB',
     passive: 'rgba(0, 0, 0, 0.5)',
   },
   border: {
