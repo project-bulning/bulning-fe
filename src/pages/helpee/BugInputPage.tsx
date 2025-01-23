@@ -2,7 +2,7 @@ import { DefaultPaddedContainer } from '@components/container/variants';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import close from '@assets/icons/close.svg';
-import logo from '@assets/bulning-logo.svg';
+import addImage from '@assets/icons/add-image.svg';
 import Input from '@components/input';
 import Button from '@components/button';
 import useFormPageStyle from '@pages/helpee/useFormPageStyle';
@@ -13,6 +13,8 @@ import {
 import ButtonSelector from '@pages/helpee/ButtonSelector';
 import { useState } from 'react';
 import AnnouncementBottomSheet from '@features/helpee/AnnouncementBottomSheet';
+import routePaths from '@constants/routePaths.ts';
+import { Link, useLocation } from 'react-router-dom';
 import { BugInfo } from '@/types/bug';
 
 export interface BugInputSectionProps {
@@ -28,6 +30,7 @@ function BugInputPage() {
     ulStyle,
     inputBtnStyle,
   } = useFormPageStyle();
+
   const {
     register,
     handleSubmit,
@@ -46,6 +49,9 @@ function BugInputPage() {
     },
     mode: 'onChange',
   });
+
+  const location = useLocation();
+  const bugImage = location.state?.croppedImage;
 
   const [situationValue, setSituationValue] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
@@ -88,15 +94,46 @@ function BugInputPage() {
 
   return (
     <>
-      <DefaultPaddedContainer height="32px">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <DefaultPaddedContainer>
           <Container direction="column" padding="10px 0">
-            <Container>
-              <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
-              <Heading.H3_5 css={{ marginLeft: '62px' }}>사냥 정보 입력</Heading.H3_5>
+            <Container justify="space-between" align="center">
+              <Link to={routePaths.MAIN}>
+                <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
+              </Link>
+              <Heading.H3_5>사냥 정보 입력</Heading.H3_5>
+              <div css={{ width: '32px' }} />
             </Container>
             <Container direction="column" padding="40px 0" gap="35px">
-              <img src={logo} alt="logo" css={{ width: '70px', height: '70px', borderRadius: '8px' }} />
+              <Container direction="column" gap="18px">
+                <Container>
+                  {bugImage
+                    ? (
+                      <img
+                        src={bugImage}
+                        alt="logo"
+                        css={{
+                          width: '70px', height: '70px', borderRadius: '8px',
+                        }}
+                      />
+                    )
+                    : (
+                      <Container
+                        width="70px"
+                        height="70px"
+                        justify="center"
+                        align="center"
+                        css={{
+                          borderRadius: '8px',
+                          backgroundColor: '#E0E0E0',
+                        }}
+                      >
+                        <img src={addImage} alt="logo" />
+                      </Container>
+                    )}
+                </Container>
+              </Container>
+
               <Container css={inputTextStyle}>
                 <Input
                   type="text"
@@ -140,7 +177,7 @@ function BugInputPage() {
               ))}
 
               <Container css={inputTextStyle}>
-                <Paragraph css={{ marginTop: '20px' }}>
+                <Paragraph weight="semi-bold" css={{ marginTop: '20px', marginBottom: '10px' }}>
                   상황 설명
                 </Paragraph>
                 <textarea
@@ -195,8 +232,8 @@ function BugInputPage() {
               다음
             </Button>
           </Container>
-        </form>
-      </DefaultPaddedContainer>
+        </DefaultPaddedContainer>
+      </form>
       <AnnouncementBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} />
     </>
   );
