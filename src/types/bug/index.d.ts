@@ -1,10 +1,10 @@
 export interface BugInfo {
   title: string;
-  address: string;
-  addressDetail: string;
-  type: string;
-  size: string;
+  location: string;
+  location_detail: string;
+  bug_type: string;
+  bug_size: string;
   equipment: string;
-  situation: string;
-  price: string;
+  note: string;
+  price: number;
 }
