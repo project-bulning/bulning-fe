@@ -75,9 +75,8 @@ function CameraRequestBottomSheet({ isOpen, onClose }: CameraRequestBottomSheetP
 
     canvas.toBlob((blob: Blob | null) => {
       if (!blob) return;
-      const croppedUrl = URL.createObjectURL(blob);
-
-      navigate(routePaths.BUG, { state: { croppedImage: croppedUrl } });
+      const file = new File([blob], 'cropped-image.jpg', { type: 'image/jpeg' });
+      navigate(routePaths.BUG, { state: { croppedImage: file } });
     }, 'image/jpeg', 1);
   }, [navigate]);
 
