@@ -4,7 +4,7 @@ export interface BugReportFormData {
   bug_image_url?: string | null;
   title: string;
   location: string;
-  location_details: string;
+  location_detail: string;
   bug_type: string;
   bug_size: string;
   equipment: string;
