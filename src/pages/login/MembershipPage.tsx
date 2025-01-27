@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 import useFormPageStyle from '@pages/helpee/useFormPageStyle';
 import SignUpBottomSheet from '@features/signUp/SignUpBottomSheet';
 import { MembershipResponse } from '@/types/user';
-import { submitPersonalInfo } from '@/api/user';
+import { getMyInfo, submitPersonalInfo } from '@/api/user';
 
 export interface MembershipProps {
   register: UseFormRegister<MembershipResponse>;
@@ -34,6 +34,7 @@ function MembershipPage() {
   const [sigugunList, setSigugunList] = useState<any[]>([]);
   const [dongList, setDongList] = useState<any[]>([]);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [userName, setUserName] = useState<string>('');
 
   const closeBottomSheet = (): void => {
     setIsBottomSheetOpen(false);
@@ -50,7 +51,6 @@ function MembershipPage() {
     formState: { errors },
   } = useForm<MembershipResponse>({
     defaultValues: {
-      name: '',
       nickname: '',
       location: '',
     },
@@ -58,7 +58,6 @@ function MembershipPage() {
   });
 
   const validations = {
-    name: { required: { value: true, message: '이름을 입력하세요.' } },
     nickname: { required: { value: true, message: '별명을 입력하세요.' } },
     location: {
       validate: () => {
@@ -71,6 +70,13 @@ function MembershipPage() {
   };
 
   useEffect(() => {
+    getMyInfo()
+      .then((data) => {
+        setUserName(data.name);
+      })
+      .catch((error) => {
+        console.error('사용자 정보 가져오기 실패:', error);
+      });
     const script = document.createElement('script');
     script.src = 'https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js';
     script.async = true;
@@ -162,10 +168,9 @@ function MembershipPage() {
                 <Input
                   type="text"
                   label="이름"
-                  placeholder="이름"
-                  {...register('name', validations.name)}
+                  value={userName}
+                  readOnly
                 />
-                <FormErrorMessage errors={errors} name="name" />
               </Container>
               <Container css={inputTextStyle}>
                 <Input
