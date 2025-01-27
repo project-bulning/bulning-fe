@@ -8,7 +8,7 @@ import logo from '@assets/bulning-logo.svg';
 function LoginPage() {
   const theme = useTheme();
   const handleLoginClick = () => {
-    window.location.href = `${import.meta.env.VITE_BASE_URL}/user/login/kakao`;
+    window.location.href = `${import.meta.env.VITE_BASE_URL}/api/user/login/kakao`;
   };
   return (
     <DefaultPaddedContainer>
