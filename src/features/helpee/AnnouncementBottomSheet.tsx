@@ -4,17 +4,54 @@ import Container from '@components/container';
 import { Heading } from '@components/text';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
+import { useState } from 'react';
+import { BugInfo } from '@/types/bug';
+import { submitBugReportsForm, uploadImage } from '@/api/helpee';
+import { getLatLng } from '@/utils/geoLocation';
 
-interface AnnouncementBottomSheetProps {
+export interface AnnouncementBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
+  formData: BugInfo;
+  bugImage: File | null;
 }
 
-function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetProps) {
+function AnnouncementBottomSheet({
+  isOpen, onClose, formData, bugImage,
+}: AnnouncementBottomSheetProps) {
   const navigate = useNavigate();
-  const handleNextBtn = () => {
-    navigate(routePaths.BUG_REPORT_DETAIL);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleNextBtn = async () => {
+    try {
+      setLoading(true);
+
+      const { latitude, longitude } = await getLatLng();
+
+      let imageUrl = '';
+      if (bugImage) {
+        imageUrl = await uploadImage(bugImage);
+      }
+
+      const finalData = {
+        ...formData,
+        bug_image_url: imageUrl,
+        latitude,
+        longitude,
+      };
+
+      await submitBugReportsForm(finalData);
+
+      console.log('게시글 post 성공');
+      onClose();
+      navigate(routePaths.MAIN);
+    } catch (error) {
+      console.error('게시글 post 실패:', error);
+    } finally {
+      setLoading(false);
+    }
   };
+
   return (
     <BottomSheet isOpen={isOpen} onChange={onClose}>
       <Container
@@ -40,7 +77,7 @@ function AnnouncementBottomSheet({ isOpen, onClose }: AnnouncementBottomSheetPro
             </ul>
           </Container>
           <Container direction="column" gap="6px">
-            <Button onClick={handleNextBtn}>동의하고 진행하기</Button>
+            <Button onClick={handleNextBtn}>{loading ? '게시글 업로드 중...' : '동의하고 진행하기'}</Button>
             <Button variant="secondary" onClick={onClose}>취소</Button>
           </Container>
         </Container>

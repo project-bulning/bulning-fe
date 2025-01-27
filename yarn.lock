@@ -3104,6 +3104,7 @@ __metadata:
     "@vitejs/plugin-react-swc": "npm:^3.5.0"
     axios: "npm:^1.7.7"
     chromatic: "npm:^11.14.0"
+    cropperjs: "npm:^1.6.2"
     eslint: "npm:8.57.0"
     eslint-config-airbnb: "npm:^19.0.4"
     eslint-config-airbnb-typescript: "npm:^18.0.0"
@@ -3115,6 +3116,7 @@ __metadata:
     eslint-plugin-storybook: "npm:^0.10.1"
     globals: "npm:^15.9.0"
     react: "npm:^18.3.1"
+    react-cropper: "npm:^2.3.3"
     react-dom: "npm:^18.3.1"
     react-hook-form: "npm:^7.53.2"
     react-router-dom: "npm:^7.0.1"
@@ -3430,6 +3432,13 @@ __metadata:
     typescript:
       optional: true
   checksum: 10c0/0382a9ed13208f8bfc22ca2f62b364855207dffdb73dc26e150ade78c3093f1cf56172df2dd460c8caf2afa91c0ed4ec8a88c62f8f9cd1cf423d26506aa8797a
+  languageName: node
+  linkType: hard
+
+"cropperjs@npm:^1.5.13, cropperjs@npm:^1.6.2":
+  version: 1.6.2
+  resolution: "cropperjs@npm:1.6.2"
+  checksum: 10c0/5002e0cc3a491ceb8a104b2cb7a7c335a03e109fe590653f3aeefa27ca7115466edae62afc8ba21105bbaad4134583f5057ebbf5e8d843c7b2c1c1f0779630e9
   languageName: node
   linkType: hard
 
@@ -6633,6 +6642,17 @@ __metadata:
   peerDependencies:
     react: ^16.3.0 || ^17.0.1 || ^18.0.0
   checksum: 10c0/5b4eb23eef564695f6db1d25b294ed31d5fa21ff4092c6a38e641f85cd10e3e0b50014366e3ac0f7cf772e73faaecd14614e5b11a5531336fa769dda8068ab59
+  languageName: node
+  linkType: hard
+
+"react-cropper@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "react-cropper@npm:2.3.3"
+  dependencies:
+    cropperjs: "npm:^1.5.13"
+  peerDependencies:
+    react: ">=17.0.2"
+  checksum: 10c0/86c09cf35705e853e7fec510b4e65b5030d3f90b537c0c8e0626db584e270a4ae4025e7ba4b5c6b07635c68904bd00b134c8586ce88658a421ced1bb054ab9ef
   languageName: node
   linkType: hard
 

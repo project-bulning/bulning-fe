@@ -18,6 +18,7 @@ export type Colors = {
     subtle: string;
     darken_white: string;
     explain_gray: string;
+    btn_secondary: string;
   };
   background: {
     main: string;
@@ -26,6 +27,7 @@ export type Colors = {
     light_blue: string;
     disabled: string;
     passive: string;
+    btn_default_hover: string;
   };
   border: {
     subtle: string;
