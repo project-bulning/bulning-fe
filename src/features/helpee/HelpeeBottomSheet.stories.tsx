@@ -1,56 +1,63 @@
-import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import AnnouncementBottomSheet from './AnnouncementBottomSheet';
-import CameraRequestBottomSheet from './CameraRequestBottomSheet';
-
-type Story = StoryObj<BottomSheetProps>;
+import { Meta, StoryObj } from '@storybook/react';
+import AnnouncementBottomSheet, { AnnouncementBottomSheetProps } from '@features/helpee/AnnouncementBottomSheet';
+import CameraRequestBottomSheet, { CameraRequestBottomSheetProps } from '@features/helpee/CameraRequestBottomSheet';
+import { MemoryRouter } from 'react-router-dom';
 
 export default {
   title: 'Features/HelpeeBottomSheet',
-  argTypes: {
-    isOpen: { control: 'boolean', defaultValue: false },
-  },
 } as Meta;
 
-interface BottomSheetProps {
-  isOpen: boolean;
-  toggleText: string;
-  Component: React.FC<{ isOpen: boolean; onClose: () => void }>;
-}
+const AnnouncementTemplate: StoryObj<AnnouncementBottomSheetProps> = {
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(args.isOpen);
 
-function BottomSheetTemplate({
-  isOpen: initialIsOpen,
-  toggleText,
-  Component,
-}: BottomSheetProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(initialIsOpen);
-
-  const handleToggle = () => setIsOpen((prev) => !prev);
-
-  return (
-    <>
-      <button type="button" onClick={handleToggle}>
-        {toggleText}
-      </button>
-      <Component isOpen={isOpen} onClose={() => setIsOpen(false)} />
-    </>
-  );
-}
-
-export const AnnouncementBottomSheetStory: Story = {
-  render: (args) => <BottomSheetTemplate {...args} />,
-};
-AnnouncementBottomSheetStory.args = {
-  isOpen: false,
-  toggleText: 'Toggle Announcement Bottom Sheet',
-  Component: AnnouncementBottomSheet,
+    return (
+      <MemoryRouter>
+        <button type="button" onClick={() => setIsOpen((prev) => !prev)}>
+          Toggle Announcement Bottom Sheet
+        </button>
+        <AnnouncementBottomSheet
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      </MemoryRouter>
+    );
+  },
 };
 
-export const CameraRequestBottomSheetStory: Story = {
-  render: (args) => <BottomSheetTemplate {...args} />,
+export const AnnouncementStory = {
+  ...AnnouncementTemplate,
+  args: {
+    isOpen: false,
+    // formData: { ... },
+    // bugImage: 'https://...',
+  },
 };
-CameraRequestBottomSheetStory.args = {
-  isOpen: false,
-  toggleText: 'Toggle Camera Request Bottom Sheet',
-  Component: CameraRequestBottomSheet,
+
+const CameraRequestTemplate: StoryObj<CameraRequestBottomSheetProps> = {
+  render: (args) => {
+    const [isOpen, setIsOpen] = useState(args.isOpen);
+
+    return (
+      <MemoryRouter>
+        <button type="button" onClick={() => setIsOpen((prev) => !prev)}>
+          Toggle Camera Request Bottom Sheet
+        </button>
+        <CameraRequestBottomSheet
+          {...args}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+        />
+      </MemoryRouter>
+    );
+  },
+};
+
+export const CameraRequestStory = {
+  ...CameraRequestTemplate,
+  args: {
+    isOpen: false,
+  },
 };

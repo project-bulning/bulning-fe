@@ -15,7 +15,7 @@ import routePaths from '@constants/routePaths';
 import Camera from '@components/camera';
 import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
 
-interface CameraRequestBottomSheetProps {
+export interface CameraRequestBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
 }

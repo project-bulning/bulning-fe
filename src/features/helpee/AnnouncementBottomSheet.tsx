@@ -9,7 +9,7 @@ import { BugInfo } from '@/types/bug';
 import { submitBugReportsForm, uploadImage } from '@/api/helpee';
 import { getLatLng } from '@/utils/geoLocation';
 
-interface AnnouncementBottomSheetProps {
+export interface AnnouncementBottomSheetProps {
   isOpen: boolean;
   onClose: () => void;
   formData: BugInfo;
