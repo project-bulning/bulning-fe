@@ -14,6 +14,7 @@ import HunterApprovalPage from '@pages/hunterMatching/HunterApprovalPage';
 import DealProcessPage from '@pages/afterHunting/DealProcessPage';
 import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage';
 import ProfilePage from '@pages/login/ProfilePage';
+import ReviewPage from '@pages/afterHunting/ReviewPage';
 
 const router = createBrowserRouter([
   {
@@ -98,6 +99,12 @@ const router = createBrowserRouter([
     path: routePaths.DEAL_PROCESS,
     element: (
       <DealProcessPage />
+    ),
+  },
+  {
+    path: routePaths.REVIEW,
+    element: (
+      <ReviewPage />
     ),
   },
 ]);
