@@ -13,6 +13,7 @@ const routePaths = {
   HUNT_CANCELLED: '/cancelled',
   HUNTER_APPROVAL: '/hunter-approval',
   DEAL_PROCESS: '/deal-process',
+  REVIEW: '/review',
 };
 
 export default routePaths;
