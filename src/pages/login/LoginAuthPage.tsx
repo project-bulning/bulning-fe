@@ -18,7 +18,7 @@ function LoginAuthPage() {
     }
     getMyInfo()
       .then((data) => {
-        if (data.address === null) {
+        if (data.location === null) {
           navigate(routePaths.MEMBERSHIP);
         } else {
           navigate(routePaths.MAIN);
