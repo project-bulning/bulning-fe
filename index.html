@@ -4,7 +4,26 @@
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.2/reset.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
+    <title>벌닝</title>
+
+    <!-- PWA 설정 -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/android-chrome-192x192.png">
+    <meta name="description" content="Matching Bug Killer App">
+
+    <!-- FCM 및 PWA 서비스 워커 등록 -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+                .register('/firebase-messaging-sw.js')
+                .then((registration) => {
+                  console.log('Service Worker registered:', registration.scope);
+                })
+                .catch((err) => {
+                  console.error('Service Worker registration failed:', err);
+                });
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>
