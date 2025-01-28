@@ -7,6 +7,8 @@ const endpoints = {
     create: `${prefix}/bug-reports`,
     uploadImage: `${prefix}/bug-reports/image`,
   },
+
+  fcmToken: `${prefix}/alarm/fcm-token`,
 };
 
 export default endpoints;
