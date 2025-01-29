@@ -42,7 +42,6 @@ function HuntingList() {
   useEffect(() => {
     const fetchRequests = async () => {
       if (latitude !== null && longitude !== null) {
-        console.log(latitude, longitude);
         try {
           const responsesInfo = await getBugReportList({
             currentLatitude: latitude,
@@ -86,7 +85,12 @@ function HuntingList() {
             css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
           >
             {requests.slice(0, visibleCount).map((request) => (
-              <Link to={routePaths.BUG_REPORT_DETAIL} key={request.id} css={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link
+                to={{ pathname: routePaths.BUG_REPORT_DETAIL }}
+                key={request.id}
+                state={{ id: request.id, distance: request.distance }}
+                css={{ textDecoration: 'none', color: 'inherit' }}
+              >
                 <HuntingListItem
                   request={request}
                 />
