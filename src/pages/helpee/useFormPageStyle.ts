@@ -35,12 +35,6 @@ function useFormPageStyle() {
   };
 
   const inputBtnStyle: CSSObject = {
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    div: {
-      gap: '18px',
-    },
-
   };
 
   const ulStyle: CSSObject = {

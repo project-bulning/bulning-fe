@@ -14,6 +14,8 @@ import toggleHideIcon from '@assets/icons/eye-off.svg';
 import DynamicIcon from '@components/internal/dynamic-icon';
 import useInputStyle from '@components/input/useInputStyle';
 import Label from '@components/label';
+import Container from '@components/container';
+import { Paragraph } from '@components/text';
 import { generateRandomId } from '@/utils';
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -45,12 +47,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   }
 
   return (
-    <>
+    <Container direction="column" gap="10px">
       {
         label
           ? (
             <Label htmlFor={inputId.current}>
-              {label}
+              <Paragraph weight="semi-bold">
+                {label}
+              </Paragraph>
             </Label>
           )
           : null
@@ -70,7 +74,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
             : null
         }
       </div>
-    </>
+    </Container>
   );
 });
 

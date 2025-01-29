@@ -2,7 +2,7 @@ import { DefaultPaddedContainer } from '@components/container/variants';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import close from '@assets/icons/close.svg';
-import logo from '@assets/bulning-logo.svg';
+import addImage from '@assets/icons/add-image.svg';
 import Input from '@components/input';
 import Button from '@components/button';
 import useFormPageStyle from '@pages/helpee/useFormPageStyle';
@@ -11,8 +11,10 @@ import {
   Control, FormState, useForm, UseFormRegister, UseFormSetValue,
 } from 'react-hook-form';
 import ButtonSelector from '@pages/helpee/ButtonSelector';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AnnouncementBottomSheet from '@features/helpee/AnnouncementBottomSheet';
+import routePaths from '@constants/routePaths.ts';
+import { Link, useLocation } from 'react-router-dom';
 import { BugInfo } from '@/types/bug';
 
 export interface BugInputSectionProps {
@@ -26,8 +28,8 @@ function BugInputPage() {
   const {
     inputTextStyle,
     ulStyle,
-    inputBtnStyle,
   } = useFormPageStyle();
+
   const {
     register,
     handleSubmit,
@@ -36,22 +38,35 @@ function BugInputPage() {
   } = useForm<BugInfo>({
     defaultValues: {
       title: '',
-      address: '',
-      addressDetail: '',
-      type: '',
-      size: '',
+      location: '',
+      location_detail: '',
+      bug_type: '',
+      bug_size: '',
       equipment: '',
-      situation: '',
-      price: '',
+      note: '',
+      price: 0,
     },
     mode: 'onChange',
   });
 
+  const location = useLocation();
+  const bugImage = location.state?.croppedImage;
+
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (bugImage instanceof File) {
+      const objectUrl = URL.createObjectURL(bugImage);
+      setPreviewUrl(objectUrl);
+
+      return () => URL.revokeObjectURL(objectUrl);
+    }
+    return undefined;
+  }, [bugImage]);
+
   const [situationValue, setSituationValue] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const handleNextBtn = ():void => {
-    setIsBottomSheetOpen(true);
-  };
+  const [formData, setFormData] = useState<BugInfo | null>(null);
 
   const closeBottomSheet = (): void => {
     setIsBottomSheetOpen(false);
@@ -59,16 +74,16 @@ function BugInputPage() {
 
   const validations = {
     title: { required: { value: true, message: '제목을 입력하세요.' } },
-    address: { required: { value: true, message: '주소를 입력하세요.' } },
-    addressDetail: { required: { value: true, message: '상세 주소를 입력하세요.' } },
-    type: { required: { value: true, message: '벌레 종류를 알려주세요.' } },
-    size: { required: { value: true, message: '벌레 크기를 알려주세요.' } },
+    location: { required: { value: true, message: '주소를 입력하세요.' } },
+    location_detail: { required: { value: true, message: '상세 주소를 입력하세요.' } },
+    bug_type: { required: { value: true, message: '벌레 종류를 알려주세요.' } },
+    bug_size: { required: { value: true, message: '벌레 크기를 알려주세요.' } },
     equipment: { required: { value: true, message: '보유 물품을 알려주세요.' } },
-    situation: { required: { value: true, message: '상황을 설명해주세요.' } },
+    note: { required: { value: true, message: '상황을 설명해주세요.' } },
     price: {
       required: { value: true, message: '가격을 정해주세요.' },
       validate: {
-        minPrice: (value: string) => parseInt(value, 10) > 3000 || '가격은 3,000원보다 커야 합니다.',
+        minPrice: (value: string | number) => Number(value) >= 3000 || '최소 가격 설정은 3,000원입니다.',
       },
     },
   };
@@ -81,22 +96,58 @@ function BugInputPage() {
   };
 
   const onSubmit = (data: BugInfo) => {
-    // Todo: api 연결
-    const updatedData = { ...data, situation: situationValue };
-    console.log('폼 데이터:', updatedData);
+    console.log('폼 데이터:', data);
+  };
+
+  const handleNextBtn = ():void => {
+    handleSubmit((data) => {
+      setFormData(data);
+      setIsBottomSheetOpen(true);
+    })();
   };
 
   return (
     <>
-      <DefaultPaddedContainer height="32px">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <DefaultPaddedContainer>
           <Container direction="column" padding="10px 0">
-            <Container>
-              <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
-              <Heading.H3_5 css={{ marginLeft: '62px' }}>사냥 정보 입력</Heading.H3_5>
+            <Container justify="space-between" align="center">
+              <Link to={routePaths.MAIN}>
+                <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
+              </Link>
+              <Heading.H3_5>사냥 정보 입력</Heading.H3_5>
+              <div css={{ width: '32px' }} />
             </Container>
             <Container direction="column" padding="40px 0" gap="35px">
-              <img src={logo} alt="logo" css={{ width: '70px', height: '70px', borderRadius: '8px' }} />
+              <Container direction="column" gap="18px">
+                <Container>
+                  {previewUrl
+                    ? (
+                      <img
+                        src={previewUrl}
+                        alt="logo"
+                        css={{
+                          width: '70px', height: '70px', borderRadius: '8px',
+                        }}
+                      />
+                    )
+                    : (
+                      <Container
+                        width="70px"
+                        height="70px"
+                        justify="center"
+                        align="center"
+                        css={{
+                          borderRadius: '8px',
+                          backgroundColor: '#E0E0E0',
+                        }}
+                      >
+                        <img src={addImage} alt="logo" />
+                      </Container>
+                    )}
+                </Container>
+              </Container>
+
               <Container css={inputTextStyle}>
                 <Input
                   type="text"
@@ -107,17 +158,27 @@ function BugInputPage() {
                 <FormErrorMessage errors={errors} name="title" />
               </Container>
               <Container css={inputTextStyle}>
-                <Input type="text" label="주소" placeholder="부산광역시 금정구 장전1동" {...register('address', validations.address)} />
-                <FormErrorMessage errors={errors} name="address" />
-                <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
-                <FormErrorMessage errors={errors} name="addressDetail" />
+                <Input
+                  type="text"
+                  label="주소"
+                  placeholder="부산광역시 금정구 장전1동"
+                  {...register('location', validations.location)}
+                />
+                <FormErrorMessage errors={errors} name="location" />
+                <Input
+                  type="text"
+                  placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)"
+                  {...register('location_detail', validations.location_detail)}
+                  css={{ marginTop: '3px' }}
+                />
+                <FormErrorMessage errors={errors} name="location_detail" />
               </Container>
               {[
                 {
-                  label: '벌레 종류', name: 'type', options: ['바퀴벌레', '돈벌레', '지네'], validation: validations.type,
+                  label: '벌레 종류', name: 'bug_type', options: ['바퀴벌레', '돈벌레', '지네'], validation: validations.bug_type,
                 },
                 {
-                  label: '벌레 크기', name: 'size', options: ['10원', '100원', '500원'], validation: validations.size,
+                  label: '벌레 크기', name: 'bug_size', options: ['10원', '100원', '500원'], validation: validations.bug_size,
                 },
                 {
                   label: '보유 물품', name: 'equipment', options: ['전기파리채', '살충제', '없음'], validation: validations.equipment,
@@ -126,7 +187,8 @@ function BugInputPage() {
                 label, name, options,
               }) => (
                 <Container
-                  css={inputBtnStyle}
+                  direction="column"
+                  gap="8px"
                   key={name}
                 >
                   <ButtonSelector
@@ -140,12 +202,12 @@ function BugInputPage() {
               ))}
 
               <Container css={inputTextStyle}>
-                <Paragraph css={{ marginTop: '20px' }}>
+                <Paragraph weight="semi-bold" css={{ marginTop: '20px', marginBottom: '10px' }}>
                   상황 설명
                 </Paragraph>
                 <textarea
                   placeholder="상황을 설명해주세요"
-                  {...register('situation', validations.situation)}
+                  {...register('note', validations.note)}
                   value={situationValue}
                   onChange={handleSituationChange}
                   css={{
@@ -159,7 +221,7 @@ function BugInputPage() {
                   }}
                 />
                 <Container justify="space-between">
-                  <FormErrorMessage errors={errors} name="situation" />
+                  <FormErrorMessage errors={errors} name="note" />
                   <Paragraph variant="small">
                     {situationValue.length}
                     {' '}
@@ -169,7 +231,15 @@ function BugInputPage() {
               </Container>
 
               <Container css={inputTextStyle}>
-                <Input type="text" label="가격" placeholder="가격" {...register('price', validations.price)} />
+                <Input
+                  type="number"
+                  label="가격"
+                  placeholder="가격"
+                  {...register('price', {
+                    ...validations.price,
+                    valueAsNumber: true,
+                  })}
+                />
                 <FormErrorMessage errors={errors} name="price" />
               </Container>
             </Container>
@@ -195,9 +265,16 @@ function BugInputPage() {
               다음
             </Button>
           </Container>
-        </form>
-      </DefaultPaddedContainer>
-      <AnnouncementBottomSheet isOpen={isBottomSheetOpen} onClose={closeBottomSheet} />
+        </DefaultPaddedContainer>
+      </form>
+      {formData && (
+        <AnnouncementBottomSheet
+          isOpen={isBottomSheetOpen}
+          onClose={closeBottomSheet}
+          formData={formData}
+          bugImage={bugImage}
+        />
+      )}
     </>
   );
 }
