@@ -6,11 +6,13 @@ export interface BugReport {
   bug_image_url: string | null;
   price: number;
   location: string;
+  distance: number;
 }
 
 export interface DetailedBugReport extends BugReport {
   latitude: number;
   longitude: number;
+  location_detail: string;
   user_id: number;
   bug_type: string;
   bug_size: string;
@@ -23,5 +25,5 @@ export interface BugReportListResponse {
   bug_reports: BugReport[];
 }
 export interface BugReportDetailResponse {
-  bug_report: DetailedBugReport;
+  DetailedBugReport;
 }
