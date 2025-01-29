@@ -9,16 +9,54 @@ import HuntingListItem from '@pages/hunting/HuntingListItem';
 import Button from '@components/button';
 import routePaths from '@constants/routePaths.ts';
 import { Link } from 'react-router-dom';
-import { CatchRequest } from '@/types/request';
-import { mockRequestList } from '@/mock/request';
+import { getBugReportList } from '@/api/bugReports';
+import { BugReport } from '@/types/bug-report';
 
 function HuntingList() {
-  const [requests, setRequests] = useState<CatchRequest[]>([]);
+  const [requests, setRequests] = useState<BugReport[]>([]);
   const [visibleCount, setVisibleCount] = useState(10);
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
 
   useEffect(() => {
-    setRequests(mockRequestList);
+    const fetchLocation = () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setLatitude(position.coords.latitude);
+            setLongitude(position.coords.longitude);
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+          },
+          { enableHighAccuracy: true },
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    };
+
+    fetchLocation();
   }, []);
+
+  useEffect(() => {
+    const fetchRequests = async () => {
+      if (latitude !== null && longitude !== null) {
+        try {
+          const responsesInfo = await getBugReportList({
+            currentLatitude: latitude,
+            currentLongitude: longitude,
+          });
+
+          setRequests(responsesInfo.bug_reports);
+        } catch (error) {
+          console.error('Error fetching bug report list:', error);
+        }
+      }
+    };
+
+    fetchRequests();
+  }, [latitude, longitude]);
 
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10);
@@ -47,9 +85,13 @@ function HuntingList() {
             css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
           >
             {requests.slice(0, visibleCount).map((request) => (
-              <Link to={routePaths.BUG_REPORT_DETAIL} css={{ textDecoration: 'none', color: 'inherit' }}>
+              <Link
+                to={{ pathname: routePaths.BUG_REPORT_DETAIL }}
+                key={request.id}
+                state={{ id: request.id, distance: request.distance }}
+                css={{ textDecoration: 'none', color: 'inherit' }}
+              >
                 <HuntingListItem
-                  key={`notice-item-${request.id}`}
                   request={request}
                 />
               </Link>

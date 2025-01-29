@@ -1,5 +1,5 @@
 import React, {
-  createContext, useState, useContext, useMemo, useEffect,
+  createContext, useState, useContext, useMemo, useEffect, ReactNode,
 } from 'react';
 import { User } from '@/types/user';
 import { tokenStorage } from '@/utils/tokenStorage';
@@ -12,9 +12,13 @@ interface CurrentUserContextType {
   setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface CurrentUserProviderProps {
+  children: ReactNode;
+}
+
 const CurrentUserContext = createContext<CurrentUserContextType | undefined>(undefined);
 
-export function CurrentUserProvider({ children }: { children: React.ReactNode }) {
+export function CurrentUserProvider({ children }: CurrentUserProviderProps) {
   const [currentUser, setCurrentUser] = useState<User>();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 

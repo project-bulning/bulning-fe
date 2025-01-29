@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Container from '@components/container';
 import Spinner from '@components/fallback/Spinner';
+import { CSSObject } from '@emotion/react';
 
 interface KakaoMapProps {
   latitude: number;
@@ -9,6 +10,7 @@ interface KakaoMapProps {
   width?: string;
   height?: string;
   zoomLevel?: number;
+  css?: CSSObject;
 }
 
 declare global {
@@ -59,7 +61,7 @@ async function loadKakaoMapScript(appKey: string): Promise<void> {
 }
 
 function KakaoMap({
-  latitude, longitude, type, width = '100%', height = '350px', zoomLevel = 4,
+  latitude, longitude, type, width = '100%', height = '350px', zoomLevel = 4, css,
 }: KakaoMapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [isMapLoaded, setIsMapLoaded] = useState<boolean>(false);
@@ -159,7 +161,7 @@ function KakaoMap({
         infoWindow.open(map, marker);
       });
     }
-  }, [isMapLoaded, latitude, longitude, type, zoomLevel]);
+  }, [isMapLoaded, latitude, longitude, type, zoomLevel, css]);
 
   return (
     <div>
