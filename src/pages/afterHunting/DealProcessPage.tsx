@@ -4,10 +4,20 @@ import { Heading, Paragraph } from '@components/text';
 import Container from '@components/container';
 import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
 import { useState, useEffect } from 'react';
-import mockBugReport from 'mock/bug-report';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import { BugReport } from '@/types/bug-report';
+
+const mockBugReport: BugReport = {
+  id: 1,
+  title: '긴급 벌레 퇴치 요청',
+  created_at: '2025-01-27 06:56:53',
+  status: 'WAITING_MATCH',
+  bug_image_url: 'https://example.com/bug.jpg',
+  price: 5000,
+  location: '부산 광역시 금정구 장전1동',
+  distance: 300,
+};
 
 function DealProcessPage() {
   const {
