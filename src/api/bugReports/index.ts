@@ -1,5 +1,5 @@
 import endpoints from '@constants/endpoints.ts';
-import { BugReportDetailResponse, BugReportListResponse } from '@/types/bug-report';
+import { BugReportListResponse, DetailedBugReport } from '@/types/bug-report';
 import axiosInstance from '@/utils/network';
 
 interface GetBugReportListParams {
@@ -20,7 +20,7 @@ export async function getBugReportList({
   return response.data;
 }
 
-export async function getBugReportDetail(id: number): Promise<BugReportDetailResponse> {
-  const response = await axiosInstance.get<BugReportDetailResponse>(`${endpoints.bugReports}/${id}`);
+export async function getBugReportDetail(id: number): Promise<DetailedBugReport> {
+  const response = await axiosInstance.get<DetailedBugReport>(`${endpoints.bugReports}/${id}`);
   return response.data;
 }
