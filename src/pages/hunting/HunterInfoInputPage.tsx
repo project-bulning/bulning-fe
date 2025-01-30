@@ -11,8 +11,11 @@ import {
 } from 'react-hook-form';
 import ButtonSelector from '@pages/helpee/ButtonSelector';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 import { HunterInfo } from '@/types/user/hunter';
+import { submitHunterInfoForm } from '@/api/hunting';
+import { HunterInfoPost } from '@/types/hunting';
 
 export interface HunterInfoInputSectionProps {
   register: UseFormRegister<HunterInfo>;
@@ -43,6 +46,8 @@ function HunterInfoInputPage() {
   });
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const reportId = location.state?.id;
 
   const [memoValue, setMemoValue] = useState('');
 
@@ -61,10 +66,29 @@ function HunterInfoInputPage() {
     }
   };
 
-  const onSubmit = (data: HunterInfo) => {
-    // Todo: api 연결
+  const onSubmit = async (data: HunterInfo) => {
+    if (!reportId) {
+      console.error('reportId가 없습니다.');
+      return;
+    }
+
     const updatedData = { ...data, memo: memoValue };
     console.log('폼 데이터:', updatedData);
+
+    const hunterInfo: HunterInfoPost = {
+      gender: data.gender,
+      age_group: data.age,
+      location_detail: data.addressDetail,
+      pr_memo: memoValue,
+    };
+
+    try {
+      await submitHunterInfoForm(reportId, hunterInfo);
+      console.log('사냥 정보 제출 완료');
+      navigate(routePaths.MAIN);
+    } catch (error) {
+      console.error('사냥 정보 제출 중 오류 발생:', error);
+    }
   };
 
   return (
