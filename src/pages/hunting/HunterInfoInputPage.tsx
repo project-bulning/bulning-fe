@@ -11,6 +11,7 @@ import {
 } from 'react-hook-form';
 import ButtonSelector from '@pages/helpee/ButtonSelector';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { HunterInfo } from '@/types/user/hunter';
 
 export interface HunterInfoInputSectionProps {
@@ -41,6 +42,8 @@ function HunterInfoInputPage() {
     mode: 'onChange',
   });
 
+  const navigate = useNavigate();
+
   const [memoValue, setMemoValue] = useState('');
 
   const validations = {
@@ -69,9 +72,16 @@ function HunterInfoInputPage() {
       <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
         <Container direction="column" padding="10px 0 10px 0" height="100dvh" justify="space-between">
           <Container direction="column">
-            <Container>
-              <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
-              <Heading.H3 css={{ marginLeft: '62px' }}>헌터 정보 입력</Heading.H3>
+            <Container justify="space-between" align="center">
+              <div
+                onClick={() => navigate(-1)}
+                css={{ cursor: 'pointer' }}
+                role="presentation"
+              >
+                <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
+              </div>
+              <Heading.H3_5>사냥 정보 입력</Heading.H3_5>
+              <div css={{ width: '32px' }} />
             </Container>
             <Container direction="column" padding="50px 0 0 0" gap="35px">
               {[
@@ -104,8 +114,8 @@ function HunterInfoInputPage() {
                 <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
                 <FormErrorMessage errors={errors} name="addressDetail" />
               </Container>
-              <Container direction="column" gap="4px">
-                <Paragraph>
+              <Container direction="column" gap="10px">
+                <Paragraph weight="semi-bold">
                   메모
                 </Paragraph>
                 <textarea
