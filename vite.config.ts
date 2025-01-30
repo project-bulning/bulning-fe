@@ -9,14 +9,4 @@ export default defineConfig({
     react({ jsxImportSource: '@emotion/react' }),
     tsconfigPaths(),
   ],
-  build: {
-    rollupOptions: {
-      input: {
-        // main 앱
-        main: "index.html",
-        // Service Worker
-        "firebase-messaging-sw": "src/utils/firebase/firebase-messaging-sw.ts",
-      },
-    },
-  },
 });

@@ -80,5 +80,21 @@ export function initForegroundMessageListener() {
   onMessage(messaging, (payload) => {
     console.log('포그라운드 상태에서 메시지를 수신함:', payload);
     // TODO: 포그라운드 상태에서 메시지 수신했을 때 로직 처리
+    if (!payload.notification) {
+      console.warn('수신한 메시지에 notification 데이터가 없습니다.');
+      return;
+    }
+
+    if (Notification.permission === 'granted') {
+      const title = payload.notification.title ?? '새로운 알림';
+      const body = payload.notification.body ?? '알림 내용을 확인하세요.';
+
+      const notification = new Notification(title, {
+        body,
+        icon: '/icons/firebase-logo.png',
+      });
+
+      console.log('Foreground 알림 생성됨:', notification);
+    }
   });
 }

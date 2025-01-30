@@ -11,4 +11,17 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 
+navigator.serviceWorker.register('/firebase-messaging-sw.js')
+  .then(() => navigator.serviceWorker.ready)
+  .then((registration) => {
+    registration.active?.postMessage({
+      type: 'INIT_FIREBASE',
+      config: firebaseConfig,
+    });
+    console.log('Service Worker Initialized with Firebase Config');
+  })
+  .catch((error) => {
+    console.error('Service Worker 등록 실패:', error);
+  });
+
 export { firebaseApp };
