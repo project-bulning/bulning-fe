@@ -1,7 +1,6 @@
 import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
-import { Heading } from '@components/text';
 import { useNavigate } from 'react-router-dom';
 import { HandleBottomSheetProps } from '@components/bottomSheet/handleBottomSheetProps';
 import { useState } from 'react';
@@ -89,11 +88,8 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
               checked={allCheck}
               onChange={handleAllCheck}
               id="allCheck"
+              labeling="약관 전체동의"
             />
-            {/* eslint-disable jsx-a11y/label-has-associated-control */}
-            <label htmlFor="allCheck">
-              <Heading.H5 weight="semi-bold">약관 전체동의</Heading.H5>
-            </label>
           </Container>
 
           <Container direction="column" gap="10px">
@@ -102,8 +98,8 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                 checked={individualCheck.age}
                 onChange={() => handleIndividualCheck('age')}
                 id="checkAge"
+                labeling="(필수) 만 19세 이상입니다."
               />
-              <label htmlFor="checkAge">(필수) 만 19세 이상입니다.</label>
             </Container>
 
             <Container justify="space-between">
@@ -112,8 +108,8 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                   checked={individualCheck.terms}
                   onChange={() => handleIndividualCheck('terms')}
                   id="checkTerms"
+                  labeling="(필수) 서비스 이용약관 및 동의사항"
                 />
-                <label htmlFor="checkTerms">(필수) 서비스 이용약관 및 동의사항</label>
               </Container>
               <img
                 src={ViewDetailsIcon}
@@ -130,8 +126,8 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                   checked={individualCheck.location}
                   onChange={() => handleIndividualCheck('location')}
                   id="checkLocation"
+                  labeling="(필수) 위치기반서비스 이용약관"
                 />
-                <label htmlFor="checkLocation">(필수) 위치기반서비스 이용약관</label>
               </Container>
               <img
                 src={ViewDetailsIcon}
@@ -148,8 +144,8 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
                   checked={individualCheck.privacy}
                   onChange={() => handleIndividualCheck('privacy')}
                   id="checkPrivacy"
+                  labeling="(필수) 개인정보 수집 및 이용 동의"
                 />
-                <label htmlFor="checkPrivacy">(필수) 개인정보 수집 및 이용 동의</label>
               </Container>
               <img
                 src={ViewDetailsIcon}
