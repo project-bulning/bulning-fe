@@ -25,6 +25,7 @@ jobs:
       - name: build
         env:
           VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+          VITE_KAKAO_MAP_API_KEY: ${{ secrets.VITE_KAKAO_MAP_API_KEY }}
         run: yarn build
       - name: Move files from dist to web root
         uses: appleboy/ssh-action@master
