@@ -11,7 +11,7 @@ export async function getBugReportList({
   currentLatitude = 0,
   currentLongitude = 0,
 }: GetBugReportListParams = {}): Promise<BugReportListResponse> {
-  const response = await axiosInstance.get<BugReportListResponse>(endpoints.bugReports, {
+  const response = await axiosInstance.get<BugReportListResponse>(endpoints.bugReports.create, {
     params: {
       currentLatitude,
       currentLongitude,
@@ -21,6 +21,6 @@ export async function getBugReportList({
 }
 
 export async function getBugReportDetail(id: number): Promise<DetailedBugReport> {
-  const response = await axiosInstance.get<DetailedBugReport>(`${endpoints.bugReports}/${id}`);
+  const response = await axiosInstance.get<DetailedBugReport>(`${endpoints.bugReports.create}/${id}`);
   return response.data;
 }
