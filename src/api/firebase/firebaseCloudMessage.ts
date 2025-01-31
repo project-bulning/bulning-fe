@@ -16,7 +16,7 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
     const oldToken = localStorage.getItem(FCM_TOKEN_KEY);
 
     if (newToken && newToken !== oldToken) {
-      await axiosInstance.post(endpoints.fcmToken, { token: newToken });
+      await axiosInstance.post(endpoints.fcmToken, { fcmToken: newToken });
       localStorage.setItem(FCM_TOKEN_KEY, newToken);
       console.log('새 FCM 토큰을 서버에 전송 및 로컬에 저장:', newToken);
     } else {
