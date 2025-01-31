@@ -5,7 +5,11 @@ let messaging = null;
 
 self.addEventListener("message", (event) => {
     if (event.data && event.data.type === "INIT_FIREBASE") {
-        firebase.initializeApp(event.data.config);
+        if (!firebase.apps.length) {
+            firebase.initializeApp(event.data.config);
+        } else {
+            firebase.app();
+        }
         messaging = firebase.messaging();
         console.log("Firebase Messaging Initialized in Service Worker");
 

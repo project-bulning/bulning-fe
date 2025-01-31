@@ -10,7 +10,7 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
     const messaging = getMessaging(firebaseApp);
 
     const newToken = await getToken(messaging, {
-      vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
+      vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY || '',
     });
 
     const oldToken = localStorage.getItem(FCM_TOKEN_KEY);
@@ -26,53 +26,6 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
     console.error('FCM 토큰 갱신 중 에러:', error);
   }
 }
-
-export const requestNotificationPermission = async (): Promise<NotificationPermission> => {
-  const permission = await Notification.requestPermission();
-  return permission;
-};
-
-export const getFcmToken = async (): Promise<string | null> => {
-  if (!('serviceWorker' in navigator)) {
-    console.warn('Service workers are not supported in this browser.');
-    return null;
-  }
-
-  const messaging = getMessaging(firebaseApp);
-  const registration = await navigator.serviceWorker.ready;
-
-  try {
-    const token = await getToken(messaging, {
-      vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY,
-      serviceWorkerRegistration: registration,
-    });
-    return token;
-  } catch (error) {
-    console.error('Error retrieving FCM token:', error);
-    return null;
-  }
-};
-
-export const requestAndSendFcmToken = async (): Promise<void> => {
-  const permission = await requestNotificationPermission();
-  if (permission !== 'granted') {
-    console.warn('Push notification permission denied.');
-    return;
-  }
-
-  const token = await getFcmToken();
-  if (!token) {
-    console.log('No registration token available.');
-    return;
-  }
-
-  try {
-    await axiosInstance.post(endpoints.fcmToken, { token });
-    console.log('FCM 토큰 전송 성공:', token);
-  } catch (error) {
-    console.error('FCM 토큰 서버 전송 에러:', error);
-  }
-};
 
 // foreground 메시지 처리
 export function initForegroundMessageListener() {
