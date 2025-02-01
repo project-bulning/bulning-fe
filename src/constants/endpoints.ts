@@ -5,6 +5,7 @@ const endpoints = {
   submitPersonalInfo: `${prefix}/user/info`,
 
   submitHunterInfo: `${prefix}/user/info/new`,
+  getHunterInfo: `${prefix}/alarm/hunter-info`,
   alarmRequest: `${prefix}/alarm/request`,
 
   bugReports: {
