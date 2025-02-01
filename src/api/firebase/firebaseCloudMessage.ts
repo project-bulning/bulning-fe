@@ -48,6 +48,10 @@ export function initForegroundMessageListener() {
       });
 
       console.log('Foreground 알림 생성됨:', notification);
+
+      notification.onclick = () => {
+        window.location.href = `/hunter-approval/${payload?.data?.user}`;
+      };
     }
   });
 }

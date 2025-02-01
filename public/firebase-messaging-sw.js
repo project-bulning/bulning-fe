@@ -34,6 +34,14 @@ self.addEventListener("push", (event) => {
 // 알림 클릭
 self.addEventListener("notificationclick", (event) => {
     event.notification.close();
-    const clickAction = event.notification.data?.click_action || "/";
-    event.waitUntil(clients.openWindow(clickAction));
+
+    const userId = event.notification.data?.user;
+
+    const url = userId ? `/hunter-approval/${userId}` : "/";
+
+    console.log(url);
+
+    event.waitUntil(
+        clients.openWindow(url)
+    );
 });
