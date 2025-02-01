@@ -12,3 +12,13 @@ export async function fetchHunterInfo(userId: number): Promise<HunterInfo> {
   });
   return response.data;
 }
+
+export async function updateMatchStatus(matchId: number, accept: boolean): Promise<void> {
+  const url = `${endpoints.updateMatchStatus}/${matchId}`;
+
+  await axiosInstance.put(url, { accept }, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
