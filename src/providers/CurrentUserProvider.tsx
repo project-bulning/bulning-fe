@@ -44,6 +44,7 @@ export function CurrentUserProvider({ children }: CurrentUserProviderProps) {
     if (isLoggedIn) {
       checkAndUpdateFcmToken();
       initForegroundMessageListener();
+      console.log('Foreground 메시지 리스너가 등록됨');
     }
   }, [isLoggedIn]);
 

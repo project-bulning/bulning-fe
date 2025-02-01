@@ -31,8 +31,8 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
 export function initForegroundMessageListener() {
   const messaging = getMessaging(firebaseApp);
   onMessage(messaging, (payload) => {
-    console.log('포그라운드 상태에서 메시지를 수신함:', payload);
-    // TODO: 포그라운드 상태에서 메시지 수신했을 때 로직 처리
+    console.log('포그라운드에서 메시지를 수신함:', payload);
+
     if (!payload.notification) {
       console.warn('수신한 메시지에 notification 데이터가 없습니다.');
       return;
