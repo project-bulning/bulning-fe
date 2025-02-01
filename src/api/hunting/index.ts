@@ -11,3 +11,13 @@ export async function submitHunterInfoForm(reportId: number, data: HunterInfoPos
     },
   });
 }
+
+export async function submitHunterAlarm(reportId: number): Promise<void> {
+  const url = `${endpoints.alarmRequest}/${reportId}`;
+
+  await axiosInstance.post(url, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}

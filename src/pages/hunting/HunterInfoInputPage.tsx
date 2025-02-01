@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import { HunterInfo } from '@/types/user/hunter';
-import { submitHunterInfoForm } from '@/api/hunting';
+import { submitHunterAlarm, submitHunterInfoForm } from '@/api/hunting';
 import { HunterInfoPost } from '@/types/hunting';
 
 export interface HunterInfoInputSectionProps {
@@ -85,6 +85,8 @@ function HunterInfoInputPage() {
     try {
       await submitHunterInfoForm(reportId, hunterInfo);
       console.log('사냥 정보 제출 완료');
+      await submitHunterAlarm(reportId);
+      console.log('알람 요청 완료');
       navigate(routePaths.MAIN);
     } catch (error) {
       console.error('사냥 정보 제출 중 오류 발생:', error);
