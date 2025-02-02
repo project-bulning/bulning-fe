@@ -21,14 +21,12 @@ function HunterApprovalPage() {
 
   const theme = useTheme();
   const [hunterData, setHunterData] = useState<HunterInfo | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function loadHunterInfo() {
       if (!userId) return;
       try {
         const data = await fetchHunterInfo(parseInt(userId, 10));
-        setIsLoading(false);
         setHunterData(data);
       } catch (err) {
         console.error(err);
@@ -106,93 +104,102 @@ function HunterApprovalPage() {
   `;
 
   return (
-    <>
-      <DefaultPaddedContainer>
-        {
-          isLoading
+    <div>
+      {
+          (hunterData == null)
             ? (
-              <Container width="100vw" height="100vh" justify="center" align="center">
+              <Container width="100dvw" height="100dvh" justify="center" align="center">
                 <Spinner />
               </Container>
             )
             : (
-              <Container direction="column" justify="space-between" height="100dvh" padding="96px 0 10px 0">
-                <Container direction="column" gap="65px">
-                  <Container direction="column" gap="8px">
-                    <Heading.H3_5>헌터의 정보를 확인하고</Heading.H3_5>
-                    <Heading.H3_5>도움 수락 여부를 선택해주세요</Heading.H3_5>
-                  </Container>
-                  <Slider {...settings} css={sliderStyle}>
-                    <Container direction="column" padding="0 0 52px 0">
-                      <Container gap="30px">
-                        <img
-                          src={Avatar}
-                          alt="profile-img"
-                          css={{ width: '77px', height: '77px', borderRadius: '100%' }}
-                        />
-                        <Container direction="column" gap="16px">
-                          <Heading.H5 weight="medium">{hunterData?.name}</Heading.H5>
-                          <Container gap="25px">
-                            <Container direction="column" gap="7px" width="100px" css={sectionHeadingStyle}>
-                              <div>거주지</div>
-                              <div>회원 정보</div>
-                              <div>평균 별정</div>
-                              <div>거래 횟수</div>
+              <>
+                <DefaultPaddedContainer>
+                  <Container direction="column" justify="space-between" height="100dvh" padding="96px 0 10px 0">
+                    <Container direction="column" gap="65px">
+                      <Container direction="column" gap="8px">
+                        <Heading.H3_5>헌터의 정보를 확인하고</Heading.H3_5>
+                        <Heading.H3_5>도움 수락 여부를 선택해주세요</Heading.H3_5>
+                      </Container>
+                      <Slider {...settings} css={sliderStyle}>
+                        <Container direction="column" padding="0 0 52px 0">
+                          <Container gap="30px">
+                            <img
+                              src={Avatar}
+                              alt="profile-img"
+                              css={{ width: '77px', height: '77px', borderRadius: '100%' }}
+                            />
+                            <Container direction="column" gap="16px">
+                              <Heading.H5 weight="medium">{hunterData?.name}</Heading.H5>
+                              <Container gap="25px">
+                                <Container direction="column" gap="7px" width="100px" css={sectionHeadingStyle}>
+                                  <div>거주지</div>
+                                  <div>회원 정보</div>
+                                  <div>평균 별정</div>
+                                  <div>거래 횟수</div>
+                                </Container>
+                                <Container direction="column" gap="7px" css={sectionContentStyle}>
+                                  <div>{hunterData.location}</div>
+                                  <div>
+                                    {hunterData.gender === 'male' ? '남성' : '여성'}
+                                    {' '}
+                                    |
+                                    {' '}
+                                    {hunterData.age_group}
+                                  </div>
+                                  <div>{hunterData.avg_score}</div>
+                                  <div>
+                                    {hunterData.trade_count}
+                                    회
+                                  </div>
+                                </Container>
+                              </Container>
                             </Container>
-                            <Container direction="column" gap="7px" css={sectionContentStyle}>
-                              <div>{hunterData?.location}</div>
-                              <div>
-                                {hunterData?.gender === 'male' ? '남성' : '여성'}
-                                {' '}
-                                |
-                                {' '}
-                                {hunterData?.age_group}
-                              </div>
-                              <div>{hunterData?.avg_score}</div>
-                              <div>
-                                {hunterData?.trade_count}
-                                회
-                              </div>
-                            </Container>
+                          </Container>
+                          <Container padding="10px" css={subBoxStyle}>
+                            {hunterData.pr_memo}
                           </Container>
                         </Container>
-                      </Container>
-                      <Container padding="10px" css={subBoxStyle}>
-                        {hunterData?.pr_memo}
-                      </Container>
+                        <Container direction="column">
+                          <Paragraph>후기</Paragraph>
+                          {hunterData.user_reviews?.slice(-2)
+                            .map((review) => (
+                              <Container key={review.created_at} direction="column" padding="12px 20px 9px 12px" gap="10px" css={reviewBoxStyle}>
+                                <Container align="flex-end" gap="8px" css={{ color: '#848484' }}>
+                                  <StarRating defaultValue={review.score} readOnly={true} size="small" />
+                                  <div>{new Date(review.created_at).toLocaleDateString()}</div>
+                                </Container>
+                                {review.review_note}
+                                <Container gap="3px" css={commentBoxStyle}>
+                                  {review.merit.map((merit) => (
+                                    <div key={`${review.created_at}-${merit}`}>{merit}</div>
+                                  ))}
+                                </Container>
+                              </Container>
+                            ))}
+                        </Container>
+                      </Slider>
                     </Container>
-                    <Container direction="column">
-                      <Paragraph>후기</Paragraph>
-                      {hunterData?.user_reviews?.slice(-2)
-                        .map((review) => (
-                          <Container key={review.created_at} direction="column" padding="12px 20px 9px 12px" gap="10px" css={reviewBoxStyle}>
-                            <Container align="flex-end" gap="8px" css={{ color: '#848484' }}>
-                              <StarRating defaultValue={review.score} readOnly={true} size="small" />
-                              <div>{new Date(review.created_at).toLocaleDateString()}</div>
-                            </Container>
-                            {review.review_note}
-                            <Container gap="3px" css={commentBoxStyle}>
-                              {review.merit.map((merit) => (
-                                <div key={`${review.created_at}-${merit}`}>{merit}</div>
-                              ))}
-                            </Container>
-                          </Container>
-                        ))}
+                    <Container direction="column" gap="6px">
+                      <Button onClick={handleOpenQuickChat}>수락하기</Button>
+                      <Button variant="secondary" onClick={handleOpenCancelled}>취소하기</Button>
                     </Container>
-                  </Slider>
-                </Container>
-                <Container direction="column" gap="6px">
-                  <Button onClick={handleOpenQuickChat}>수락하기</Button>
-                  <Button variant="secondary" onClick={handleOpenCancelled}>취소하기</Button>
-                </Container>
-              </Container>
+                  </Container>
+                </DefaultPaddedContainer>
+                <MoveToQuickChatBottomSheet
+                  matchId={hunterData.match_id}
+                  isOpen={isQuickChatOpen}
+                  onClose={handleCloseQuickChat}
+                />
+                <ConfirmCancelMatchingBottomSheet
+                  matchId={hunterData.match_id}
+                  isOpen={isCancelledOpen}
+                  onClose={handleCloseCancelled}
+                />
+              </>
             )
         }
-
-      </DefaultPaddedContainer>
-      <MoveToQuickChatBottomSheet isOpen={isQuickChatOpen} onClose={handleCloseQuickChat} />
-      <ConfirmCancelMatchingBottomSheet isOpen={isCancelledOpen} onClose={handleCloseCancelled} />
-    </>
+    </div>
   );
 }
 export default HunterApprovalPage;
