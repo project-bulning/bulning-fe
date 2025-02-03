@@ -5,6 +5,7 @@ import StarRating from '@components/starRating';
 import Button from '@components/button';
 import { css, useTheme } from '@emotion/react';
 import { useState } from 'react';
+import EndQuickChatBottomSheet from '@pages/afterHunting/EndQuickChatBottomSheet';
 
 function ReviewPage() {
   const theme = useTheme();
@@ -12,6 +13,7 @@ function ReviewPage() {
   const [selectedAdvantages, setSelectedAdvantages] = useState<string[]>([]);
   const [reviewText, setReviewText] = useState('');
   const [error, setError] = useState('');
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
   const advantages = [
     '친절해요',
@@ -78,64 +80,76 @@ function ReviewPage() {
     : css`
           background-color: ${theme.colors.background};
         `);
+
+  const handleOpenBottomSheet = () => {
+    setIsBottomSheetOpen(true);
+  };
+
+  const handleCloseBottomSheet = () => {
+    setIsBottomSheetOpen(false);
+  };
+
   return (
-    <DefaultPaddedContainer>
-      <form onSubmit={handleSubmit} css={{ width: '100%' }}>
-        <Container direction="column" padding="96px 0 10px 0" justify="space-between" height="100dvh">
-          <Container direction="column" gap="40px">
-            <Container direction="column" gap="5px">
-              <Heading.H3_5>오늘 사냥에 대한</Heading.H3_5>
-              <Heading.H3_5>후기를 입력해주세요</Heading.H3_5>
-            </Container>
-            <Container direction="column" gap="8px">
-              <Paragraph>별점</Paragraph>
-              <StarRating
-                defaultValue={selectedStars}
-                onChange={handleStarChange}
-              />
-            </Container>
-            <Container direction="column" gap="12px">
-              <Paragraph>장점</Paragraph>
-              <Container css={btnStyle}>
-                {advantages.map((advantage) => (
-                  <Button
-                    key={advantage}
-                    variant="select"
-                    onClick={() => handleAdvantageClick(advantage)}
-                    css={getButtonStyle(advantage)}
-                  >
-                    {advantage}
-                  </Button>
-                ))}
+    <>
+      <DefaultPaddedContainer>
+        <form onSubmit={handleSubmit} css={{ width: '100%' }}>
+          <Container direction="column" padding="96px 0 10px 0" justify="space-between" height="100dvh">
+            <Container direction="column" gap="40px">
+              <Container direction="column" gap="5px">
+                <Heading.H3_5>오늘 사냥에 대한</Heading.H3_5>
+                <Heading.H3_5>후기를 입력해주세요</Heading.H3_5>
               </Container>
-            </Container>
-            <Container direction="column" gap="8px">
-              <Container gap="4px" align="center">
-                <Paragraph>후기</Paragraph>
-                <Paragraph css={{ fontSize: '10px', color: theme.colors.text.subtle }}>상대방에게 공개되지 않는 글입니다</Paragraph>
+              <Container direction="column" gap="8px">
+                <Paragraph>별점</Paragraph>
+                <StarRating
+                  defaultValue={selectedStars}
+                  onChange={handleStarChange}
+                />
               </Container>
-              <textarea
-                placeholder="다음 사용자를 위해 솔직한 경험을 적어주세요"
-                css={{
-                  height: '200px',
-                  backgroundColor: '#F2F3F6',
-                  padding: '10px 13px',
-                  fontSize: '16px',
-                  borderRadius: '6px',
-                  border: 'none',
-                }}
-                value={reviewText}
-                onChange={handleReviewChange}
-              />
-            </Container>
-            {error && (
+              <Container direction="column" gap="12px">
+                <Paragraph>장점</Paragraph>
+                <Container css={btnStyle}>
+                  {advantages.map((advantage) => (
+                    <Button
+                      key={advantage}
+                      variant="select"
+                      onClick={() => handleAdvantageClick(advantage)}
+                      css={getButtonStyle(advantage)}
+                    >
+                      {advantage}
+                    </Button>
+                  ))}
+                </Container>
+              </Container>
+              <Container direction="column" gap="8px">
+                <Container gap="4px" align="center">
+                  <Paragraph>후기</Paragraph>
+                  <Paragraph css={{ fontSize: '10px', color: theme.colors.text.subtle }}>상대방에게 공개되지 않는 글입니다</Paragraph>
+                </Container>
+                <textarea
+                  placeholder="다음 사용자를 위해 솔직한 경험을 적어주세요"
+                  css={{
+                    height: '200px',
+                    backgroundColor: '#F2F3F6',
+                    padding: '10px 13px',
+                    fontSize: '16px',
+                    borderRadius: '6px',
+                    border: 'none',
+                  }}
+                  value={reviewText}
+                  onChange={handleReviewChange}
+                />
+              </Container>
+              {error && (
               <Paragraph css={{ color: 'red', fontSize: '12px' }}>{error}</Paragraph>
-            )}
+              )}
+            </Container>
+            <Button disabled={isSubmitDisabled} type="submit" onClick={handleOpenBottomSheet}>종료하기</Button>
           </Container>
-          <Button disabled={isSubmitDisabled} type="submit">종료하기</Button>
-        </Container>
-      </form>
-    </DefaultPaddedContainer>
+        </form>
+      </DefaultPaddedContainer>
+      <EndQuickChatBottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet} />
+    </>
   );
 }
 
