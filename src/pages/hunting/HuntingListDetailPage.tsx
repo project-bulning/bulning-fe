@@ -41,7 +41,7 @@ function HuntingListDetailPage() {
   }, [id, navigate]);
 
   const handleBtnClick = () => {
-    navigate(routePaths.HUNTER_INFO);
+    navigate(routePaths.HUNTER_INFO, { state: { id } });
   };
   return (
     <DefaultPaddedContainer>

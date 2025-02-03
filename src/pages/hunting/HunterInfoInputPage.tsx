@@ -11,7 +11,11 @@ import {
 } from 'react-hook-form';
 import ButtonSelector from '@pages/helpee/ButtonSelector';
 import { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 import { HunterInfo } from '@/types/user/hunter';
+import { submitHunterAlarm, submitHunterInfoForm } from '@/api/hunting';
+import { HunterInfoPost } from '@/types/hunting';
 
 export interface HunterInfoInputSectionProps {
   register: UseFormRegister<HunterInfo>;
@@ -41,6 +45,10 @@ function HunterInfoInputPage() {
     mode: 'onChange',
   });
 
+  const navigate = useNavigate();
+  const location = useLocation();
+  const reportId = location.state?.id;
+
   const [memoValue, setMemoValue] = useState('');
 
   const validations = {
@@ -58,10 +66,31 @@ function HunterInfoInputPage() {
     }
   };
 
-  const onSubmit = (data: HunterInfo) => {
-    // Todo: api 연결
+  const onSubmit = async (data: HunterInfo) => {
+    if (!reportId) {
+      console.error('reportId가 없습니다.');
+      return;
+    }
+
     const updatedData = { ...data, memo: memoValue };
     console.log('폼 데이터:', updatedData);
+
+    const hunterInfo: HunterInfoPost = {
+      gender: data.gender,
+      age_group: data.age,
+      location_detail: data.addressDetail,
+      pr_memo: memoValue,
+    };
+
+    try {
+      await submitHunterInfoForm(reportId, hunterInfo);
+      console.log('사냥 정보 제출 완료');
+      await submitHunterAlarm(reportId);
+      console.log('알람 요청 완료');
+      navigate(routePaths.MAIN);
+    } catch (error) {
+      console.error('사냥 정보 제출 중 오류 발생:', error);
+    }
   };
 
   return (
@@ -69,9 +98,16 @@ function HunterInfoInputPage() {
       <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
         <Container direction="column" padding="10px 0 10px 0" height="100dvh" justify="space-between">
           <Container direction="column">
-            <Container>
-              <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
-              <Heading.H3 css={{ marginLeft: '62px' }}>헌터 정보 입력</Heading.H3>
+            <Container justify="space-between" align="center">
+              <div
+                onClick={() => navigate(-1)}
+                css={{ cursor: 'pointer' }}
+                role="presentation"
+              >
+                <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
+              </div>
+              <Heading.H3_5>사냥 정보 입력</Heading.H3_5>
+              <div css={{ width: '32px' }} />
             </Container>
             <Container direction="column" padding="50px 0 0 0" gap="35px">
               {[
@@ -104,8 +140,8 @@ function HunterInfoInputPage() {
                 <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
                 <FormErrorMessage errors={errors} name="addressDetail" />
               </Container>
-              <Container direction="column" gap="4px">
-                <Paragraph>
+              <Container direction="column" gap="10px">
+                <Paragraph weight="semi-bold">
                   메모
                 </Paragraph>
                 <textarea

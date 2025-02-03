@@ -4,6 +4,7 @@ import React, {
 import { User } from '@/types/user';
 import { tokenStorage } from '@/utils/tokenStorage';
 import { getMyInfo } from '@/api/user';
+import { checkAndUpdateFcmToken, initForegroundMessageListener } from '@/api/firebase/firebaseCloudMessage';
 
 interface CurrentUserContextType {
   currentUser: User | undefined;
@@ -38,6 +39,14 @@ export function CurrentUserProvider({ children }: CurrentUserProviderProps) {
       setIsLoggedIn(false);
     }
   }, []);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      checkAndUpdateFcmToken();
+      initForegroundMessageListener();
+      console.log('Foreground 메시지 리스너가 등록됨');
+    }
+  }, [isLoggedIn]);
 
   const value = useMemo(
     () => ({

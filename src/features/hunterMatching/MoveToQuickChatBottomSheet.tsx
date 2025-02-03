@@ -4,16 +4,30 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
+import { useState } from 'react';
+import { updateMatchStatus } from '@/api/hunterMatching';
 
 interface MoveToQuickChatBottomSheetProps {
+  matchId: number;
   isOpen: boolean;
   onClose: () => void;
 }
 
-function MoveToQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSheetProps) {
+function MoveToQuickChatBottomSheet({ matchId, isOpen, onClose }: MoveToQuickChatBottomSheetProps) {
   const navigate = useNavigate();
-  const handleBtnClick = () => {
-    navigate(routePaths.INFO_SENT);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleBtnClick = async () => {
+    setLoading(true);
+    try {
+      await updateMatchStatus(matchId, true);
+      navigate(routePaths.INFO_SENT);
+      console.log('매칭 수락');
+    } catch (error) {
+      console.error('매칭 상태 업데이트 실패:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -30,7 +44,7 @@ function MoveToQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSh
           <Paragraph variant="medium" weight="regular">빠르게 도움을 요청하세요</Paragraph>
         </Container>
         <Container direction="column">
-          <Button onClick={handleBtnClick}>대화하러 가기</Button>
+          <Button onClick={handleBtnClick}>{loading ? '처리 중...' : '대화하러 가기'}</Button>
         </Container>
       </Container>
     </BottomSheet>

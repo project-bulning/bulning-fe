@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 
 function useStarRatingStyle(size: 'small' | 'medium' | 'large') {
   const sizeMap = {
-    small: '20px',
+    small: '16px',
     medium: '24px',
     large: '28px',
   };
@@ -11,7 +11,7 @@ function useStarRatingStyle(size: 'small' | 'medium' | 'large') {
 
   const starContainerStyle = css`
       display: flex;
-      gap: 4px;
+      gap: ${size === 'small' ? '1px' : '4px'};
       cursor: pointer;
   `;
 
