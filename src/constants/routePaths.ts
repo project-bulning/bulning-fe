@@ -14,6 +14,7 @@ const routePaths = {
   HUNTER_APPROVAL: '/hunter-approval',
   DEAL_PROCESS: '/deal-process',
   REVIEW: '/review',
+  CHAT: '/chat',
 };
 
 export default routePaths;
