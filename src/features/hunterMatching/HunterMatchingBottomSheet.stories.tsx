@@ -1,7 +1,5 @@
 import { Meta, StoryObj } from '@storybook/react';
 import { useState } from 'react';
-import MoveToQuickChatBottomSheet from '@features/hunterMatching/MoveToQuickChatBottomSheet';
-import ConfirmCancelMatchingBottomSheet from '@features/hunterMatching/ConfirmCancelMatchingBottomSheet';
 import { MemoryRouter } from 'react-router-dom';
 import TermsBottomSheet from '@features/hunterMatching/TermsBottomSheet';
 
@@ -38,24 +36,6 @@ function BottomSheetTemplate({
     </MemoryRouter>
   );
 }
-
-export const MoveToQuickChatBottomSheetStory: Story = {
-  render: (args) => <BottomSheetTemplate {...args} />,
-};
-MoveToQuickChatBottomSheetStory.args = {
-  isOpen: false,
-  toggleText: 'Toggle Announcement Bottom Sheet',
-  Component: MoveToQuickChatBottomSheet,
-};
-
-export const ConfirmCancelMatchingBottomSheetStory: Story = {
-  render: (args) => <BottomSheetTemplate {...args} />,
-};
-ConfirmCancelMatchingBottomSheetStory.args = {
-  isOpen: false,
-  toggleText: 'Toggle Camera Request Bottom Sheet',
-  Component: ConfirmCancelMatchingBottomSheet,
-};
 
 export const TermsBottomSheetStory: Story = {
   render: (args) => <BottomSheetTemplate {...args} />,

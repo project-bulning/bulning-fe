@@ -11,7 +11,7 @@ const routePaths = {
   DEAL_WAITING: '/deal-waiting',
   INFO_SENT: '/info-sent',
   HUNT_CANCELLED: '/cancelled',
-  HUNTER_APPROVAL: '/hunter-approval',
+  HUNTER_APPROVAL: '/hunter-approval/:userId',
   DEAL_PROCESS: '/deal-process',
   REVIEW: '/review',
   CHAT: '/chat',
