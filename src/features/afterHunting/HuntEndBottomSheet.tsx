@@ -4,12 +4,13 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import { useNavigate } from 'react-router-dom';
 import { HandleBottomSheetProps } from '@components/bottomSheet/handleBottomSheetProps';
+import routePaths from '@constants/routePaths';
 
 function HuntEndBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
   const navigate = useNavigate();
 
   const handleStartDeal = () => {
-    navigate('/');
+    navigate(routePaths.DEAL_PROCESS);
   };
 
   return (

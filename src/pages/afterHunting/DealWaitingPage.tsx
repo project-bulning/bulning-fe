@@ -5,6 +5,7 @@ import Container from '@components/container';
 import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import routePaths from '@constants/routePaths.ts';
 
 function DealWaitingPage() {
   const {
@@ -17,8 +18,7 @@ function DealWaitingPage() {
   const [status, setStatus] = useState<boolean>(false);
 
   const handleNavigate = () => {
-    // TODO: 후기 페이지로 이동
-    navigate('/');
+    navigate(routePaths.REVIEW);
   };
 
   useEffect(() => {

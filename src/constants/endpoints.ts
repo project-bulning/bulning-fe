@@ -7,6 +7,7 @@ const endpoints = {
     create: `${prefix}/bug-reports`,
     uploadImage: `${prefix}/bug-reports/image`,
   },
+  endHunting: `${prefix}/hunting`,
 };
 
 export default endpoints;

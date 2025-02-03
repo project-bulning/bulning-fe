@@ -15,6 +15,7 @@ import DealProcessPage from '@pages/afterHunting/DealProcessPage';
 import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage';
 import ProfilePage from '@pages/login/ProfilePage';
 import ReviewPage from '@pages/afterHunting/ReviewPage';
+import ChatPage from '@pages/chat/ChatPage';
 
 const router = createBrowserRouter([
   {
@@ -105,6 +106,12 @@ const router = createBrowserRouter([
     path: routePaths.REVIEW,
     element: (
       <ReviewPage />
+    ),
+  },
+  {
+    path: routePaths.CHAT,
+    element: (
+      <ChatPage />
     ),
   },
 ]);
