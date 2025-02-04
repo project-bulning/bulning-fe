@@ -14,6 +14,7 @@ const endpoints = {
     uploadImage: `${prefix}/bug-reports/image`,
   },
   endHunting: `${prefix}/hunting`,
+  review: `${prefix}/review`,
   fcmToken: `${prefix}/alarm/fcm-token`,
 };
 
