@@ -6,6 +6,7 @@ import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageSty
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
+import { getMyInfo } from '@/api/user';
 
 function DealWaitingPage() {
   const {
@@ -14,11 +15,32 @@ function DealWaitingPage() {
   } = useAfterHuntingPageStyle();
 
   const navigate = useNavigate();
-
   const [status, setStatus] = useState<boolean>(false);
+  const [matchId, setMatchId] = useState<number | null>(null);
+  const [isHelper, setIsHelper] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const userInfo = await getMyInfo();
+        if (userInfo.match) {
+          setMatchId(userInfo.match.id);
+          setIsHelper(userInfo.match.helper_id === userInfo.id);
+        }
+      } catch (error) {
+        console.error('사용자 정보를 가져오는 데 실패했습니다.', error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
 
   const handleNavigate = () => {
-    navigate(routePaths.REVIEW);
+    if (isHelper && matchId !== null) {
+      navigate(`${routePaths.REVIEW}/${matchId}`);
+    } else {
+      navigate(routePaths.MAIN);
+    }
   };
 
   useEffect(() => {

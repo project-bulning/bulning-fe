@@ -13,7 +13,7 @@ const routePaths = {
   HUNT_CANCELLED: '/cancelled',
   HUNTER_APPROVAL: '/hunter-approval/:userId',
   DEAL_PROCESS: '/deal-process',
-  REVIEW: '/review',
+  REVIEW: '/review/:matchId',
   CHAT: '/chat',
 };
 
