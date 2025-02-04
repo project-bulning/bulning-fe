@@ -6,11 +6,20 @@ import RedAlertIcon from '@assets/icons/red-alert.svg';
 import useBannerStyle from '@features/main/banner/useBannerStyle';
 import { useState } from 'react';
 import CameraRequestBottomSheet from '@features/helpee/CameraRequestBottomSheet';
+import { useNavigate } from 'react-router-dom';
+import { useCurrentUser } from '@providers/CurrentUserProvider.tsx';
+import routePaths from '@constants/routePaths.ts';
 
 function RequestHelpBanner() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const navigate = useNavigate();
 
+  const { isLoggedIn } = useCurrentUser();
   const handleInfoRegist = ():void => {
+    if (!isLoggedIn) {
+      navigate(routePaths.LOGIN);
+      return;
+    }
     setIsBottomSheetOpen(true);
   };
 
