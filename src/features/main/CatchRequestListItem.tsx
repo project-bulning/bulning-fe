@@ -3,19 +3,29 @@ import { CSSObject, useTheme } from '@emotion/react';
 import Container from '@components/container';
 import urgency from '@assets/icons/urgency.svg';
 import location from '@assets/icons/location.svg';
-import { CatchRequest } from '@/types/request';
+import { BugReport } from '@/types/bug-report';
 
-interface RequestItemProps {
-  request: CatchRequest;
+interface HuntingItemProps {
+  request: BugReport;
 }
 
-function CatchRequestListItem({ request }: RequestItemProps) {
+function CatchRequestListItem({ request }: HuntingItemProps) {
   const theme = useTheme();
+
+  const titleStyle: CSSObject = {
+    display: 'block',
+    overflow: 'inherit',
+    whiteSpace: 'nowrap',
+    width: '60px',
+    textOverflow: 'ellipsis',
+  };
 
   const paragraphStyle: CSSObject = {
     display: 'inline-block',
-    overflow: 'hidden',
+    overflow: 'inherit',
     whiteSpace: 'nowrap',
+    width: 'fit-content',
+    maxWidth: '60px',
     textOverflow: 'ellipsis',
   };
 
@@ -32,11 +42,20 @@ function CatchRequestListItem({ request }: RequestItemProps) {
       width="100%"
       css={{
         borderBottom: '0.5px solid rgba(77, 93, 117, 0.50)',
-        minWidth: '342px',
-        minHeight: '118px',
       }}
     >
-      <img src={request.image_url} alt="image_url" css={{ width: '80px', height: '80px' }} />
+      {request.bug_image_url ? (
+        <img src={request.bug_image_url} alt="image_url" css={{ width: '80px', height: '80px' }} />
+      ) : (
+        <Container
+          css={{
+            width: '80px',
+            height: '80px',
+            minWidth: '80px',
+            backgroundColor: '#f0f0f0',
+          }}
+        />
+      )}
       <Container
         direction="column"
         justify="flex-start"
@@ -46,17 +65,22 @@ function CatchRequestListItem({ request }: RequestItemProps) {
           overflow: 'hidden',
         }}
       >
-        <Container justify="flex-start" gap="2px">
+        <Container gap="2px" width="20px">
           <img src={urgency} alt="urgency" css={{ width: '21px', height: '21px' }} />
-          <Paragraph weight="medium" css={{ ...paragraphStyle }}>{request.title}</Paragraph>
+          <Paragraph weight="medium" css={{ ...titleStyle }}>{request.title}</Paragraph>
         </Container>
-        <Container justify="space-between" align="center" css={{ paddingLeft: '19px' }}>
-          <Paragraph css={{ ...subParagraphStyle, flex: 2 }}>{request.location}</Paragraph>
+        <Container justify="space-between" align="center" gap="1px" css={{ paddingLeft: '19px', maxWidth: '130px' }}>
+          <Paragraph css={{ ...subParagraphStyle }}>{request.location}</Paragraph>
           <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
-          <img src={location} alt="urgency" css={{ width: '18px', height: '18px' }} />
-          <Paragraph css={{ ...subParagraphStyle, flex: 1 }}>{request.how_far}</Paragraph>
+          <Container align="center" width="fit-content">
+            <img src={location} alt="location" css={{ width: '18px', height: '18px' }} />
+            <Paragraph css={{ ...subParagraphStyle }}>
+              {request.distance}
+              m
+            </Paragraph>
+          </Container>
           <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
-          <Paragraph css={{ ...subParagraphStyle, flex: 1.2 }}>{request.how_long}</Paragraph>
+          <Paragraph css={{ ...subParagraphStyle }}>{request.created_at}</Paragraph>
         </Container>
         <Paragraph variant="small" weight="semi-bold" css={{ ...paragraphStyle, paddingLeft: '19px' }}>
           {request.price}
