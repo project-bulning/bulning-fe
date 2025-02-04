@@ -17,7 +17,100 @@ function PrivacyDetailBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
         </Container>
         <Container direction="column" gap="40px" css={scrollContainerStyle}>
           <Heading.H3 weight="semi-bold">개인정보 수집 및 이용 동의</Heading.H3>
-          <Container direction="column" gap="2px" css={{ lineHeight: '15px' }}>
+          <Container direction="column" gap="3px" css={{ lineHeight: '15px' }}>
+            <Paragraph variant="xsmall" weight="semi-bold">[회원가입 시 수집하는 필수 항목 고지]</Paragraph>
+            <table css={{ fontSize: '11px' }}>
+              <thead
+                css={{
+                  backgroundColor: '#F5F5F5',
+                  height: '33px',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <tr
+                  css={{
+                    display: 'flex',
+                    width: '100%',
+                    justifyContent: 'space-between',
+                  }}
+                >
+                  <th
+                    css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '33%',
+                    }}
+                  >
+                    목적
+                  </th>
+                  <th
+                    css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '33%',
+                    }}
+                  >
+                    항목
+                  </th>
+                  <th
+                    css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '33%',
+                    }}
+                  >
+                    보유기간
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr css={{
+                  display: 'flex',
+                  width: '100%',
+                  justifyContent: 'space-between',
+                }}
+                >
+                  <td
+                    css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '33%',
+                      padding: '20px 20px',
+                    }}
+                  >
+                    이용자 식별 및 회원관리, 정보 연동
+                  </td>
+                  <td
+                    css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '33%',
+                      padding: '20px 20px',
+                    }}
+                  >
+                    고객 ID, 성별, 이름, 위치정보, 프로필 사진
+                  </td>
+                  <td
+                    css={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '33%',
+                      padding: '20px 20px',
+                    }}
+                  >
+                    회원 탈퇴 시 까지
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
             <Paragraph variant="xsmall" weight="semi-bold">제1조 (개인정보의 수집 및 이용 목적)</Paragraph>
             <Paragraph variant="xsmall">
               회사는 회원가입, 서비스 제공, 회원관리 등을 위해 아래와 같은 개인정보를 수집하고 이용합니다:
@@ -39,7 +132,8 @@ function PrivacyDetailBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
             <Spacing height="10px" />
             <Paragraph variant="xsmall" weight="semi-bold">제3조 (개인정보의 보유 및 이용기간)</Paragraph>
             <Paragraph variant="xsmall">
-              회사는 원칙적으로 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 다만, 관계 법령에 따라 일정 기간 보관할 필요가 있는 경우 해당 법령에서 정한 기간 동안 보유합니다.
+              회사는 원칙적으로 개인정보 수집 및 이용 목적이 달성된 후에는 해당 정보를 지체 없이 파기합니다. 다만, 관계 법령에 따라 일정 기간 보관할 필요가 있는 경우 해당 법령에서 정한 기간 동안
+              보유합니다.
             </Paragraph>
             <Spacing height="10px" />
             <Paragraph variant="xsmall" weight="semi-bold">제4조 (개인정보의 파기절차 및 방법)</Paragraph>
