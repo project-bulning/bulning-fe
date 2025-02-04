@@ -20,6 +20,18 @@ function DealProcessPage() {
 
   const [matchId, setMatchId] = useState<number | null>(null);
   const [price, setPrice] = useState<number | null>(null);
+  const [tradeCompleted, setTradeCompleted] = useState<boolean>(false);
+
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data?.type === 'TRADE_COMPLETED') {
+          console.log('거래 완료 알림이 수신됨:', event.data);
+          setTradeCompleted(true);
+        }
+      });
+    }
+  }, []);
 
   useEffect(() => {
     async function fetchMyInfo() {
@@ -59,8 +71,14 @@ function DealProcessPage() {
       if (matchId == null) {
         return;
       }
+
       await sendTradeCompleteNotification(matchId);
-      navigate(routePaths.DEAL_WAITING);
+
+      if (tradeCompleted) {
+        navigate(routePaths.REVIEW.replace(':matchId', String(matchId)));
+      } else {
+        navigate(routePaths.DEAL_WAITING);
+      }
     } catch (error) {
       console.error(error);
     }
