@@ -2,9 +2,12 @@ import { css } from '@emotion/react';
 
 function useSignUpStyle() {
   const allCheckStyle = css`
-      font-size: 18px;
       padding-bottom: 20px;
       border-bottom: 1px solid rgba(116, 115, 115, 0.4);
+      label { 
+        font-size: 18px;
+        font-weight: 600;
+      }
   `;
 
   const detailStyle = css`
