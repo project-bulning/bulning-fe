@@ -54,7 +54,6 @@ function HuntingListItem({ request }: HuntingItemProps) {
           }}
         />
       )}
-      {' '}
       <Container
         direction="column"
         justify="center"
