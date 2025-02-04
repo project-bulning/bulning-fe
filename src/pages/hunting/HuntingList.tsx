@@ -6,9 +6,10 @@ import { DefaultPaddedContainer } from '@components/container/variants';
 import alarmLight from '@assets/icons/alarm-lighter.svg';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
 import routePaths from '@constants/routePaths.ts';
-import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import Navbar from '@components/navbar';
+import { useCurrentUser } from '@providers/CurrentUserProvider.tsx';
+import { useNavigate } from 'react-router-dom';
 import { getBugReportList } from '@/api/bugReports';
 import { BugReport } from '@/types/bug-report';
 
@@ -17,6 +18,8 @@ function HuntingList() {
   const [visibleCount, setVisibleCount] = useState(10);
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
+  const { isLoggedIn } = useCurrentUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLocation = () => {
@@ -38,6 +41,14 @@ function HuntingList() {
 
     fetchLocation();
   }, []);
+
+  const handleClick = (id: number, distance: number) => {
+    if (!isLoggedIn) {
+      navigate(routePaths.LOGIN);
+      return;
+    }
+    navigate(routePaths.BUG_REPORT_DETAIL, { state: { id, distance } });
+  };
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -90,16 +101,15 @@ function HuntingList() {
             css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
           >
             {requests.slice(0, visibleCount).map((request) => (
-              <Link
-                to={{ pathname: routePaths.BUG_REPORT_DETAIL }}
+              <Container
                 key={request.id}
-                state={{ id: request.id, distance: request.distance }}
-                css={{ textDecoration: 'none', color: 'inherit' }}
+                onClick={() => handleClick(request.id, request.distance)}
+                css={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
               >
                 <HuntingListItem
                   request={request}
                 />
-              </Link>
+              </Container>
             ))}
           </Grid>
           {visibleCount < requests.length && (
