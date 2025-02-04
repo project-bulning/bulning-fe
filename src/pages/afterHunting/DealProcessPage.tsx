@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import { getMyInfo } from '@/api/user';
-import { getHuntingPrice } from '@/api/afterHunting';
+import { getHuntingPrice, sendTradeCompleteNotification } from '@/api/afterHunting';
 
 function DealProcessPage() {
   const {
@@ -54,8 +54,16 @@ function DealProcessPage() {
 
   const navigate = useNavigate();
 
-  const handleBtnClick = () => {
-    navigate(routePaths.DEAL_WAITING);
+  const handleBtnClick = async () => {
+    try {
+      if (matchId == null) {
+        return;
+      }
+      await sendTradeCompleteNotification(matchId);
+      navigate(routePaths.DEAL_WAITING);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

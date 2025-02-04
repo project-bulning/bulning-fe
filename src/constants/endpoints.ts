@@ -15,7 +15,7 @@ const endpoints = {
   },
 
   huntingPrice: `${prefix}/hunting`,
-
+  huntingTrade: `${prefix}/hunting/trade`,
   endHunting: `${prefix}/hunting`,
   review: `${prefix}/review`,
   fcmToken: `${prefix}/alarm/fcm-token`,

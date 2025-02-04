@@ -33,3 +33,15 @@ export async function getHuntingPrice(matchId: number): Promise<number> {
     throw error;
   }
 }
+
+export async function sendTradeCompleteNotification(matchId: number): Promise<void> {
+  const url = `${endpoints.huntingTrade}/${matchId}`;
+
+  try {
+    await axiosInstance.post(url);
+    console.log(`거래완료 알림 전송됨: ${matchId}`);
+  } catch (error) {
+    console.error('거래완료 알린 전송 에러:', error);
+    throw error;
+  }
+}
