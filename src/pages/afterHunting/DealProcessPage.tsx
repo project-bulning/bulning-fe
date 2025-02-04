@@ -6,18 +6,8 @@ import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageSty
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
-import { BugReport } from '@/types/bug-report';
-
-const mockBugReport: BugReport = {
-  id: 1,
-  title: '긴급 벌레 퇴치 요청',
-  created_at: '2025-01-27 06:56:53',
-  status: 'WAITING_MATCH',
-  bug_image_url: 'https://example.com/bug.jpg',
-  price: 5000,
-  location: '부산 광역시 금정구 장전1동',
-  distance: 300,
-};
+import { getMyInfo } from '@/api/user';
+import { getHuntingPrice } from '@/api/afterHunting';
 
 function DealProcessPage() {
   const {
@@ -28,17 +18,43 @@ function DealProcessPage() {
     explainStyle,
   } = useAfterHuntingPageStyle();
 
-  const [bugReportData, setBugReportData] = useState<BugReport>();
+  const [matchId, setMatchId] = useState<number | null>(null);
+  const [price, setPrice] = useState<number | null>(null);
 
   useEffect(() => {
-    setBugReportData(mockBugReport);
+    async function fetchMyInfo() {
+      try {
+        const data = await getMyInfo();
+        setMatchId(data?.match?.id ?? null);
+      } catch (error) {
+        console.error('Error fetching my info:', error);
+      }
+    }
+
+    fetchMyInfo();
   }, []);
 
-  const formatPrice = (price: number) => new Intl.NumberFormat('en-US').format(price);
+  useEffect(() => {
+    async function fetchBugReport() {
+      try {
+        if (matchId === null) return;
+        const data = await getHuntingPrice(matchId);
+        setPrice(data);
+      } catch (error) {
+        console.error('Error fetching bug report:', error);
+      }
+    }
+
+    if (matchId !== null) {
+      fetchBugReport();
+    }
+  }, [matchId]);
+
+  const formatPrice = (rawPrice: number) => new Intl.NumberFormat('en-US').format(rawPrice);
 
   const navigate = useNavigate();
 
-  const handleNavigate = () => {
+  const handleBtnClick = () => {
     navigate(routePaths.DEAL_WAITING);
   };
 
@@ -56,7 +72,7 @@ function DealProcessPage() {
       <Container gap="22px" align="center" justify="center">
         <Heading.H4>계약 금액</Heading.H4>
         <Container css={priceStyle}>
-          {bugReportData ? formatPrice(bugReportData.price) : '0'}
+          {price ? formatPrice(price) : ''}
         </Container>
       </Container>
       <Container css={ulStyle}>
@@ -68,7 +84,7 @@ function DealProcessPage() {
       </Container>
       <Container css={btnPositionStyle}>
         <Paragraph css={explainStyle}>계좌이체의 경우 송금 내역을 확인 후 버튼을 눌러주세요.</Paragraph>
-        <Button onClick={handleNavigate}>완료했어요</Button>
+        <Button onClick={handleBtnClick}>완료했어요</Button>
       </Container>
     </DefaultPaddedContainer>
   );

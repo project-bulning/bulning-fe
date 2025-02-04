@@ -21,3 +21,15 @@ export async function submitReview(matchId: number, data: ReviewFormData): Promi
     },
   });
 }
+
+export async function getHuntingPrice(matchId: number): Promise<number> {
+  const url = `${endpoints.huntingPrice}/${matchId}/price`;
+
+  try {
+    const response = await axiosInstance.get<{ price: number }>(url);
+    return response.data.price;
+  } catch (error) {
+    console.error('Error fetching hunting price:', error);
+    throw error;
+  }
+}
