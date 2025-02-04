@@ -37,7 +37,7 @@ function DealWaitingPage() {
 
   const handleNavigate = () => {
     if (isHelper && matchId !== null) {
-      navigate(`${routePaths.REVIEW}/${matchId}`);
+      navigate(routePaths.REVIEW.replace(':matchId', String(matchId)));
     } else {
       navigate(routePaths.MAIN);
     }
