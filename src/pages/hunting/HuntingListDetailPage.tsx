@@ -60,7 +60,6 @@ function HuntingListDetailPage() {
             }}
           />
         )}
-        {/* <img src={bugReport?.bug_image_url || ''} alt="back" css={{ width: '100%', height: '180px', marginTop: '30px' }} /> */}
         <Container direction="column" padding="35px 0 30px 0" gap="10px">
           <Heading.H5 weight="medium">{bugReport?.name}</Heading.H5>
           <Heading.H5 weight="medium">{bugReport?.title}</Heading.H5>
