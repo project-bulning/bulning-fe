@@ -35,9 +35,18 @@ self.addEventListener("push", (event) => {
 self.addEventListener("notificationclick", (event) => {
     event.notification.close();
 
-    const userId = event.notification.data?.user;
+    const data = event.notification.data || {};
+    let url = "/";
 
-    const url = userId ? `/hunter-approval/${userId}` : "/";
+    if (data.type === "hunter_applied" && data.user) {
+        url = `/hunter-approval/${data.user}`;
+    } else if (data.type === "hunter_accepted") {
+        url = "/chat";
+    } else if (data.type === "hunter_ejected") {
+        url = "/";
+    } else if (data.type === "help_posted") {
+        url = "/";
+    }
 
     console.log(url);
 
