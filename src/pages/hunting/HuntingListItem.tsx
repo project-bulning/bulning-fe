@@ -11,12 +11,21 @@ interface HuntingItemProps {
 function HuntingListItem({ request }: HuntingItemProps) {
   const theme = useTheme();
 
+  const titleStyle: CSSObject = {
+    display: 'block',
+    overflow: 'inherit',
+    whiteSpace: 'nowrap',
+    width: '60px',
+    textOverflow: 'ellipsis',
+  };
+
   const paragraphStyle: CSSObject = {
     display: 'inline-block',
-    overflow: 'hidden',
+    overflow: 'inherit',
     whiteSpace: 'nowrap',
+    width: 'fit-content',
+    maxWidth: '60px',
     textOverflow: 'ellipsis',
-    paddingLeft: '19px',
   };
 
   const subParagraphStyle: CSSObject = {
@@ -27,8 +36,25 @@ function HuntingListItem({ request }: HuntingItemProps) {
   };
 
   return (
-    <Container padding="19px 35px 19px 0" gap="10px" css={{ maxWidth: '350px', borderBottom: '0.5px solid rgba(77, 93, 117, 0.50)' }}>
-      <img src={request.bug_image_url || ''} alt="image_url" css={{ width: '80px', height: '80px', flexShrink: 0 }} />
+    <Container
+      padding="19px 35px 19px 0"
+      gap="10px"
+      width="100%"
+      css={{ borderBottom: '0.5px solid rgba(77, 93, 117, 0.50)' }}
+    >
+      {request.bug_image_url ? (
+        <img src={request.bug_image_url} alt="image_url" css={{ width: '80px', height: '80px' }} />
+      ) : (
+        <Container
+          css={{
+            width: '80px',
+            height: '80px',
+            minWidth: '80px',
+            backgroundColor: '#f0f0f0',
+          }}
+        />
+      )}
+      {' '}
       <Container
         direction="column"
         justify="center"
@@ -38,16 +64,16 @@ function HuntingListItem({ request }: HuntingItemProps) {
           overflow: 'hidden',
         }}
       >
-        <Container justify="flex-start" gap="2px">
-          <Paragraph weight="medium" css={{ ...paragraphStyle }}>{request.title}</Paragraph>
+        <Container>
+          <Paragraph weight="medium" css={{ ...titleStyle }}>{request.title}</Paragraph>
         </Container>
-        <Container justify="flex-start" align="center" gap="2px" css={{ paddingLeft: '19px' }}>
+        <Container justify="flex-start" align="center" gap="2px">
           <Paragraph css={{ ...subParagraphStyle }}>{request.location}</Paragraph>
           <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
           <img src={location} alt="location" css={{ width: '18px', height: '18px' }} />
           <Paragraph css={{ ...subParagraphStyle }}>{`${request.distance} m`}</Paragraph>
           <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
-          <Paragraph css={{ ...subParagraphStyle }}>{`${request.created_at}분 전`}</Paragraph>
+          <Paragraph css={{ ...subParagraphStyle }}>{`${request.created_at}`}</Paragraph>
         </Container>
         <Paragraph variant="small" weight="semi-bold" css={{ ...paragraphStyle }}>
           {request.price}

@@ -3,12 +3,12 @@ import { Heading } from '@components/text';
 import Container from '@components/container';
 import Grid from '@components/grid';
 import { DefaultPaddedContainer } from '@components/container/variants';
-import search from '@assets/icons/search.svg';
 import alarmLight from '@assets/icons/alarm-lighter.svg';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
-import Button from '@components/button';
 import routePaths from '@constants/routePaths.ts';
 import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
+import Navbar from '@components/navbar';
 import { getBugReportList } from '@/api/bugReports';
 import { BugReport } from '@/types/bug-report';
 
@@ -61,15 +61,20 @@ function HuntingList() {
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10);
   };
+
+  const addMoreBtnStyle = css`
+    width: 100%;
+    font-size: 15px;
+    border: none;
+    background-color: inherit;
+  `;
+
   return (
     <DefaultPaddedContainer>
-      <Container direction="column">
+      <Container direction="column" padding="10px 0px 90px 0">
         <Container justify="space-between" align="center">
-          <Container>
+          <Container justify="space-between" align="center">
             <Heading.H5 css={{ fontWeight: 600 }}>가까운 순</Heading.H5>
-          </Container>
-          <Container width="auto" gap="8px" align="center">
-            <img src={search} alt="검색하기" css={{ width: '21px', height: '21px' }} />
             <img src={alarmLight} alt="알림보기" css={{ width: '30px', height: '30px' }} />
           </Container>
         </Container>
@@ -99,11 +104,12 @@ function HuntingList() {
           </Grid>
           {visibleCount < requests.length && (
           <Container justify="center" css={{ marginTop: '16px' }}>
-            <Button onClick={handleLoadMore}>더보기</Button>
+            <button type="button" onClick={handleLoadMore} css={addMoreBtnStyle}>더보기 +</button>
           </Container>
           )}
         </Container>
       </Container>
+      <Navbar />
     </DefaultPaddedContainer>
   );
 }
