@@ -47,7 +47,20 @@ function HuntingListDetailPage() {
     <DefaultPaddedContainer>
       <Container direction="column" padding="10px 0 10px 0">
         <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
-        <img src={bugReport?.bug_image_url || ''} alt="back" css={{ width: '100%', height: '180px', marginTop: '30px' }} />
+        {bugReport?.bug_image_url ? (
+          <img src={bugReport.bug_image_url} alt="image_url" css={{ width: '100%', height: '180px', marginTop: '30px' }} />
+        ) : (
+          <Container
+            css={{
+              width: '100%px',
+              height: '180px',
+              minWidth: '80px',
+              marginTop: '30px',
+              backgroundColor: '#f0f0f0',
+            }}
+          />
+        )}
+        {/* <img src={bugReport?.bug_image_url || ''} alt="back" css={{ width: '100%', height: '180px', marginTop: '30px' }} /> */}
         <Container direction="column" padding="35px 0 30px 0" gap="10px">
           <Heading.H5 weight="medium">{bugReport?.name}</Heading.H5>
           <Heading.H5 weight="medium">{bugReport?.title}</Heading.H5>
