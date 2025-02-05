@@ -121,6 +121,8 @@ function HunterInfoInputPage() {
                 label, name, options,
               }) => (
                 <Container
+                  direction="column"
+                  gap="4px"
                   css={inputBtnStyle}
                   key={name}
                 >
