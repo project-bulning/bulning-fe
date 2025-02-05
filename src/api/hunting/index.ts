@@ -1,6 +1,16 @@
 import endpoints from '@constants/endpoints.ts';
-import { HunterInfoPost } from '@/types/hunting';
+import { HunterInfoPost, UserInfoPost } from '@/types/hunting';
 import axiosInstance from '@/utils/network';
+
+export async function submitInfoForm(data: UserInfoPost): Promise<void> {
+  const url = `${endpoints.submitHunterInfo}`;
+
+  await axiosInstance.post(url, data, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
 
 export async function submitHunterInfoForm(reportId: number, data: HunterInfoPost): Promise<void> {
   const url = `${endpoints.submitHunterInfo}?reportId=${reportId}`;

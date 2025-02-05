@@ -11,14 +11,15 @@ import Select from '@components/select';
 import { useEffect, useState } from 'react';
 import useFormPageStyle from '@pages/helpee/useFormPageStyle';
 import SignUpBottomSheet from '@features/signUp/SignUpBottomSheet';
-import { MembershipResponse } from '@/types/user';
-import { getMyInfo, submitPersonalInfo } from '@/api/user';
+import { getMyInfo } from '@/api/user';
+import { submitInfoForm } from '@/api/hunting';
+import { UserInfoPost } from '@/types/hunting';
 
 export interface MembershipProps {
-  register: UseFormRegister<MembershipResponse>;
-  formState: FormState<MembershipResponse>;
-  control: Control<MembershipResponse>;
-  setValue?: UseFormSetValue<MembershipResponse>;
+  register: UseFormRegister<UserInfoPost>;
+  formState: FormState<UserInfoPost>;
+  control: Control<UserInfoPost>;
+  setValue?: UseFormSetValue<UserInfoPost>;
 }
 
 declare global {
@@ -35,8 +36,8 @@ function MembershipPage() {
   const [dongList, setDongList] = useState<any[]>([]);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [userName, setUserName] = useState<string>('');
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+  const [latitude, setLatitude] = useState<number>(0);
+  const [longitude, setLongitude] = useState<number>(0);
 
   const closeBottomSheet = (): void => {
     setIsBottomSheetOpen(false);
@@ -51,7 +52,7 @@ function MembershipPage() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<MembershipResponse>({
+  } = useForm<UserInfoPost>({
     defaultValues: {
       nickname: '',
       location: '',
@@ -148,24 +149,25 @@ function MembershipPage() {
     }
   };
 
-  const onSubmit = async (data: MembershipResponse) => {
+  const onSubmit = async (data: UserInfoPost) => {
+    const { nickname } = data;
     const { sido, sigugun, dong } = selectedLocation;
 
     const sidoName = sidoList.find((item) => item.sido === sido)?.codeNm || '';
     const sigugunName = sigugunList.find((item) => item.sigugun === sigugun)?.codeNm || '';
     const dongName = dongList.find((item) => item.dong === dong)?.codeNm || '';
 
-    const location = `${sidoName} ${sigugunName} ${dongName}`;
+    const locationName = `${sidoName} ${sigugunName} ${dongName}`;
 
     const formData = {
-      ...data,
-      location: location.trim(),
+      nickname,
+      location: locationName,
       latitude,
       longitude,
     };
 
     try {
-      await submitPersonalInfo(formData);
+      await submitInfoForm(formData);
       setIsBottomSheetOpen(true);
       console.log('폼 데이터:', formData);
     } catch (error) {

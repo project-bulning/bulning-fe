@@ -13,8 +13,6 @@ export interface User {
   fcm_token: string;
   pr_memo: string;
   location_detail: string;
-  latitude: number | null;
-  longitude: number | null;
   match: {
     id: number;
     bug_report_id: number;
@@ -26,5 +24,4 @@ export interface User {
   } | null;
 }
 
-export type MyInfoResponse = Omit<User, 'latitude' | 'longitude'>;
-export type MembershipResponse = Pick<User, 'nickname' | 'location' | 'latitude' | 'longitude'>;
+export type MyInfoResponse = User;
