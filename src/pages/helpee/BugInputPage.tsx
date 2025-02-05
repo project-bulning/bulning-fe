@@ -16,6 +16,7 @@ import AnnouncementBottomSheet from '@features/helpee/AnnouncementBottomSheet';
 import routePaths from '@constants/routePaths.ts';
 import { Link, useLocation } from 'react-router-dom';
 import { BugInfo } from '@/types/bug';
+import { getHunterLocation } from '@/api/hunterMatching';
 
 export interface BugInputSectionProps {
   register: UseFormRegister<BugInfo>;
@@ -53,6 +54,37 @@ function BugInputPage() {
   const bugImage = location.state?.croppedImage;
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [hunterLocation, setHunterLocation] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { longitude, latitude } = position.coords;
+            try {
+              const hunterInfo = await getHunterLocation(longitude, latitude);
+              if (hunterInfo.documents.length > 0) {
+                const fetchedAddress = `${hunterInfo.documents[0].region_1depth_name} ${hunterInfo.documents[0].region_2depth_name} ${hunterInfo.documents[0].region_3depth_name}`;
+                setValue('location', fetchedAddress);
+                setHunterLocation(`${hunterInfo.documents[0].region_1depth_name} ${hunterInfo.documents[0].region_2depth_name} ${hunterInfo.documents[0].region_3depth_name}`);
+              }
+            } catch (error) {
+              console.error('주소를 가져오는 중 오류 발생:', error);
+            }
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+          },
+          { enableHighAccuracy: true },
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    };
+
+    fetchLocation();
+  }, [setValue]);
 
   useEffect(() => {
     if (bugImage instanceof File) {
@@ -73,19 +105,37 @@ function BugInputPage() {
   };
 
   const validations = {
-    title: { required: { value: true, message: '제목을 입력하세요.' } },
-    location: { required: { value: true, message: '주소를 입력하세요.' } },
+    title: {
+      required: { value: true, message: '제목을 입력하세요.' },
+      maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
+    },
+    location: {
+      required: { value: true, message: '주소를 입력하세요.' },
+      maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
+    },
     location_detail: { required: { value: true, message: '상세 주소를 입력하세요.' } },
-    bug_type: { required: { value: true, message: '벌레 종류를 알려주세요.' } },
-    bug_size: { required: { value: true, message: '벌레 크기를 알려주세요.' } },
-    equipment: { required: { value: true, message: '보유 물품을 알려주세요.' } },
+    bug_type: {
+      required: { value: true, message: '벌레 종류를 알려주세요.' },
+      maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
+    },
+    bug_size: {
+      required: { value: true, message: '벌레 크기를 알려주세요.' },
+      maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
+    },
+    equipment: {
+      required: { value: true, message: '보유 물품을 알려주세요.' },
+      maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
+    },
     note: { required: { value: true, message: '상황을 설명해주세요.' } },
     price: {
       required: { value: true, message: '가격을 정해주세요.' },
       validate: {
+        isNumber: (value: string | number) => !Number.isNaN(Number(value)) || '숫자만 입력할 수 있습니다.',
         minPrice: (value: string | number) => Number(value) >= 3000 || '최소 가격 설정은 3,000원입니다.',
+        maxPrice: (value: string | number) => Number(value) <= 100000 || '최대 가격은 100,000원입니다.',
       },
     },
+
   };
 
   const handleSituationChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -161,10 +211,9 @@ function BugInputPage() {
                 <Input
                   type="text"
                   label="주소"
-                  placeholder="부산광역시 금정구 장전1동"
-                  {...register('location', validations.location)}
+                  value={hunterLocation || ''}
+                  readOnly
                 />
-                <FormErrorMessage errors={errors} name="location" />
                 <Input
                   type="text"
                   placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)"
