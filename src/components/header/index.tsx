@@ -35,7 +35,7 @@ function Header() {
   return (
     <Container justify="space-between" align="center" padding="16px 0px">
       <Heading.H3 weight="semi-bold">BULNING</Heading.H3>
-      <Link to={routePaths.MAIN} state={{ alarmData }}>
+      <Link to={routePaths.NOTIFICATION} state={{ alarmData }}>
         <img src={alarmActive ? AlarmCheck : AlarmIcon} alt="alarm" css={imgStyle} />
       </Link>
     </Container>
