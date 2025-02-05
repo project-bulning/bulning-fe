@@ -15,6 +15,14 @@ function useFormPageStyle() {
     input: {
       backgroundColor: '#F2F3F6',
       fontSize: '14px',
+      border: 'none',
+      '&:read-only': {
+        backgroundColor: '#E5E5E5',
+        color: '#B0B0B0',
+      },
+      '&::placeholder': {
+        color: '#C4C4C4',
+      },
     },
   };
 
@@ -35,6 +43,7 @@ function useFormPageStyle() {
   };
 
   const inputBtnStyle: CSSObject = {
+    width: 'fit-content',
   };
 
   const ulStyle: CSSObject = {

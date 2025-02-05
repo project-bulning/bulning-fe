@@ -10,12 +10,13 @@ import {
   Control, FormState, useForm, UseFormRegister, UseFormSetValue,
 } from 'react-hook-form';
 import ButtonSelector from '@pages/helpee/ButtonSelector';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import { HunterInfo } from '@/types/user/hunter';
 import { submitHunterAlarm, submitHunterInfoForm } from '@/api/hunting';
 import { HunterInfoPost } from '@/types/hunting';
+import { getHunterLocation } from '@/api/hunterMatching';
 
 export interface HunterInfoInputSectionProps {
   register: UseFormRegister<HunterInfo>;
@@ -48,20 +49,53 @@ function HunterInfoInputPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const reportId = location.state?.id;
-
   const [memoValue, setMemoValue] = useState('');
+  const [hunterLocation, setHunterLocation] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { longitude, latitude } = position.coords;
+            try {
+              const hunterInfo = await getHunterLocation(longitude, latitude);
+              if (hunterInfo.documents.length > 0) {
+                const fetchedAddress = `${hunterInfo.documents[0].region_1depth_name} ${hunterInfo.documents[0].region_2depth_name} ${hunterInfo.documents[0].region_3depth_name}`;
+                setValue('address', fetchedAddress);
+                setHunterLocation(`${hunterInfo.documents[0].region_1depth_name} ${hunterInfo.documents[0].region_2depth_name} ${hunterInfo.documents[0].region_3depth_name}`);
+              }
+            } catch (error) {
+              console.error('주소를 가져오는 중 오류 발생:', error);
+            }
+          },
+          (error) => {
+            console.error('Error getting location:', error);
+          },
+          { enableHighAccuracy: true },
+        );
+      } else {
+        console.error('Geolocation is not supported by this browser.');
+      }
+    };
+
+    fetchLocation();
+  }, [setValue]);
 
   const validations = {
     gender: { required: { value: true, message: '성별을 알려주세요.' } },
     age: { required: { value: true, message: '연령대를 알려주세요.' } },
     address: { required: { value: true, message: '주소를 입력하세요.' } },
-    addressDetail: { required: { value: true, message: '상세 주소를 입력하세요.' } },
-    memo: { required: { value: true, message: '자기소개와 도움을 줄 수 있는 방법 등을 작성해주세요.' } },
+    addressDetail: {
+      required: { value: true, message: '상세 주소를 입력하세요.' },
+      maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
+    },
+    memo: { required: { value: true, message: '메모를 작성해주세요.' } },
   };
 
   const handleMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const { value } = e.target;
-    if (value.length <= 200) {
+    if (value.length <= 100) {
       setMemoValue(value);
     }
   };
@@ -121,6 +155,8 @@ function HunterInfoInputPage() {
                 label, name, options,
               }) => (
                 <Container
+                  direction="column"
+                  gap="4px"
                   css={inputBtnStyle}
                   key={name}
                 >
@@ -135,8 +171,12 @@ function HunterInfoInputPage() {
                 </Container>
               ))}
               <Container css={inputTextStyle}>
-                <Input type="text" label="주소" placeholder="부산광역시 금정구 장전1동" {...register('address', validations.address)} />
-                <FormErrorMessage errors={errors} name="address" />
+                <Input
+                  type="text"
+                  label="주소"
+                  value={hunterLocation || ''}
+                  readOnly
+                />
                 <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
                 <FormErrorMessage errors={errors} name="addressDetail" />
               </Container>
@@ -150,7 +190,7 @@ function HunterInfoInputPage() {
                   value={memoValue}
                   onChange={handleMemoChange}
                   css={{
-                    height: '160px',
+                    height: '100px',
                     verticalAlign: 'top',
                     backgroundColor: '#F2F3F6',
                     fontSize: '15px',
@@ -164,7 +204,7 @@ function HunterInfoInputPage() {
                   <Paragraph variant="small">
                     {memoValue.length}
                     {' '}
-                    / 200자
+                    / 100자
                   </Paragraph>
                 </Container>
               </Container>

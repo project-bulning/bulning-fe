@@ -2,26 +2,29 @@ import { Paragraph } from '@components/text';
 import { CSSObject, useTheme } from '@emotion/react';
 import Container from '@components/container';
 import location from '@assets/icons/location.svg';
+import urgency from '@assets/icons/urgency.svg';
 import { BugReport } from '@/types/bug-report';
 
 interface HuntingItemProps {
   request: BugReport;
+  isUrgencyIcon?: boolean;
 }
 
-function HuntingListItem({ request }: HuntingItemProps) {
+function HuntingListItem({ request, isUrgencyIcon = false }: HuntingItemProps) {
   const theme = useTheme();
 
   const titleStyle: CSSObject = {
+    textAlign: 'left',
     display: 'block',
-    overflow: 'inherit',
+    overflow: 'hidden',
     whiteSpace: 'nowrap',
-    width: '60px',
+    width: '100px',
     textOverflow: 'ellipsis',
   };
 
   const paragraphStyle: CSSObject = {
     display: 'inline-block',
-    overflow: 'inherit',
+    overflow: 'hidden',
     whiteSpace: 'nowrap',
     width: 'fit-content',
     maxWidth: '60px',
@@ -63,7 +66,8 @@ function HuntingListItem({ request }: HuntingItemProps) {
           overflow: 'hidden',
         }}
       >
-        <Container>
+        <Container gap="3px" align="center">
+          {isUrgencyIcon && <img src={urgency} alt="urgency" css={{ width: '21px', height: '21px' }} />}
           <Paragraph weight="medium" css={{ ...titleStyle }}>{request.title}</Paragraph>
         </Container>
         <Container justify="flex-start" align="center" gap="2px">

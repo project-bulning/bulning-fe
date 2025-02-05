@@ -2,11 +2,11 @@ import { useState, useEffect } from 'react';
 import { Heading } from '@components/text';
 import Container from '@components/container';
 import Grid from '@components/grid';
-import CatchRequestListItem from '@features/main/CatchRequestListItem';
 import { DefaultPaddedContainer } from '@components/container/variants';
 import viewDetails from '@assets/icons/view-details.svg';
 import { Link } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
+import HuntingListItem from '@pages/hunting/HuntingListItem';
 import { BugReport } from '@/types/bug-report';
 import { getBugReportList } from '@/api/bugReports';
 
@@ -80,7 +80,8 @@ function CatchRequestList() {
           >
             {
               requests.slice(0, 5).map((request) => (
-                <CatchRequestListItem
+                <HuntingListItem
+                  isUrgencyIcon={true}
                   key={`notice-item-${request.id}`}
                   request={request}
                 />
