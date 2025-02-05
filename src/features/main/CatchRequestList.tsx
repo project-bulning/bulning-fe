@@ -7,7 +7,7 @@ import viewDetails from '@assets/icons/view-details.svg';
 import { Link } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
-import Spinner from '@components/fallback/Spinner.tsx';
+import Spinner from '@components/fallback/Spinner';
 import { BugReport } from '@/types/bug-report';
 import { getBugReportList } from '@/api/bugReports';
 
@@ -74,9 +74,9 @@ function CatchRequestList() {
             {
             requests.length === 0
               ? (
-                <Container justify="center" padding="100px 0px">
-                  <Paragraph>아직 내 근처에 사냥이 없어요</Paragraph>
-                  <Paragraph>사냥 정보를 실시간 알림으로 보내드릴게요</Paragraph>
+                <Container direction="column" justify="center" align="center" padding="110px 0px" gap="10px">
+                  <Paragraph variant="small">아직 내 근처에 사냥이 없어요</Paragraph>
+                  <Paragraph variant="small">사냥 정보를 실시간 알림으로 보내드릴게요</Paragraph>
                 </Container>
               )
               : (

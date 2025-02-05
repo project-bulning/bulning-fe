@@ -16,7 +16,7 @@ function Header() {
   useEffect(() => {
     const fetchAlarmInfo = async () => {
       try {
-        const data: UserAlarmResponse = await getUserAlarmInfo();
+        const data = await getUserAlarmInfo();
         setAlarmData(data);
         setAlarmActive(data !== null);
       } catch (error) {

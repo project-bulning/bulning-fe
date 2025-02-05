@@ -12,7 +12,12 @@ export async function submitPersonalInfo(infoInput: MembershipResponse) {
   await axiosInstance.post(endpoints.submitPersonalInfo, infoInput);
 }
 
-export async function getUserAlarmInfo(): Promise<UserAlarmResponse> {
-  const response = await axiosInstance.get<UserAlarmResponse>(endpoints.userAlarmInfo);
-  return response.data;
+export async function getUserAlarmInfo(): Promise<UserAlarmResponse | null> {
+  try {
+    const response = await axiosInstance.get<UserAlarmResponse | null>(endpoints.userAlarmInfo);
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user alarm info:', error);
+    return null;
+  }
 }
