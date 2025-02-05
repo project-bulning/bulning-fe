@@ -13,8 +13,10 @@ import { Heading, Paragraph } from '@components/text';
 import routePaths from '@constants/routePaths';
 import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
 import { saveHunterImage, uploadHunterImage } from '@/api/hunterMatching';
+import { submitHunterAlarm } from '@/api/hunting';
 
 export interface FaceEnrollBottomSheetProps {
+  reportId: number;
   isOpen: boolean;
   onClose: () => void;
 }
@@ -23,7 +25,7 @@ type ReactCropperElement = HTMLImageElement & {
   cropper: CropperJS;
 };
 
-function FaceEnrollBottomSheet({ isOpen, onClose }: FaceEnrollBottomSheetProps) {
+function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSheetProps) {
   const { btnPositionStyle } = useAfterHuntingPageStyle();
   const theme = useTheme();
   const overlayStyle = css`
@@ -74,8 +76,10 @@ function FaceEnrollBottomSheet({ isOpen, onClose }: FaceEnrollBottomSheetProps) 
 
       try {
         const imageUrl = await uploadHunterImage(file);
-
         await saveHunterImage(imageUrl);
+
+        await submitHunterAlarm(reportId);
+        console.log('알림 요청 완료');
 
         navigate(routePaths.INFO_SENT);
       } catch (error) {

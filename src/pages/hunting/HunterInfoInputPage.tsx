@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FaceEnrollBottomSheet from '@features/hunterMatching/FaceEnrollBottomSheet';
 import { HunterInfo } from '@/types/user/hunter';
-import { submitHunterAlarm, submitHunterInfoForm } from '@/api/hunting';
+import { submitHunterInfoForm } from '@/api/hunting';
 import { HunterInfoPost } from '@/types/hunting';
 import { getHunterLocation } from '@/api/hunterMatching';
 
@@ -134,8 +134,6 @@ function HunterInfoInputPage() {
     try {
       await submitHunterInfoForm(reportId, hunterInfo);
       console.log('사냥 정보 제출 완료');
-      await submitHunterAlarm(reportId);
-      console.log('알람 요청 완료');
 
       setIsBottomSheetOpen(true);
     } catch (error) {
@@ -236,6 +234,7 @@ function HunterInfoInputPage() {
         </form>
       </DefaultPaddedContainer>
       <FaceEnrollBottomSheet
+        reportId={reportId}
         isOpen={isBottomSheetOpen}
         onClose={closeBottomSheet}
       />
