@@ -1,6 +1,7 @@
 import endpoints from '@constants/endpoints';
 import axiosInstance from '@/utils/network';
 import { MembershipResponse, MyInfoResponse } from '@/types/user';
+import { UserAlarmResponse } from '@/types/user/alarm';
 
 export async function getMyInfo(): Promise<MyInfoResponse> {
   const response = await axiosInstance.get<MyInfoResponse>(endpoints.myInfo);
@@ -9,4 +10,9 @@ export async function getMyInfo(): Promise<MyInfoResponse> {
 
 export async function submitPersonalInfo(infoInput: MembershipResponse) {
   await axiosInstance.post(endpoints.submitPersonalInfo, infoInput);
+}
+
+export async function getUserAlarmInfo(): Promise<UserAlarmResponse> {
+  const response = await axiosInstance.get<UserAlarmResponse>(endpoints.userAlarmInfo);
+  return response.data;
 }
