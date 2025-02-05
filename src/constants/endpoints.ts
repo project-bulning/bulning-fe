@@ -4,6 +4,9 @@ const endpoints = {
   myInfo: `${prefix}/my-info`,
   submitPersonalInfo: `${prefix}/user/info`,
 
+  uploadHunterImage: `${prefix}/user/hunter/image`,
+  submitHunterImage: `${prefix}/user/info/new`,
+
   submitHunterInfo: `${prefix}/user/info/new`,
   getHunterInfo: `${prefix}/alarm/hunter-info`,
   alarmRequest: `${prefix}/alarm/request`,

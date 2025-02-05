@@ -81,8 +81,8 @@ function useButtonStyle({ variant = 'default' }: UseButtonStyleProps) {
     }
 
     &:disabled, &:disabled:hover {
-        background-color: ${styles.disabledBackgroundColor};
-        color: ${styles.disabledColor};
+        background-color: #EBEBEB;
+        color: #9B9B9B;
         border: 1px solid transparent;
         cursor: default;
     }

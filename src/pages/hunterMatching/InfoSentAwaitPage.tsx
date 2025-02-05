@@ -9,7 +9,7 @@ function InfoSentAwaitPage() {
   const navigate = useNavigate();
 
   const handleBtnClick = () => {
-    navigate(routePaths.HUNTER_APPROVAL);
+    navigate(routePaths.MAIN);
   };
 
   return (

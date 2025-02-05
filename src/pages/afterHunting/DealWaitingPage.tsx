@@ -46,7 +46,7 @@ function DealWaitingPage() {
           disabled={!tradeCompleted}
           onClick={handleNavigate}
         >
-          완료했어요
+          다음으로
         </Button>
       </Container>
     </DefaultPaddedContainer>

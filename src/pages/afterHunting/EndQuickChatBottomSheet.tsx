@@ -4,22 +4,19 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import routePaths from '@constants/routePaths.ts';
 import { useNavigate } from 'react-router-dom';
-import { getMyInfo } from '@/api/user';
 import { endHunting } from '@/api/afterHunting';
 
 interface MoveToQuickChatBottomSheetProps {
+  matchId: number;
   isOpen: boolean;
   onClose: () => void;
 }
 
-function EndQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSheetProps) {
+function EndQuickChatBottomSheet({ matchId, isOpen, onClose }: MoveToQuickChatBottomSheetProps) {
   const navigate = useNavigate();
 
   const handleBtnClick = async () => {
     try {
-      const userInfo = await getMyInfo();
-      const matchId = userInfo.match?.id;
-
       if (!matchId) {
         alert('매치 정보가 없습니다.');
         return;
