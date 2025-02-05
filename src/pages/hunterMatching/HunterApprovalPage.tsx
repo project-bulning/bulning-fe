@@ -74,6 +74,7 @@ function HunterApprovalPage() {
     background-color: ${theme.colors.background.darken};
     color: ${theme.colors.text.subtle};
     font-size: 12px;
+    min-height: 62px;
     border-radius: 7px;
     margin-top: 16px;
     line-height: 16px;
@@ -97,10 +98,12 @@ function HunterApprovalPage() {
     font-size: 14px;
     font-weight: 500; 
     color: ${theme.colors.text.subtle};
+    flex: 1;
   `;
   const sectionContentStyle = css`
     font-size: 14px;
     font-weight: 400; 
+    flex: 3;
   `;
 
   return (
@@ -124,34 +127,44 @@ function HunterApprovalPage() {
                       <Slider {...settings} css={sliderStyle}>
                         <Container direction="column" padding="0 0 52px 0">
                           <Container gap="30px">
-                            <img
-                              src={Avatar}
-                              alt="profile-img"
-                              css={{ width: '77px', height: '77px', borderRadius: '100%' }}
-                            />
-                            <Container direction="column" gap="16px">
+                            <Container direction="column" justify="center" align="center" gap="15px" css={{ flex: 1 }}>
+                              <img
+                                src={Avatar}
+                                alt="profile-img"
+                                css={{ width: '77px', height: '77px', borderRadius: '100%' }}
+                              />
+                              <div css={{ fontSize: '12px' }}>
+                                {hunterData.gender === 'male' ? '남성' : '여성'}
+                                {' '}
+                                |
+                                {' '}
+                                {hunterData.age_group}
+                              </div>
+                            </Container>
+                            <Container direction="column" gap="16px" css={{ flex: 3 }}>
                               <Heading.H5 weight="medium">{hunterData?.name}</Heading.H5>
                               <Container gap="25px">
-                                <Container direction="column" gap="7px" width="100px" css={sectionHeadingStyle}>
-                                  <div>거주지</div>
-                                  <div>회원 정보</div>
-                                  <div>평균 별정</div>
-                                  <div>거래 횟수</div>
-                                </Container>
-                                <Container direction="column" gap="7px" css={sectionContentStyle}>
-                                  <div>{hunterData.location}</div>
-                                  <div>
-                                    {hunterData.gender === 'male' ? '남성' : '여성'}
-                                    {' '}
-                                    |
-                                    {' '}
-                                    {hunterData.age_group}
-                                  </div>
-                                  <div>{hunterData.avg_score}</div>
-                                  <div>
-                                    {hunterData.trade_count}
-                                    회
-                                  </div>
+                                <Container direction="column" gap="4px">
+                                  <Container gap="5px">
+                                    <div css={sectionHeadingStyle}>거주지</div>
+                                    <Container direction="column" gap="5px" css={sectionContentStyle}>
+                                      <div>{hunterData.location}</div>
+                                      <div>{hunterData.location_detail}</div>
+                                    </Container>
+                                  </Container>
+                                  <Container gap="5px">
+                                    <div css={sectionHeadingStyle}>평균 별정</div>
+                                    <div css={sectionContentStyle}>
+                                      {hunterData.avg_score === 0 ? '-' : `${hunterData.avg_score}`}
+                                    </div>
+                                  </Container>
+                                  <Container gap="5px">
+                                    <div css={sectionHeadingStyle}>거래 횟수</div>
+                                    <div css={sectionContentStyle}>
+                                      {hunterData.trade_count}
+                                      회
+                                    </div>
+                                  </Container>
                                 </Container>
                               </Container>
                             </Container>
@@ -162,9 +175,19 @@ function HunterApprovalPage() {
                         </Container>
                         <Container direction="column">
                           <Paragraph>후기</Paragraph>
-                          {hunterData.user_reviews?.slice(-2)
-                            .map((review) => (
-                              <Container key={review.created_at} direction="column" padding="12px 20px 9px 12px" gap="10px" css={reviewBoxStyle}>
+                          {hunterData.user_reviews?.length === 0 ? (
+                            <Container justify="center" align="center" padding="80px 0" css={{ fontSize: '14px' }}>
+                              아직 작성된 후기가 없어요
+                            </Container>
+                          ) : (
+                            hunterData.user_reviews.slice(-2).map((review) => (
+                              <Container
+                                key={review.created_at}
+                                direction="column"
+                                padding="12px 20px 9px 12px"
+                                gap="10px"
+                                css={reviewBoxStyle}
+                              >
                                 <Container align="flex-end" gap="8px" css={{ color: '#848484' }}>
                                   <StarRating defaultValue={review.score} readOnly={true} size="small" />
                                   <div>{new Date(review.created_at).toLocaleDateString()}</div>
@@ -176,7 +199,8 @@ function HunterApprovalPage() {
                                   ))}
                                 </Container>
                               </Container>
-                            ))}
+                            ))
+                          )}
                         </Container>
                       </Slider>
                     </Container>

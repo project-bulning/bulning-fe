@@ -41,14 +41,12 @@ function AnnouncementBottomSheet({
       };
 
       await submitBugReportsForm(finalData);
-
-      console.log('게시글 post 성공');
-      onClose();
-      navigate(routePaths.MAIN);
+      navigate(routePaths.BUG_REPORT);
     } catch (error) {
       console.error('게시글 post 실패:', error);
     } finally {
       setLoading(false);
+      navigate(routePaths.BUG_REPORT);
     }
   };
 

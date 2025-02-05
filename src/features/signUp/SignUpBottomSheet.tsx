@@ -82,7 +82,7 @@ function SignUpBottomSheet({ isOpen, onClose }: HandleBottomSheetProps) {
   return (
     <>
       <BottomSheet isOpen={isOpen} onChange={onClose}>
-        <Container direction="column" gap="20px">
+        <Container direction="column" gap="20px" css={{ fontSize: '14px' }}>
           <Container align="center" gap="8px" css={allCheckStyle}>
             <CheckBox
               checked={allCheck}

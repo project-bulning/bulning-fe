@@ -3,12 +3,13 @@ import { Heading } from '@components/text';
 import Container from '@components/container';
 import Grid from '@components/grid';
 import { DefaultPaddedContainer } from '@components/container/variants';
-import search from '@assets/icons/search.svg';
 import alarmLight from '@assets/icons/alarm-lighter.svg';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
-import Button from '@components/button';
 import routePaths from '@constants/routePaths.ts';
-import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
+import Navbar from '@components/navbar';
+import { useCurrentUser } from '@providers/CurrentUserProvider.tsx';
+import { useNavigate } from 'react-router-dom';
 import { getBugReportList } from '@/api/bugReports';
 import { BugReport } from '@/types/bug-report';
 
@@ -17,6 +18,8 @@ function HuntingList() {
   const [visibleCount, setVisibleCount] = useState(10);
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
+  const { isLoggedIn } = useCurrentUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchLocation = () => {
@@ -38,6 +41,14 @@ function HuntingList() {
 
     fetchLocation();
   }, []);
+
+  const handleClick = (id: number, distance: number) => {
+    if (!isLoggedIn) {
+      navigate(routePaths.LOGIN);
+      return;
+    }
+    navigate(routePaths.BUG_REPORT_DETAIL, { state: { id, distance } });
+  };
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -61,15 +72,20 @@ function HuntingList() {
   const handleLoadMore = () => {
     setVisibleCount((prevCount) => prevCount + 10);
   };
+
+  const addMoreBtnStyle = css`
+    width: 100%;
+    font-size: 15px;
+    border: none;
+    background-color: inherit;
+  `;
+
   return (
     <DefaultPaddedContainer>
-      <Container direction="column">
-        <Container justify="space-between" align="center">
-          <Container>
+      <Container direction="column" padding="10px 0px 90px 0">
+        <Container justify="space-between" align="center" padding="6px 0">
+          <Container justify="space-between" align="center">
             <Heading.H5 css={{ fontWeight: 600 }}>가까운 순</Heading.H5>
-          </Container>
-          <Container width="auto" gap="8px" align="center">
-            <img src={search} alt="검색하기" css={{ width: '21px', height: '21px' }} />
             <img src={alarmLight} alt="알림보기" css={{ width: '30px', height: '30px' }} />
           </Container>
         </Container>
@@ -85,25 +101,25 @@ function HuntingList() {
             css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
           >
             {requests.slice(0, visibleCount).map((request) => (
-              <Link
-                to={{ pathname: routePaths.BUG_REPORT_DETAIL }}
+              <Container
                 key={request.id}
-                state={{ id: request.id, distance: request.distance }}
-                css={{ textDecoration: 'none', color: 'inherit' }}
+                onClick={() => handleClick(request.id, request.distance)}
+                css={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
               >
                 <HuntingListItem
                   request={request}
                 />
-              </Link>
+              </Container>
             ))}
           </Grid>
           {visibleCount < requests.length && (
           <Container justify="center" css={{ marginTop: '16px' }}>
-            <Button onClick={handleLoadMore}>더보기</Button>
+            <button type="button" onClick={handleLoadMore} css={addMoreBtnStyle}>더보기 +</button>
           </Container>
           )}
         </Container>
       </Container>
+      <Navbar />
     </DefaultPaddedContainer>
   );
 }

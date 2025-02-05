@@ -1,7 +1,6 @@
 import { InputHTMLAttributes } from 'react';
 import { CSSObject } from '@emotion/react';
 import useCheckboxStyle from '@components/checkbox/useCheckboxStyle';
-import { Paragraph } from '@components/text';
 
 interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
   type?: 'checkbox';
@@ -13,7 +12,7 @@ interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 function CheckBox({
-  type = 'checkbox', id, labeling, ...rest
+  type = 'checkbox', id, labeling, css, ...rest
 }: CheckBoxProps) {
   const { checkboxStyle } = useCheckboxStyle();
 
@@ -26,7 +25,7 @@ function CheckBox({
         {...rest}
       />
       <label htmlFor={id}>
-        <Paragraph variant="small">{labeling}</Paragraph>
+        <div>{labeling}</div>
       </label>
     </>
   );
