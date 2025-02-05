@@ -14,6 +14,7 @@ function HuntingListItem({ request, isUrgencyIcon = false }: HuntingItemProps) {
   const theme = useTheme();
 
   const titleStyle: CSSObject = {
+    textAlign: 'left',
     display: 'block',
     overflow: 'hidden',
     whiteSpace: 'nowrap',
