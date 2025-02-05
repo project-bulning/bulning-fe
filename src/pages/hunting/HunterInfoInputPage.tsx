@@ -87,7 +87,7 @@ function HunterInfoInputPage() {
     };
 
     fetchLocation();
-  }, []);
+  }, [setValue]);
 
   const validations = {
     gender: { required: { value: true, message: '성별을 알려주세요.' } },
