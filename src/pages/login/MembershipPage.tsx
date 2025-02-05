@@ -35,6 +35,8 @@ function MembershipPage() {
   const [dongList, setDongList] = useState<any[]>([]);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const [userName, setUserName] = useState<string>('');
+  const [latitude, setLatitude] = useState<number | null>(null);
+  const [longitude, setLongitude] = useState<number | null>(null);
 
   const closeBottomSheet = (): void => {
     setIsBottomSheetOpen(false);
@@ -70,6 +72,21 @@ function MembershipPage() {
   };
 
   useEffect(() => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude);
+          setLongitude(position.coords.longitude);
+        },
+        (error) => {
+          console.error('Error getting location:', error);
+        },
+        { enableHighAccuracy: true },
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+
     getMyInfo()
       .then((data) => {
         setUserName(data.name);
@@ -143,6 +160,8 @@ function MembershipPage() {
     const formData = {
       ...data,
       location: location.trim(),
+      latitude,
+      longitude,
     };
 
     try {
