@@ -87,12 +87,6 @@ function HunterInfoInputPage() {
 
     fetchLocation();
   }, [setValue]);
-  const [formData, setFormData] = useState<HunterInfo | null>(null);
-  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-
-  const closeBottomSheet = () => {
-    setIsBottomSheetOpen(false);
-  };
 
   const validations = {
     gender: { required: { value: true, message: '성별을 알려주세요.' } },
@@ -150,95 +144,97 @@ function HunterInfoInputPage() {
   };
 
   return (
-    <DefaultPaddedContainer>
-      <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
-        <Container direction="column" padding="10px 0 10px 0" height="100dvh" justify="space-between">
-          <Container direction="column">
-            <Container justify="space-between" align="center">
-              <div
-                onClick={() => navigate(-1)}
-                css={{ cursor: 'pointer' }}
-                role="presentation"
-              >
-                <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
-              </div>
-              <Heading.H3_5>사냥 정보 입력</Heading.H3_5>
-              <div css={{ width: '32px' }} />
-            </Container>
-            <Container direction="column" padding="50px 0 0 0" gap="35px">
-              {[
-                {
-                  label: '성별', name: 'gender', options: ['남성', '여성'], validation: validations.gender,
-                },
-                {
-                  label: '연령대', name: 'age', options: ['20대', '30대', '40대', '50대'], validation: validations.age,
-                },
-              ].map(({
-                label, name, options,
-              }) => (
-                <Container
-                  direction="column"
-                  gap="4px"
-                  css={inputBtnStyle}
-                  key={name}
+    <>
+      <DefaultPaddedContainer>
+        <form onSubmit={handleSubmit(onSubmit)} css={{ width: '100%' }}>
+          <Container direction="column" padding="10px 0 10px 0" height="100dvh" justify="space-between">
+            <Container direction="column">
+              <Container justify="space-between" align="center">
+                <div
+                  onClick={() => navigate(-1)}
+                  css={{ cursor: 'pointer' }}
+                  role="presentation"
                 >
-                  <ButtonSelector
-                    etcBtn={false}
-                    label={label}
-                    options={options}
-                    setValue={setValue}
-                    {...register(name as keyof HunterInfo, validations[name as keyof HunterInfo])}
-                  />
-                  <FormErrorMessage errors={errors} name={name} />
-                </Container>
-              ))}
-              <Container css={inputTextStyle}>
-                <Input
-                  type="text"
-                  label="주소"
-                  value={hunterLocation || ''}
-                  readOnly
-                />
-                <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
-                <FormErrorMessage errors={errors} name="addressDetail" />
+                  <img src={close} alt="close" css={{ width: '32px', height: '32px' }} />
+                </div>
+                <Heading.H3_5>사냥 정보 입력</Heading.H3_5>
+                <div css={{ width: '32px' }} />
               </Container>
-              <Container direction="column" gap="10px">
-                <Paragraph weight="semi-bold">
-                  메모
-                </Paragraph>
-                <textarea
-                  placeholder="자기소개와 도움을 줄 수 있는 방법 등을 작성해주세요."
-                  {...register('memo', validations.memo)}
-                  value={memoValue}
-                  onChange={handleMemoChange}
-                  css={{
-                    height: '100px',
-                    verticalAlign: 'top',
-                    backgroundColor: '#F2F3F6',
-                    fontSize: '15px',
-                    border: 'none',
-                    borderRadius: '6px',
-                    padding: '10px 13px',
-                  }}
-                />
-                <Container justify="space-between">
-                  <FormErrorMessage errors={errors} name="memo" />
-                  <Paragraph variant="small">
-                    {memoValue.length}
-                    {' '}
-                    / 100자
+              <Container direction="column" padding="50px 0 0 0" gap="35px">
+                {[
+                  {
+                    label: '성별', name: 'gender', options: ['남성', '여성'], validation: validations.gender,
+                  },
+                  {
+                    label: '연령대', name: 'age', options: ['20대', '30대', '40대', '50대'], validation: validations.age,
+                  },
+                ].map(({
+                  label, name, options,
+                }) => (
+                  <Container
+                    direction="column"
+                    gap="4px"
+                    key={name}
+                    css={{ width: 'fit-content' }}
+                  >
+                    <ButtonSelector
+                      etcBtn={false}
+                      label={label}
+                      options={options}
+                      setValue={setValue}
+                      {...register(name as keyof HunterInfo, validations[name as keyof HunterInfo])}
+                    />
+                    <FormErrorMessage errors={errors} name={name} />
+                  </Container>
+                ))}
+                <Container css={inputTextStyle}>
+                  <Input
+                    type="text"
+                    label="주소"
+                    value={hunterLocation || ''}
+                    readOnly
+                  />
+                  <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
+                  <FormErrorMessage errors={errors} name="addressDetail" />
+                </Container>
+                <Container direction="column" gap="10px">
+                  <Paragraph weight="semi-bold">
+                    메모
                   </Paragraph>
+                  <textarea
+                    placeholder="자기소개와 도움을 줄 수 있는 방법 등을 작성해주세요."
+                    {...register('memo', validations.memo)}
+                    value={memoValue}
+                    onChange={handleMemoChange}
+                    css={{
+                      height: '100px',
+                      verticalAlign: 'top',
+                      backgroundColor: '#F2F3F6',
+                      fontSize: '15px',
+                      border: 'none',
+                      borderRadius: '6px',
+                      padding: '10px 13px',
+                    }}
+                  />
+                  <Container justify="space-between">
+                    <FormErrorMessage errors={errors} name="memo" />
+                    <Paragraph variant="small">
+                      {memoValue.length}
+                      {' '}
+                      / 100자
+                    </Paragraph>
+                  </Container>
                 </Container>
               </Container>
             </Container>
+            <Button
+              type="submit"
+            >
+              다음
+            </Button>
           </Container>
-          <Button
-            type="submit"
-          >
-            다음
-          </Button>
-        </Container>
-      </form>
+        </form>
+      </DefaultPaddedContainer>
       <FaceEnrollBottomSheet
         isOpen={isBottomSheetOpen}
         onClose={closeBottomSheet}
