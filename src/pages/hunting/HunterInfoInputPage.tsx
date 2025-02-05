@@ -28,7 +28,6 @@ export interface HunterInfoInputSectionProps {
 function HunterInfoInputPage() {
   const {
     inputTextStyle,
-    inputBtnStyle,
   } = useFormPageStyle();
 
   const {
@@ -88,6 +87,12 @@ function HunterInfoInputPage() {
 
     fetchLocation();
   }, [setValue]);
+  const [formData, setFormData] = useState<HunterInfo | null>(null);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+
+  const closeBottomSheet = () => {
+    setIsBottomSheetOpen(false);
+  };
 
   const validations = {
     gender: { required: { value: true, message: '성별을 알려주세요.' } },
