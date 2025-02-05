@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Heading } from '@components/text';
+import { Heading, Paragraph } from '@components/text';
 import Container from '@components/container';
 import Grid from '@components/grid';
 import { DefaultPaddedContainer } from '@components/container/variants';
@@ -10,6 +10,7 @@ import { css } from '@emotion/react';
 import Navbar from '@components/navbar';
 import { useCurrentUser } from '@providers/CurrentUserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
+import Spinner from '@components/fallback/Spinner';
 import { getBugReportList } from '@/api/bugReports';
 import { BugReport } from '@/types/bug-report';
 
@@ -20,6 +21,7 @@ function HuntingList() {
   const [longitude, setLongitude] = useState<number | null>(null);
   const { isLoggedIn } = useCurrentUser();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchLocation = () => {
@@ -54,6 +56,7 @@ function HuntingList() {
     const fetchRequests = async () => {
       if (latitude !== null && longitude !== null) {
         try {
+          setIsLoading(true);
           const responsesInfo = await getBugReportList({
             currentLatitude: latitude,
             currentLongitude: longitude,
@@ -62,6 +65,8 @@ function HuntingList() {
           setRequests(responsesInfo.bug_reports);
         } catch (error) {
           console.error('Error fetching bug report list:', error);
+        } finally {
+          setIsLoading(false);
         }
       }
     };
@@ -91,36 +96,49 @@ function HuntingList() {
         </Container>
         <Container justify="flex-end" />
         <Container direction="column">
-          <Grid
-            columns={{
-              initial: 1,
-              xs: 1,
-              md: 1,
-              lg: 1,
-            }}
-            css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
-          >
-            {requests.slice(0, visibleCount).map((request) => (
-              <Container
-                key={request.id}
-                onClick={() => handleClick(request.id, request.distance)}
-                css={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
+          {/* eslint-disable-next-line no-nested-ternary */}
+          {isLoading ? (
+            <Container height="88dvh" direction="column" justify="center" align="center">
+              <Spinner />
+            </Container>
+          ) : requests.length === 0 ? (
+            <Container height="88dvh" gap="5px" direction="column" justify="center" align="center">
+              <Paragraph variant="small">아직 내 근처에 사냥이 없어요</Paragraph>
+              <Paragraph variant="small">사냥 정보를 실시간 알림으로 보내드릴게요</Paragraph>
+            </Container>
+          ) : (
+            <>
+              <Grid
+                columns={{
+                  initial: 1,
+                  xs: 1,
+                  md: 1,
+                  lg: 1,
+                }}
+                css={{ gridTemplateRows: 'repeat(10, 1fr)' }}
               >
-                <HuntingListItem
-                  request={request}
-                />
-              </Container>
-            ))}
-          </Grid>
-          {visibleCount < requests.length && (
-          <Container justify="center" css={{ marginTop: '16px' }}>
-            <button type="button" onClick={handleLoadMore} css={addMoreBtnStyle}>더보기 +</button>
-          </Container>
+                {requests.slice(0, visibleCount).map((request) => (
+                  <Container
+                    key={request.id}
+                    onClick={() => handleClick(request.id, request.distance)}
+                    css={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
+                  >
+                    <HuntingListItem request={request} />
+                  </Container>
+                ))}
+              </Grid>
+              {visibleCount < requests.length && (
+                <Container justify="center" css={{ marginTop: '16px' }}>
+                  <button type="button" onClick={handleLoadMore} css={addMoreBtnStyle}>더보기 +</button>
+                </Container>
+              )}
+            </>
           )}
         </Container>
       </Container>
       <Navbar />
     </DefaultPaddedContainer>
+
   );
 }
 
