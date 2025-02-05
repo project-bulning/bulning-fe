@@ -197,31 +197,42 @@ function HunterInfoInputPage() {
                   <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
                   <FormErrorMessage errors={errors} name="addressDetail" />
                 </Container>
-                <Container direction="column" gap="10px">
-                  <Paragraph weight="semi-bold">
-                    메모
-                  </Paragraph>
-                  <textarea
-                    placeholder="자기소개와 도움을 줄 수 있는 방법 등을 작성해주세요."
-                    {...register('memo', validations.memo)}
-                    value={memoValue}
-                    onChange={handleMemoChange}
-                    css={{
-                      height: '100px',
-                      verticalAlign: 'top',
-                      backgroundColor: '#F2F3F6',
-                      fontSize: '15px',
-                      border: 'none',
-                      borderRadius: '6px',
-                      padding: '10px 13px',
-                    }}
-                  />
-                  <Container justify="space-between">
-                    <FormErrorMessage errors={errors} name="memo" />
-                    <Paragraph variant="small">
-                      {memoValue.length}
-                      {' '}
-                      / 100자
+              ))}
+              <Container css={inputTextStyle}>
+                <Input
+                  type="text"
+                  label="주소"
+                  value={hunterLocation || ''}
+                  readOnly
+                />
+                <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
+                <FormErrorMessage errors={errors} name="addressDetail" />
+              </Container>
+              <Container direction="column" gap="10px">
+                <Paragraph weight="semi-bold">
+                  메모
+                </Paragraph>
+                <textarea
+                  placeholder="자기소개와 도움을 줄 수 있는 방법 등을 작성해주세요."
+                  {...register('memo', validations.memo)}
+                  value={memoValue}
+                  onChange={handleMemoChange}
+                  css={{
+                    height: '100px',
+                    verticalAlign: 'top',
+                    backgroundColor: '#F2F3F6',
+                    fontSize: '15px',
+                    border: 'none',
+                    borderRadius: '6px',
+                    padding: '10px 13px',
+                  }}
+                />
+                <Container justify="space-between">
+                  <FormErrorMessage errors={errors} name="memo" />
+                  <Paragraph variant="small">
+                    {memoValue.length}
+                    {' '}
+                    / 100자
                     </Paragraph>
                   </Container>
                 </Container>

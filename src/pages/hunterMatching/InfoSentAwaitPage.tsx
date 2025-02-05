@@ -15,9 +15,9 @@ function InfoSentAwaitPage() {
   return (
     <DefaultPaddedContainer>
       <Container direction="column" justify="space-between" padding="96px 0 10px 0" height="100dvh">
-        <Container direction="column" gap="10px">
-          <Heading.H4 weight="medium">헬피에게 정보를 보냈어요</Heading.H4>
-          <Heading.H4 weight="medium">매칭이 완료되면 알림을 보내드려요</Heading.H4>
+        <Container direction="column" gap="5px">
+          <Heading.H3_5 weight="medium">정보를 보냈어요</Heading.H3_5>
+          <Heading.H3_5 weight="medium">이 화면에서 잠시만 기다려주세요</Heading.H3_5>
         </Container>
         <Container direction="column" align="center" gap="13px">
           <Button onClick={handleBtnClick}>확인</Button>
