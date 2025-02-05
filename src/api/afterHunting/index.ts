@@ -2,9 +2,10 @@ import endpoints from '@constants/endpoints';
 import axiosInstance from '@/utils/network';
 import { ReviewFormData } from '@/types/afterHunting';
 
-export async function endHunting(matchId: number) {
+export async function endHunting(matchId: number, cancel: boolean = false) {
   try {
-    const response = await axiosInstance.put(`${endpoints.endHunting}/${matchId}`, { trade: 1 });
+    const tradeValue = cancel ? 0 : 1;
+    const response = await axiosInstance.put(`${endpoints.endHunting}/${matchId}`, { trade: tradeValue });
     return response?.data;
   } catch (error) {
     console.error('Error ending hunting:', error);

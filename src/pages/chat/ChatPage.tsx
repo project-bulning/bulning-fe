@@ -4,6 +4,7 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import { css, useTheme } from '@emotion/react';
 import HuntEndBottomSheet from '@features/afterHunting/HuntEndBottomSheet';
+import CancelMatchingBottomSheet from '@features/hunterMatching/CancelMatchingBottomSheet';
 import { tokenStorage } from '@/utils/tokenStorage';
 import arrowBack from '@/assets/icons/arrow-back.svg';
 import sendBtn from '@/assets/icons/send.svg';
@@ -19,6 +20,7 @@ function ChatPage() {
   const [messages, setMessages] = useState<{ type: 'received' | 'sent'; content: string; created_at: Date; status: string; }[]>([]);
   const [messageInput, setMessageInput] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+  const [isCancelBottomSheetOpen, setIsCancelBottomSheetOpen] = useState<boolean>(false);
 
   useEffect(() => {
     const accessToken = tokenStorage.get();
@@ -95,6 +97,7 @@ function ChatPage() {
     // eslint-disable-next-line consistent-return
     return () => {
       if (ws.readyState === WebSocket.OPEN) {
+        console.log('이거 맞음');
         ws.close();
       }
     };
@@ -126,6 +129,14 @@ function ChatPage() {
 
   const handleCloseBottomSheet = () => {
     setIsBottomSheetOpen(false);
+  };
+
+  const handleCancelBottomSheet = () => {
+    setIsCancelBottomSheetOpen(true);
+  };
+
+  const handleCloseCancelBottomSheet = () => {
+    setIsCancelBottomSheetOpen(false);
   };
 
   return (
@@ -161,7 +172,7 @@ function ChatPage() {
               }}
             >
               <Paragraph variant="xsmall">헬피는 자세한 주소와 공동현관 비밀번호 등을 알려줘야 해요.</Paragraph>
-              <Paragraph css={{ fontSize: '10px', textDecoration: 'underline' }}>*거래를 취소하고 싶나요?</Paragraph>
+              <Paragraph onClick={handleCancelBottomSheet} css={{ fontSize: '10px', textDecoration: 'underline' }}>*거래를 취소하고 싶나요?</Paragraph>
             </Container>
             <Container width="100%" direction="column" css={{ marginBottom: '60px' }}>
               {/* eslint-disable react/no-array-index-key */}
@@ -221,6 +232,10 @@ function ChatPage() {
         </Container>
       </DefaultPaddedContainer>
       <HuntEndBottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet} />
+      <CancelMatchingBottomSheet
+        isOpen={isCancelBottomSheetOpen}
+        onClose={handleCloseCancelBottomSheet}
+      />
     </>
   );
 }
