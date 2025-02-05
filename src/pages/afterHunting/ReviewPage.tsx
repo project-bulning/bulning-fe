@@ -164,7 +164,14 @@ function ReviewPage() {
           </Container>
         </form>
       </DefaultPaddedContainer>
-      <EndQuickChatBottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet} />
+      {matchId
+          && (
+          <EndQuickChatBottomSheet
+            matchId={Number(matchId)}
+            isOpen={isBottomSheetOpen}
+            onClose={handleCloseBottomSheet}
+          />
+          )}
     </>
   );
 }
