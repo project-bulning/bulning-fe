@@ -150,7 +150,7 @@ function HunterApprovalPage() {
                                 css={{ width: '77px', height: '77px', borderRadius: '100%' }}
                               />
                               <div css={{ fontSize: '12px' }}>
-                                {hunterData.gender === 'male' ? '남성' : '여성'}
+                                {hunterData.gender}
                                 {' '}
                                 |
                                 {' '}
