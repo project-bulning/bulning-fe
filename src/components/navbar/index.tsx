@@ -23,7 +23,8 @@ function Navbar() {
       left: 0;
       background-color: #F7FAFE;
       z-index: 10;
-      width: 100%;
+      width: 100%;  
+      box-shadow: 0 -9px 15px rgba(0, 0, 0, 0.07);
   `;
 
   const linkStyle = css`
@@ -50,7 +51,7 @@ function Navbar() {
           <Paragraph css={textStyle}>사냥</Paragraph>
         </Container>
       </Link>
-      <Link to={routePaths.MAIN} css={linkStyle}>
+      <Link to={routePaths.PROFILE} css={linkStyle}>
         <Container height="100%" justify="center" direction="column" gap="8px">
           <Container justify="center">
             <img src={ProfileIcon} alt="Profile" />
