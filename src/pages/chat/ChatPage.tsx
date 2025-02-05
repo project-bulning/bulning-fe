@@ -29,8 +29,8 @@ function ChatPage() {
       setResizeHeight(window.innerHeight - (height !== undefined ? height : 0));
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    visualViewport && visualViewport.addEventListener('resize', resizeHandler);
+    const { visualViewport } = window;
+    visualViewport?.addEventListener('resize', resizeHandler);
 
     return () => visualViewport?.removeEventListener('resize', resizeHandler);
   }, []);
@@ -232,7 +232,20 @@ function ChatPage() {
               ))}
             </Container>
           </Container>
-          <Container height="50px" padding="10px 20px" justify="space-between" align="center" gap="13px" css={chatStyle}>
+          <Container
+            height="50px"
+            padding="10px 20px"
+            justify="space-between"
+            align="center"
+            gap="13px"
+            css={{
+              position: 'fixed',
+              bottom: `${resizeHeight}px`,
+              left: 0,
+              zIndex: 10,
+              width: '100%',
+            }}
+          >
             <input
               type="text"
               value={messageInput}
@@ -282,14 +295,6 @@ const inputStyle = css`
     background-color: #E7EDF6;
     border: none;
     border-radius: 10px;
-`;
-
-const chatStyle = css`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
 `;
 
 const timeStyle = css`
