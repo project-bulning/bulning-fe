@@ -25,4 +25,3 @@ export interface User {
 }
 
 export type MyInfoResponse = User;
-export type MembershipResponse = Pick<User, 'nickname' | 'location'>;

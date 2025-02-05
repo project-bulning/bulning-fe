@@ -69,7 +69,10 @@ function HuntingListDetailPage() {
             <Paragraph variant="xsmall">10분 전</Paragraph>
             <Paragraph color={theme.colors.text.moderate}>&#183;</Paragraph>
             <img src={locationIcon} alt="location" css={{ width: '18px', height: '18px', marginTop: '-3px' }} />
-            <Paragraph variant="xsmall">{distance}</Paragraph>
+            <Paragraph variant="xsmall">
+              {distance}
+              m
+            </Paragraph>
           </Container>
           <Paragraph variant="large" weight="semi-bold" css={{ marginTop: '8px' }}>
             {`${bugReport?.price}원`}
