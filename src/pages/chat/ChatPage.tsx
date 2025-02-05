@@ -131,7 +131,7 @@ function ChatPage() {
   return (
     <>
       <DefaultPaddedContainer>
-        <Container direction="column" height="100dvh" justify="space-between">
+        <Container direction="column" height="100vh" justify="space-between">
           <Container direction="column">
             <Container justify="space-between" align="center" height="55px">
               <Container align="center" gap="5px">
