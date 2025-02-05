@@ -15,6 +15,7 @@ const routePaths = {
   DEAL_PROCESS: '/deal-process',
   REVIEW: '/review/:matchId',
   CHAT: '/chat',
+  NOTIFICATION: '/notification',
 };
 
 export default routePaths;
