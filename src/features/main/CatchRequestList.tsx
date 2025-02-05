@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import { Heading } from '@components/text';
 import Container from '@components/container';
 import Grid from '@components/grid';
@@ -8,53 +7,12 @@ import { Link } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
 import { BugReport } from '@/types/bug-report';
-import { getBugReportList } from '@/api/bugReports';
 
-function CatchRequestList() {
-  const [requests, setRequests] = useState<BugReport[]>([]);
-  const [latitude, setLatitude] = useState<number | null>(null);
-  const [longitude, setLongitude] = useState<number | null>(null);
+interface CatchRequestListProps {
+  requests: BugReport[];
+}
 
-  useEffect(() => {
-    const fetchLocation = () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          (position) => {
-            setLatitude(position.coords.latitude);
-            setLongitude(position.coords.longitude);
-          },
-          (error) => {
-            console.error('Error getting location:', error);
-          },
-          { enableHighAccuracy: true },
-        );
-      } else {
-        console.error('Geolocation is not supported by this browser.');
-      }
-    };
-
-    fetchLocation();
-  }, []);
-
-  useEffect(() => {
-    const fetchRequests = async () => {
-      if (latitude !== null && longitude !== null) {
-        try {
-          const responsesInfo = await getBugReportList({
-            currentLatitude: latitude,
-            currentLongitude: longitude,
-          });
-
-          setRequests(responsesInfo.bug_reports);
-        } catch (error) {
-          console.error('Error fetching bug report list:', error);
-        }
-      }
-    };
-
-    fetchRequests();
-  }, [latitude, longitude]);
-
+function CatchRequestList({ requests }: CatchRequestListProps) {
   return (
     <DefaultPaddedContainer>
       <Container direction="column">
