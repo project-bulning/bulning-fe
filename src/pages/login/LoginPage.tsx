@@ -3,7 +3,7 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import { useTheme } from '@emotion/react';
 import Button from '@components/button';
-import logo from '@assets/bulning-logo.svg';
+import logo from '@assets/bulning-logo.png';
 
 function LoginPage() {
   const theme = useTheme();
