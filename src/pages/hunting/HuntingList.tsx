@@ -24,6 +24,7 @@ function HuntingList() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     const fetchLocation = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
@@ -61,7 +62,6 @@ function HuntingList() {
             currentLatitude: latitude,
             currentLongitude: longitude,
           });
-
           setRequests(responsesInfo.bug_reports);
         } catch (error) {
           console.error('Error fetching bug report list:', error);
