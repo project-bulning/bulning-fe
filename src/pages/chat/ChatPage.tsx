@@ -21,7 +21,19 @@ function ChatPage() {
   const [messageInput, setMessageInput] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
   const [isCancelBottomSheetOpen, setIsCancelBottomSheetOpen] = useState<boolean>(false);
+  const [resizeHeight, setResizeHeight] = useState<number>(0);
 
+  useEffect(() => {
+    const resizeHandler = (event: Event) => {
+      const height = (event.currentTarget as VisualViewport)?.height;
+      setResizeHeight(window.innerHeight - (height !== undefined ? height : 0));
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    visualViewport && visualViewport.addEventListener('resize', resizeHandler);
+
+    return () => visualViewport?.removeEventListener('resize', resizeHandler);
+  }, []);
   useEffect(() => {
     const accessToken = tokenStorage.get();
     if (!accessToken) {
@@ -144,7 +156,17 @@ function ChatPage() {
       <DefaultPaddedContainer>
         <Container direction="column" height="100vh" justify="space-between">
           <Container direction="column">
-            <Container justify="space-between" align="center" height="55px">
+            <Container
+              justify="space-between"
+              align="center"
+              height="55px"
+              css={{
+                backgroundColor: 'white',
+                position: 'sticky',
+                top: 0,
+                zIndex: 10,
+              }}
+            >
               <Container align="center" gap="5px">
                 <img src={arrowBack} alt="arrow-back" />
                 <Heading.H3_5 weight="medium">헌터와의 채팅</Heading.H3_5>
@@ -174,7 +196,7 @@ function ChatPage() {
               <Paragraph variant="xsmall">헬피는 자세한 주소와 공동현관 비밀번호 등을 알려줘야 해요.</Paragraph>
               <Paragraph onClick={handleCancelBottomSheet} css={{ fontSize: '10px', textDecoration: 'underline' }}>*거래를 취소하고 싶나요?</Paragraph>
             </Container>
-            <Container width="100%" direction="column" css={{ marginBottom: '60px' }}>
+            <Container width="100%" direction="column" height={`calc(70% - ${resizeHeight}px)`} css={{ marginBottom: '60px', overflowY: 'auto' }}>
               {/* eslint-disable react/no-array-index-key */}
               {messages.map((msg, index) => (
                 <Container
