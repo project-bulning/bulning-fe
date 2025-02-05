@@ -6,7 +6,7 @@ import { useTheme } from '@emotion/react';
 import arrowBack from '@assets/icons/arrow-back.svg';
 import locationIcon from '@assets/icons/location.svg';
 import routePaths from '@constants/routePaths.ts';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import KakaoMap from '@components/kakaoMap';
 import Spacing from '@components/spacing';
@@ -46,7 +46,9 @@ function HuntingListDetailPage() {
   return (
     <DefaultPaddedContainer>
       <Container direction="column" padding="10px 0 10px 0">
-        <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
+        <Link to={routePaths.BUG_REPORT}>
+          <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
+        </Link>
         {bugReport?.bug_image_url ? (
           <img src={bugReport.bug_image_url} alt="image_url" css={{ width: '100%', height: '180px', marginTop: '30px' }} />
         ) : (
@@ -103,7 +105,7 @@ function HuntingListDetailPage() {
               latitude={bugReport.latitude}
               longitude={bugReport.longitude}
               type="range"
-              width="342px"
+              width="100%"
               height="152px"
               css={{ borderRadius: '8px', marginBottom: '15px' }}
             />
