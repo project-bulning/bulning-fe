@@ -14,21 +14,25 @@ function DealWaitingPage() {
   } = useAfterHuntingPageStyle();
 
   const navigate = useNavigate();
+  const [matchId, setMatchId] = useState<number | null>(null);
 
-  const [status, setStatus] = useState<boolean>(false);
-
-  const handleNavigate = () => {
-    navigate(routePaths.REVIEW);
-  };
+  const [tradeCompleted, setTradeCompleted] = useState<boolean>(false);
 
   useEffect(() => {
-    // TODO: api로 거래 완료 상태 받아와서 처리
-    const changeStatus = () => {
-      setTimeout(() => { setStatus(true); }, 3000);
-    };
-
-    changeStatus();
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', (event) => {
+        if (event.data?.type === 'TRADE_COMPLETED') {
+          console.log('거래 완료 알림이 수신됨:', event.data);
+          setTradeCompleted(true);
+          setMatchId(event.data.matchId);
+        }
+      });
+    }
   }, []);
+
+  const handleNavigate = () => {
+    navigate(routePaths.REVIEW.replace(':matchId', String(matchId)));
+  };
 
   return (
     <DefaultPaddedContainer>
@@ -37,7 +41,13 @@ function DealWaitingPage() {
         <Heading.H3_5 weight="semi-bold">기다리고 있어요</Heading.H3_5>
       </Container>
       <Container css={btnPositionStyle}>
-        <Button variant={status ? 'default' : 'secondary'} onClick={handleNavigate}>완료했어요</Button>
+        <Button
+          variant={tradeCompleted ? 'default' : 'secondary'}
+          disabled={!tradeCompleted}
+          onClick={handleNavigate}
+        >
+          완료했어요
+        </Button>
       </Container>
     </DefaultPaddedContainer>
   );

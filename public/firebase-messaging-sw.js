@@ -20,10 +20,25 @@ self.addEventListener("push", (event) => {
         const payload = event.data.json();
         console.log("백그라운드에서 메시지를 수신함:", payload);
 
-        const notificationTitle = payload.notification.title || "알림";
+        // 알림 타입이 trade_completed 일 때 클라이언트로 메시지 전송함.
+        if (payload.data.type === "trade_completed") {
+            self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+                clients.forEach((client) => {
+                    client.postMessage({
+                        type: "TRADE_COMPLETED",
+                        matchId: payload.data.matchId,
+                    });
+                });
+            });
+            console.log("trade_completed 알림을 서비스워커에서 클라이언트로 전송함");
+            return;
+        }
+
+        // 푸시 알림 생성
+        const notificationTitle = payload.notification?.title || "벌닝 알림";
         const notificationOptions = {
             body: payload.notification.body || "메시지가 도착했습니다.",
-            icon: payload.notification.icon || "/firebase-logo.png",
+            icon: payload.notification.icon || "/icons/android-chrome-192x192.png",
             data: payload.data || {},
         };
 
@@ -35,9 +50,18 @@ self.addEventListener("push", (event) => {
 self.addEventListener("notificationclick", (event) => {
     event.notification.close();
 
-    const userId = event.notification.data?.user;
+    const data = event.notification.data || {};
+    let url = "/";
 
-    const url = userId ? `/hunter-approval/${userId}` : "/";
+    if (data.type === "hunter_applied" && data.user) {
+        url = `/hunter-approval/${data.user}`;
+    } else if (data.type === "hunter_accepted") {
+        url = "/chat";
+    } else if (data.type === "hunter_ejected") {
+        url = "/";
+    } else if (data.type === "help_posted") {
+        url = "/";
+    }
 
     console.log(url);
 

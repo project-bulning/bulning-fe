@@ -6,9 +6,14 @@ import Button from '@components/button';
 import { css, useTheme } from '@emotion/react';
 import { useState } from 'react';
 import EndQuickChatBottomSheet from '@pages/afterHunting/EndQuickChatBottomSheet';
+import { useParams } from 'react-router-dom';
+import { ReviewFormData } from '@/types/afterHunting';
+import { submitReview } from '@/api/afterHunting';
 
 function ReviewPage() {
   const theme = useTheme();
+  const { matchId } = useParams<{ matchId: string }>();
+
   const [selectedStars, setSelectedStars] = useState(0);
   const [selectedAdvantages, setSelectedAdvantages] = useState<string[]>([]);
   const [reviewText, setReviewText] = useState('');
@@ -49,14 +54,25 @@ function ReviewPage() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const reviewData = {
-      stars: selectedStars,
-      advantages: selectedAdvantages,
-      reviewText,
+
+    if (!matchId) {
+      console.log('유효하지 않은 매칭 정보입니다.');
+      return;
+    }
+
+    const reviewData: ReviewFormData = {
+      score: selectedStars,
+      review_note: reviewText,
+      merit: selectedAdvantages,
     };
-    console.log('리뷰 제출 데이터:', reviewData);
+
+    try {
+      await submitReview(Number(matchId), reviewData);
+    } catch (err) {
+      console.error('리뷰 제출 실패:', err);
+    }
   };
 
   const isSubmitDisabled = selectedStars === 0 || reviewText.trim().length === 0;

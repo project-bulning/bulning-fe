@@ -14,7 +14,7 @@ import Spinner from '@components/fallback/Spinner';
 import StarRating from '@components/starRating';
 import { useParams } from 'react-router-dom';
 import { HunterInfo } from '@/types/hunterMatching';
-import { fetchHunterInfo } from '@/api/hunterMatching';
+import { fetchHunterInfo, updateMatchStatus } from '@/api/hunterMatching';
 
 function HunterApprovalPage() {
   const { userId } = useParams<{ userId: string }>();
@@ -39,7 +39,23 @@ function HunterApprovalPage() {
   const [isQuickChatOpen, setIsQuickChatOpen] = useState<boolean>(false);
   const [isCancelledOpen, setIsCancelledOpen] = useState<boolean>(false);
 
-  const handleOpenQuickChat = () => {
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleOpenQuickChat = async () => {
+    if (hunterData == null) {
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await updateMatchStatus(hunterData.match_id, true);
+      console.log('매칭 수락');
+    } catch (error) {
+      console.error('매칭 상태 업데이트 실패:', error);
+    } finally {
+      setLoading(false);
+    }
+
     setIsQuickChatOpen(true);
   };
 
@@ -205,13 +221,12 @@ function HunterApprovalPage() {
                       </Slider>
                     </Container>
                     <Container direction="column" gap="6px">
-                      <Button onClick={handleOpenQuickChat}>수락하기</Button>
+                      <Button onClick={handleOpenQuickChat}>{loading ? '처리 중...' : '수락하기'}</Button>
                       <Button variant="secondary" onClick={handleOpenCancelled}>취소하기</Button>
                     </Container>
                   </Container>
                 </DefaultPaddedContainer>
                 <MoveToQuickChatBottomSheet
-                  matchId={hunterData.match_id}
                   isOpen={isQuickChatOpen}
                   onClose={handleCloseQuickChat}
                 />

@@ -2,6 +2,8 @@ import Button from '@components/button';
 import BottomSheet from '@components/bottomSheet';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
+import routePaths from '@constants/routePaths.ts';
+import { useNavigate } from 'react-router-dom';
 import { getMyInfo } from '@/api/user';
 import { endHunting } from '@/api/afterHunting';
 
@@ -11,6 +13,8 @@ interface MoveToQuickChatBottomSheetProps {
 }
 
 function EndQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSheetProps) {
+  const navigate = useNavigate();
+
   const handleBtnClick = async () => {
     try {
       const userInfo = await getMyInfo();
@@ -22,6 +26,7 @@ function EndQuickChatBottomSheet({ isOpen, onClose }: MoveToQuickChatBottomSheet
       }
       await endHunting(matchId);
       alert('사냥이 종료되었습니다.');
+      navigate(routePaths.MAIN);
     } catch (error) {
       console.error('사냥 종료 실패:', error);
       alert('사냥 종료에 실패했습니다.');

@@ -13,7 +13,11 @@ const endpoints = {
     create: `${prefix}/bug-reports`,
     uploadImage: `${prefix}/bug-reports/image`,
   },
+
+  huntingPrice: `${prefix}/hunting`,
+  huntingTrade: `${prefix}/hunting/trade`,
   endHunting: `${prefix}/hunting`,
+  review: `${prefix}/review`,
   fcmToken: `${prefix}/alarm/fcm-token`,
 };
 
