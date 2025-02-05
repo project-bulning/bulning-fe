@@ -35,6 +35,7 @@ function useFormPageStyle() {
   };
 
   const inputBtnStyle: CSSObject = {
+    width: 'fit-content',
   };
 
   const ulStyle: CSSObject = {
