@@ -15,14 +15,14 @@ export async function submitInfoForm(data: UserInfoPost): Promise<void> {
 
 export async function submitHunterInfoForm(
   reportId: number,
-  image_url: string,
+  img_url: string,
   data: HunterInfo,
 ): Promise<void> {
   const url = `${endpoints.submitHunterInfo}?reportId=${reportId}`;
 
   await axiosInstance.post(url, {
     ...data,
-    image_url,
+    img_url,
   }, {
     headers: {
       'Content-Type': 'application/json',

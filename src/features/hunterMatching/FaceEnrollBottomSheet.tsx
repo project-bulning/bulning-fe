@@ -82,7 +82,6 @@ function FaceEnrollBottomSheet({
         const imageUrl = await uploadHunterImage(file);
         console.log(formData);
         await submitHunterInfoForm(reportId, imageUrl, formData);
-
         await submitHunterAlarm(reportId);
         console.log('알림 요청 완료');
 
