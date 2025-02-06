@@ -4,10 +4,11 @@ import Container from '@components/container';
 import Grid from '@components/grid';
 import { DefaultPaddedContainer } from '@components/container/variants';
 import viewDetails from '@assets/icons/view-details.svg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import routePaths from '@constants/routePaths.ts';
 import HuntingListItem from '@pages/hunting/HuntingListItem';
 import Spinner from '@components/fallback/Spinner';
+import { useCurrentUser } from '@providers/CurrentUserProvider';
 import { BugReport } from '@/types/bug-report';
 import { getBugReportList } from '@/api/bugReports';
 
@@ -16,6 +17,8 @@ function CatchRequestList() {
   const [latitude, setLatitude] = useState<number | null>(null);
   const [longitude, setLongitude] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+
+  const { isLoggedIn } = useCurrentUser();
 
   useEffect(() => {
     const fetchLocation = () => {
@@ -60,6 +63,16 @@ function CatchRequestList() {
     fetchRequests();
   }, [latitude, longitude]);
 
+  const navigate = useNavigate();
+
+  const handleClick = (id: number, distance: number) => {
+    if (!isLoggedIn) {
+      navigate(routePaths.LOGIN);
+      return;
+    }
+    navigate(routePaths.BUG_REPORT_DETAIL, { state: { id, distance } });
+  };
+
   return (
     <div>
       {
@@ -103,11 +116,16 @@ function CatchRequestList() {
                     >
                       {
                         requests.slice(0, 5).map((request) => (
-                          <HuntingListItem
-                            isUrgencyIcon={true}
+                          <Container
                             key={`notice-item-${request.id}`}
-                            request={request}
-                          />
+                            onClick={() => handleClick(request.id, request.distance)}
+                            css={{ cursor: 'pointer', textDecoration: 'none', color: 'inherit' }}
+                          >
+                            <HuntingListItem
+                              isUrgencyIcon={true}
+                              request={request}
+                            />
+                          </Container>
                         ))
                       }
                     </Grid>
