@@ -24,11 +24,11 @@ export async function updateMatchStatus(matchId: number, accept: boolean): Promi
   });
 }
 
-export async function uploadHunterImage(image: File): Promise<string> {
+export async function uploadHunterImage(image: File, reportId: number): Promise<string> {
   const formData = new FormData();
   formData.append('image', image);
 
-  const url = `${endpoints.uploadHunterImage}`;
+  const url = `${endpoints.uploadHunterImage}/${reportId}`;
   const response = await axiosInstance.post<{ image_url: string }>(
     url,
     formData,
