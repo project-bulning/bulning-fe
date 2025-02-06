@@ -7,33 +7,11 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
   const FCM_TOKEN_KEY = 'my_fcm_token';
 
   try {
-    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (window.navigator as any).standalone;
-    if (!isStandalone) {
-      console.warn('iOS에서는 PWA가 홈 화면에 추가되어 있어야 FCM 토큰을 받을 수 있습니다.');
-      return;
-    }
-
-    const permission = await Notification.requestPermission();
-    if (permission !== 'granted') {
-      console.warn('푸시 알림 권한이 거부됨.');
-      return;
-    }
-
     const messaging = getMessaging(firebaseApp);
-
-    if (!import.meta.env.VITE_FIREBASE_VAPID_KEY) {
-      console.error('VAPID 키가 설정되지 않음.');
-      return;
-    }
 
     const newToken = await getToken(messaging, {
       vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY || '',
     });
-
-    if (!newToken) {
-      console.warn('새 FCM 토큰을 가져오지 못함.');
-      return;
-    }
 
     await axiosInstance.post(endpoints.fcmToken, { fcmToken: newToken });
     localStorage.setItem(FCM_TOKEN_KEY, newToken);
