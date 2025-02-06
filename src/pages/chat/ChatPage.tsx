@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import { tokenStorage } from '@/utils/tokenStorage';
 import arrowBack from '@/assets/icons/arrow-back.svg';
 import sendBtn from '@/assets/icons/send.svg';
+import { getMyInfo } from '@/api/user';
 
 interface WriteChatRequest {
   message_type: 'write';
@@ -25,6 +26,21 @@ function ChatPage() {
   const [isCancelBottomSheetOpen, setIsCancelBottomSheetOpen] = useState<boolean>(false);
   const [resizeHeight, setResizeHeight] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const [isHunter, setIsHunter] = useState<boolean>(true);
+
+  useEffect(() => {
+    async function findHunter() {
+      try {
+        const data = await getMyInfo();
+        setIsHunter(data.role === 'hunter');
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    findHunter();
+  }, []);
 
   useEffect(() => {
     const handleServiceWorkerMessage = (event: MessageEvent) => {
@@ -197,7 +213,11 @@ function ChatPage() {
             >
               <Container align="flex-end" height="100%" gap="5px">
                 <img src={arrowBack} alt="arrow-back" />
-                <Heading.H3_5 weight="medium" css={{ padding: '3px' }}>헌터와의 채팅</Heading.H3_5>
+                {isHunter ? (
+                  <Heading.H3_5 weight="medium" css={{ padding: '3px' }}>헬피와의 채팅</Heading.H3_5>
+                ) : (
+                  <Heading.H3_5 weight="medium" css={{ padding: '3px' }}>헌터와의 채팅</Heading.H3_5>
+                )}
               </Container>
               <button type="button" css={btnStyle} onClick={handleOpenBottomSheet}>사냥 종료하기</button>
             </Container>
