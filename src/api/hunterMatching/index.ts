@@ -42,8 +42,8 @@ export async function uploadHunterImage(image: File): Promise<string> {
   return response.data.image_url;
 }
 
-export async function saveHunterImage(imageUrl: string): Promise<void> {
-  const url = `${endpoints.submitHunterImage}`;
+export async function saveHunterImage(imageUrl: string, reportId: number): Promise<void> {
+  const url = `${endpoints.submitHunterImage}/${reportId}`;
   await axiosInstance.post(
     url,
     { img_url: imageUrl },

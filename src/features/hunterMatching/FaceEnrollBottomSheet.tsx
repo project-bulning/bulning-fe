@@ -76,7 +76,7 @@ function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSh
 
       try {
         const imageUrl = await uploadHunterImage(file);
-        await saveHunterImage(imageUrl);
+        await saveHunterImage(imageUrl, reportId);
 
         await submitHunterAlarm(reportId);
         console.log('알림 요청 완료');
