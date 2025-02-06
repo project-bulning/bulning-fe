@@ -55,6 +55,7 @@ function BugInputPage() {
 
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [hunterLocation, setHunterLocation] = useState<string | null>(null);
+  const [formattedPrice, setFormattedPrice] = useState<string>('');
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -146,14 +147,33 @@ function BugInputPage() {
   };
 
   const onSubmit = (data: BugInfo) => {
-    console.log('폼 데이터:', data);
+    const updatedData = {
+      ...data,
+      price: Number(data.price.toString().replace(/,/g, '')),
+    };
+    console.log('폼 데이터:', updatedData);
   };
 
   const handleNextBtn = ():void => {
+    register('price', validations.price);
     handleSubmit((data) => {
       setFormData(data);
       setIsBottomSheetOpen(true);
     })();
+  };
+
+  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.replace(/,/g, '');
+    const numericValue = parseFloat(value);
+
+    if (Number.isNaN(numericValue)) {
+      return;
+    }
+
+    setValue('price', numericValue);
+    register('price', validations.price);
+    const formatted = numericValue.toLocaleString();
+    setFormattedPrice(formatted);
   };
 
   return (
@@ -285,12 +305,10 @@ function BugInputPage() {
                   <p css={{ fontSize: '10px', color: '#9B9B9B' }}>최소 설정 가격은 3,000원 입니다</p>
                 </Container>
                 <Input
-                  type="number"
-                  placeholder="가격"
-                  {...register('price', {
-                    ...validations.price,
-                    valueAsNumber: true,
-                  })}
+                  type="text"
+                  placeholder="가격을 입력하세요"
+                  value={formattedPrice}
+                  onChange={handlePriceChange}
                 />
                 <FormErrorMessage errors={errors} name="price" />
               </Container>

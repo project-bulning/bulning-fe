@@ -14,6 +14,7 @@ import { DetailedBugReport } from '@/types/bug-report';
 import { getBugReportDetail } from '@/api/bugReports';
 import trash from '@/assets/icons/trash-alt.svg';
 import { deleteBugReport } from '@/api/hunting';
+import { getMyInfo } from '@/api/user';
 
 function HuntingListDetailPage() {
   const theme = useTheme();
@@ -22,7 +23,20 @@ function HuntingListDetailPage() {
   const id = location.state?.id;
   const distance = location.state?.distance;
   const [bugReport, setBugReport] = useState<DetailedBugReport | null>(null);
+  const [myReportId, setMyReportId] = useState<number | null>(null);
 
+  useEffect(() => {
+    async function fetchMyInfo() {
+      try {
+        const data = await getMyInfo();
+        setMyReportId(data?.reportId ?? null);
+      } catch (error) {
+        console.error('Error fetching my info:', error);
+      }
+    }
+
+    fetchMyInfo();
+  }, []);
   useEffect(() => {
     if (!id) {
       console.error('ID가 제공되지 않았습니다.');
@@ -64,13 +78,16 @@ function HuntingListDetailPage() {
           <Link to={routePaths.BUG_REPORT}>
             <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
           </Link>
-          <img
-            role="presentation"
-            src={trash}
-            alt="delete"
-            css={{ width: '20px', height: '20px' }}
-            onClick={handleDelete}
-          />
+          {myReportId === bugReport?.id
+              && (
+              <img
+                role="presentation"
+                src={trash}
+                alt="delete"
+                css={{ width: '20px', height: '20px' }}
+                onClick={handleDelete}
+              />
+              )}
         </Container>
 
         {bugReport?.bug_image_url ? (
