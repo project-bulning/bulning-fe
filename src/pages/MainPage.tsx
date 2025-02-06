@@ -11,7 +11,7 @@ function MainPage() {
     <DefaultPaddedContainer>
       <Container direction="column" padding="0 0 100px 0">
         <Header />
-        <Spacing height="3  px" />
+        <Spacing height="3px" />
         <RequestHelpBanner />
         <Spacing height="30px" />
         <CatchRequestList />

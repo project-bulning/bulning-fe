@@ -16,6 +16,7 @@ import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage';
 import ProfilePage from '@pages/login/ProfilePage';
 import ReviewPage from '@pages/afterHunting/ReviewPage';
 import ChatPage from '@pages/chat/ChatPage';
+import NotificationPage from '@pages/notification/NotificationPage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -112,6 +113,12 @@ const router = createBrowserRouter([
     path: routePaths.CHAT,
     element: (
       <ChatPage />
+    ),
+  },
+  {
+    path: routePaths.NOTIFICATION,
+    element: (
+      <NotificationPage />
     ),
   },
 ]);

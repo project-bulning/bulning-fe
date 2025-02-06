@@ -2,6 +2,8 @@ const prefix = '/api';
 
 const endpoints = {
   myInfo: `${prefix}/my-info`,
+  submitPersonalInfo: `${prefix}/user/info`,
+  userAlarmInfo: `${prefix}/user/match/status`,
 
   uploadHunterImage: `${prefix}/user/hunter/image`,
   submitHunterImage: `${prefix}/user/info/new`,

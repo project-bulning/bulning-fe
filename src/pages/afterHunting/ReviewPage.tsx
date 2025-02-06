@@ -17,7 +17,8 @@ function ReviewPage() {
   const [selectedStars, setSelectedStars] = useState(0);
   const [selectedAdvantages, setSelectedAdvantages] = useState<string[]>([]);
   const [reviewText, setReviewText] = useState('');
-  const [error, setError] = useState('');
+  const [advantageError, setAdvantageError] = useState('');
+  const [reviewError, setReviewError] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
   const advantages = [
@@ -40,16 +41,16 @@ function ReviewPage() {
     } else if (selectedAdvantages.length < 2) {
       setSelectedAdvantages([...selectedAdvantages, advantage]);
     } else {
-      setError('장점은 최대 2개까지 선택할 수 있습니다.');
+      setAdvantageError('최대 2개까지 선택할 수 있어요');
     }
   };
 
   const handleReviewChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const text = e.target.value;
     if (text.length > 200) {
-      setError('후기는 200자 이내로 작성해주세요.');
+      setReviewError('200자 이내로 입력해주세요');
     } else {
-      setError('');
+      setReviewError('');
       setReviewText(text);
     }
   };
@@ -84,8 +85,10 @@ function ReviewPage() {
         width: auto;
         &:hover {
             width: auto;
+            border: 1px solid ${theme.colors.text.subtle};
+            background-color: ${theme.colors.background.main};
+            color: ${theme.colors.primary.main};
         }
-
     }
   `;
   const getButtonStyle = (advantage: string) => (selectedAdvantages.includes(advantage)
@@ -123,7 +126,12 @@ function ReviewPage() {
                 />
               </Container>
               <Container direction="column" gap="12px">
-                <Paragraph>장점</Paragraph>
+                <Container align="center" gap="10px">
+                  <Paragraph>장점</Paragraph>
+                  {advantageError && (
+                    <Paragraph css={{ color: 'red', fontSize: '12px' }}>{advantageError}</Paragraph>
+                  )}
+                </Container>
                 <Container css={btnStyle}>
                   {advantages.map((advantage) => (
                     <Button
@@ -145,7 +153,7 @@ function ReviewPage() {
                 <textarea
                   placeholder="다음 사용자를 위해 솔직한 경험을 적어주세요"
                   css={{
-                    height: '200px',
+                    height: '150px',
                     backgroundColor: '#F2F3F6',
                     padding: '10px 13px',
                     fontSize: '16px',
@@ -155,10 +163,10 @@ function ReviewPage() {
                   value={reviewText}
                   onChange={handleReviewChange}
                 />
+                {reviewError && (
+                  <Paragraph css={{ color: 'red', fontSize: '12px' }}>{reviewError}</Paragraph>
+                )}
               </Container>
-              {error && (
-              <Paragraph css={{ color: 'red', fontSize: '12px' }}>{error}</Paragraph>
-              )}
             </Container>
             <Button disabled={isSubmitDisabled} type="submit" onClick={handleOpenBottomSheet}>종료하기</Button>
           </Container>
