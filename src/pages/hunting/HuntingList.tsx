@@ -11,7 +11,6 @@ import Navbar from '@components/navbar';
 import { useCurrentUser } from '@providers/CurrentUserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '@components/fallback/Spinner';
-import RoutePaths from '@constants/routePaths.ts';
 import { getBugReportList } from '@/api/bugReports';
 import { BugReport } from '@/types/bug-report';
 
