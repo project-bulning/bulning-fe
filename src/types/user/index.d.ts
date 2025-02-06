@@ -13,6 +13,7 @@ export interface User {
   fcm_token: string;
   pr_memo: string;
   location_detail: string;
+  reportId: number;
   match: {
     id: number;
     bug_report_id: number;
