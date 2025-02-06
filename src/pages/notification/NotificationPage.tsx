@@ -15,7 +15,7 @@ function NotificationPage() {
   const { alarmData } = location.state as { alarmData: UserAlarmResponse | null } || { alarmData: null };
 
   useEffect(() => {
-    console.log(`alarmData:${alarmData}`);
+    console.log(`alarmData: ${alarmData?.type}`);
   }, [alarmData]);
 
   const theme = useTheme();
@@ -25,6 +25,7 @@ function NotificationPage() {
       background-color: ${theme.colors.background.light_blue};
       border-radius: 20px;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      color: ${theme.colors.primary.main};
   `;
 
   const redDotStyle = css`
@@ -51,9 +52,12 @@ function NotificationPage() {
           alarmData ? (
             <div>
               {
-                (alarmData.role === 'helpee' && alarmData.status === 'PEDNING')
+                (alarmData.type === 'hunter_applied')
                   ? (
-                    <Link to={routePaths.HUNTER_APPROVAL.replace(':userId', String(alarmData.hunterId))}>
+                    <Link
+                      to={routePaths.HUNTER_APPROVAL.replace(':userId', String(alarmData.hunterId))}
+                      css={{ textDecoration: 'none' }}
+                    >
                       <Container css={notificationStyle}>
                         <div css={redDotStyle} />
                         <Container direction="column" gap="10px">
@@ -64,7 +68,7 @@ function NotificationPage() {
                       </Container>
                     </Link>
                   ) : (
-                    <Link to={routePaths.CHAT}>
+                    <Link to={routePaths.CHAT} css={{ textDecoration: 'none' }}>
                       <Container css={notificationStyle}>
                         <div css={redDotStyle} />
                         <Container direction="column" gap="10px">
