@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { DefaultPaddedContainer } from '@components/container/variants';
 import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
@@ -22,6 +22,13 @@ function ChatPage() {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
   const [isCancelBottomSheetOpen, setIsCancelBottomSheetOpen] = useState<boolean>(false);
   const [resizeHeight, setResizeHeight] = useState<number>(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = 0;
+    }
+  }, [resizeHeight]);
 
   useEffect(() => {
     const resizeHandler = (event: Event) => {
@@ -34,6 +41,7 @@ function ChatPage() {
 
     return () => visualViewport?.removeEventListener('resize', resizeHandler);
   }, []);
+
   useEffect(() => {
     const accessToken = tokenStorage.get();
     if (!accessToken) {
