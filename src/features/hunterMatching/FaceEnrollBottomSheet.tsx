@@ -80,6 +80,7 @@ function FaceEnrollBottomSheet({
 
       try {
         const imageUrl = await uploadHunterImage(file);
+        console.log(formData);
         await submitHunterInfoForm(reportId, imageUrl, formData);
 
         await submitHunterAlarm(reportId);

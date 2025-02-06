@@ -36,10 +36,9 @@ function HunterInfoInputPage() {
   } = useForm<HunterInfo>({
     defaultValues: {
       gender: '',
-      age: '',
-      address: '',
-      addressDetail: '',
-      memo: '',
+      age_group: '',
+      location_detail: '',
+      pr_memo: '',
     },
     mode: 'onChange',
   });
@@ -65,8 +64,6 @@ function HunterInfoInputPage() {
             try {
               const hunterInfo = await getHunterLocation(longitude, latitude);
               if (hunterInfo.documents.length > 0) {
-                const fetchedAddress = `${hunterInfo.documents[0].region_1depth_name} ${hunterInfo.documents[0].region_2depth_name} ${hunterInfo.documents[0].region_3depth_name}`;
-                setValue('address', fetchedAddress);
                 setHunterLocation(`${hunterInfo.documents[0].region_1depth_name} ${hunterInfo.documents[0].region_2depth_name} ${hunterInfo.documents[0].region_3depth_name}`);
               }
             } catch (error) {
@@ -88,13 +85,12 @@ function HunterInfoInputPage() {
 
   const validations = {
     gender: { required: { value: true, message: '성별을 알려주세요.' } },
-    age: { required: { value: true, message: '연령대를 알려주세요.' } },
-    address: { required: { value: true, message: '주소를 입력하세요.' } },
-    addressDetail: {
+    age_group: { required: { value: true, message: '연령대를 알려주세요.' } },
+    location_detail: {
       required: { value: true, message: '상세 주소를 입력하세요.' },
       maxLength: { value: 22, message: '최대 22자까지 입력 가능합니다.' },
     },
-    memo: { required: { value: true, message: '메모를 작성해주세요.' } },
+    pr_memo: { required: { value: true, message: '메모를 작성해주세요.' } },
   };
 
   const handleMemoChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -106,20 +102,13 @@ function HunterInfoInputPage() {
 
   const onSubmit = (data: HunterInfo) => {
     console.log('폼 데이터:', data);
-    handleNextBtn(data);
   };
 
-  const handleNextBtn = async (data?: HunterInfo) => {
-    const hunterData = data || formData;
-    setFormData(hunterData);
-    setIsBottomSheetOpen(true);
-    if (!reportId) {
-      console.error('reportId가 없습니다.');
-      return;
-    }
-    if (!hunterData) {
-      console.error('formData가 없습니다.');
-    }
+  const handleNextBtn = ():void => {
+    handleSubmit((data) => {
+      setFormData(data);
+      setIsBottomSheetOpen(true);
+    })();
   };
 
   return (
@@ -145,7 +134,7 @@ function HunterInfoInputPage() {
                     label: '성별', name: 'gender', options: ['남성', '여성'], validation: validations.gender,
                   },
                   {
-                    label: '연령대', name: 'age', options: ['20대', '30대', '40대', '50대'], validation: validations.age,
+                    label: '연령대', name: 'age_group', options: ['20대', '30대', '40대', '50대'], validation: validations.age_group,
                   },
                 ].map(({
                   label, name, options,
@@ -173,7 +162,7 @@ function HunterInfoInputPage() {
                     value={hunterLocation || ''}
                     readOnly
                   />
-                  <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('addressDetail', validations.addressDetail)} css={{ marginTop: '3px' }} />
+                  <Input type="text" placeholder="대략적인 위치(ex. 부산대역에서 5분, 대동병원 근처)" {...register('location_detail', validations.location_detail)} css={{ marginTop: '3px' }} />
                   <FormErrorMessage errors={errors} name="addressDetail" />
                 </Container>
                 <Container direction="column" gap="10px">
@@ -182,7 +171,7 @@ function HunterInfoInputPage() {
                   </Paragraph>
                   <textarea
                     placeholder="자기소개와 도움을 줄 수 있는 방법 등을 작성해주세요."
-                    {...register('memo', validations.memo)}
+                    {...register('pr_memo', validations.pr_memo)}
                     value={memoValue}
                     onChange={handleMemoChange}
                     css={{
@@ -208,6 +197,7 @@ function HunterInfoInputPage() {
             </Container>
             <Button
               type="submit"
+              onClick={handleNextBtn}
             >
               다음
             </Button>
