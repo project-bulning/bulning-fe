@@ -11,6 +11,7 @@ import Navbar from '@components/navbar';
 import { useCurrentUser } from '@providers/CurrentUserProvider.tsx';
 import { useNavigate } from 'react-router-dom';
 import Spinner from '@components/fallback/Spinner';
+import RoutePaths from '@constants/routePaths.ts';
 import { getBugReportList } from '@/api/bugReports';
 import { BugReport } from '@/types/bug-report';
 
@@ -91,7 +92,13 @@ function HuntingList() {
         <Container justify="space-between" align="center" padding="6px 0">
           <Container justify="space-between" align="center">
             <Heading.H5 css={{ fontWeight: 600 }}>가까운 순</Heading.H5>
-            <img src={alarmLight} alt="알림보기" css={{ width: '30px', height: '30px' }} />
+            <a href={RoutePaths.NOTIFICATION}>
+              <img
+                src={alarmLight}
+                alt="알림보기"
+                css={{ width: '30px', height: '30px' }}
+              />
+            </a>
           </Container>
         </Container>
         <Container justify="flex-end" />

@@ -41,7 +41,7 @@ function NotificationPage() {
   return (
     <DefaultPaddedContainer>
       <Container direction="column" gap="30px">
-        <Container height="40px" justify="space-between" align="center">
+        <Container justify="space-between" align="center" padding="16px 0">
           <Link to={routePaths.MAIN}>
             <img src={ArrowBack} alt="뒤로가기" />
           </Link>

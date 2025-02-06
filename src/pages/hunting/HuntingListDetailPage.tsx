@@ -122,9 +122,8 @@ function HuntingListDetailPage() {
         <div
           css={{
             position: 'relative',
-            left: 'calc(-50vw + 50%)',
-            width: '100vw',
-            height: '10px',
+            width: '100%',
+            height: '2px',
             backgroundColor: theme.colors.background.darken,
           }}
         />
