@@ -88,7 +88,7 @@ function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSh
         setIsUploading(false);
       }
     }, 'image/jpeg', 1);
-  }, [navigate]);
+  }, [navigate, reportId]);
 
   return (
     <>

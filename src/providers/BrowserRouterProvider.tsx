@@ -16,7 +16,7 @@ import HuntCancelledPage from '@pages/hunterMatching/HuntCancelledPage';
 import ProfilePage from '@pages/login/ProfilePage';
 import ReviewPage from '@pages/afterHunting/ReviewPage';
 import ChatPage from '@pages/chat/ChatPage';
-import NotificationPage from '@pages/notification/NotificationPage.tsx';
+import NotificationPage from '@pages/notification/NotificationPage';
 
 const router = createBrowserRouter([
   {
