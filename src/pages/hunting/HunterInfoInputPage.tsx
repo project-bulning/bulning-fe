@@ -112,6 +112,7 @@ function HunterInfoInputPage() {
   const handleNextBtn = async (data?: HunterInfo) => {
     const hunterData = data || formData;
     setFormData(hunterData);
+    setIsBottomSheetOpen(true);
     if (!reportId) {
       console.error('reportId가 없습니다.');
       return;
