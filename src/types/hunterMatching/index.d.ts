@@ -6,6 +6,7 @@ export interface UserReview {
 }
 
 export interface HunterInfo {
+  img_url: string;
   name: string;
   location: string;
   location_detail: string;

@@ -145,7 +145,7 @@ function HunterApprovalPage() {
                           <Container gap="30px">
                             <Container direction="column" justify="center" align="center" gap="15px" css={{ flex: 1 }}>
                               <img
-                                src={Avatar}
+                                src={hunterData.img_url ? hunterData.img_url : Avatar}
                                 alt="profile-img"
                                 css={{ width: '77px', height: '77px', borderRadius: '100%' }}
                               />
