@@ -79,11 +79,9 @@ function FaceEnrollBottomSheet({
       const file = new File([blob], 'cropped-image.jpg', { type: 'image/jpeg' });
 
       try {
-        console.log('tryyyyy');
         const imageUrl = await uploadHunterImage(file);
-        console.log('image = ', imageUrl);
+        console.log(formData);
         await submitHunterInfoForm(reportId, imageUrl, formData);
-
         await submitHunterAlarm(reportId);
         console.log('알림 요청 완료');
 
