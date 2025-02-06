@@ -13,15 +13,9 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
       vapidKey: import.meta.env.VITE_FIREBASE_VAPID_KEY || '',
     });
 
-    const oldToken = localStorage.getItem(FCM_TOKEN_KEY);
-
-    if (newToken && newToken !== oldToken) {
-      await axiosInstance.post(endpoints.fcmToken, { fcmToken: newToken });
-      localStorage.setItem(FCM_TOKEN_KEY, newToken);
-      console.log('새 FCM 토큰을 서버에 전송 및 로컬에 저장:', newToken);
-    } else {
-      console.log('FCM 토큰이 기존과 동일하거나, 토큰이 없습니다.');
-    }
+    await axiosInstance.post(endpoints.fcmToken, { fcmToken: newToken });
+    localStorage.setItem(FCM_TOKEN_KEY, newToken);
+    console.log('새 FCM 토큰을 서버에 전송 및 로컬스토리지에 저장:', newToken);
   } catch (error) {
     console.error('FCM 토큰 갱신 중 에러:', error);
   }
