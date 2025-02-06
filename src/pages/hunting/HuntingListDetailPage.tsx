@@ -65,6 +65,7 @@ function HuntingListDetailPage() {
             <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
           </Link>
           <img
+            role="presentation"
             src={trash}
             alt="delete"
             css={{ width: '20px', height: '20px' }}
