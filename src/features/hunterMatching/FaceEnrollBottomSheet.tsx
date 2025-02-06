@@ -75,8 +75,8 @@ function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSh
       const file = new File([blob], 'cropped-image.jpg', { type: 'image/jpeg' });
 
       try {
-        const imageUrl = await uploadHunterImage(file);
-        await saveHunterImage(imageUrl, reportId);
+        const imageUrl = await uploadHunterImage(file, reportId);
+        await saveHunterImage(imageUrl);
 
         await submitHunterAlarm(reportId);
         console.log('알림 요청 완료');
