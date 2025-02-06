@@ -155,6 +155,7 @@ function BugInputPage() {
   };
 
   const handleNextBtn = ():void => {
+    register('price', validations.price);
     handleSubmit((data) => {
       setFormData(data);
       setIsBottomSheetOpen(true);
