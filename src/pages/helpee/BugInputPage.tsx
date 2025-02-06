@@ -280,9 +280,12 @@ function BugInputPage() {
               </Container>
 
               <Container css={inputTextStyle}>
+                <Container gap="10px" align="center" padding="10px 0">
+                  <Paragraph weight="medium">가격</Paragraph>
+                  <p css={{ fontSize: '10px', color: '#9B9B9B' }}>최소 설정 가격은 3,000원 입니다</p>
+                </Container>
                 <Input
                   type="number"
-                  label="가격"
                   placeholder="가격"
                   {...register('price', {
                     ...validations.price,
