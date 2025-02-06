@@ -4,6 +4,7 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import { css, useTheme } from '@emotion/react';
 import HuntEndBottomSheet from '@features/afterHunting/HuntEndBottomSheet';
+import CancelMatchingBottomSheet from '@features/hunterMatching/CancelMatchingBottomSheet';
 import { tokenStorage } from '@/utils/tokenStorage';
 import arrowBack from '@/assets/icons/arrow-back.svg';
 import sendBtn from '@/assets/icons/send.svg';
@@ -19,7 +20,20 @@ function ChatPage() {
   const [messages, setMessages] = useState<{ type: 'received' | 'sent'; content: string; created_at: Date; status: string; }[]>([]);
   const [messageInput, setMessageInput] = useState('');
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+  const [isCancelBottomSheetOpen, setIsCancelBottomSheetOpen] = useState<boolean>(false);
+  const [resizeHeight, setResizeHeight] = useState<number>(0);
 
+  useEffect(() => {
+    const resizeHandler = (event: Event) => {
+      const height = (event.currentTarget as VisualViewport)?.height;
+      setResizeHeight(window.innerHeight - (height !== undefined ? height : 0));
+    };
+
+    const { visualViewport } = window;
+    visualViewport?.addEventListener('resize', resizeHandler);
+
+    return () => visualViewport?.removeEventListener('resize', resizeHandler);
+  }, []);
   useEffect(() => {
     const accessToken = tokenStorage.get();
     if (!accessToken) {
@@ -95,6 +109,7 @@ function ChatPage() {
     // eslint-disable-next-line consistent-return
     return () => {
       if (ws.readyState === WebSocket.OPEN) {
+        console.log('이거 맞음');
         ws.close();
       }
     };
@@ -128,12 +143,30 @@ function ChatPage() {
     setIsBottomSheetOpen(false);
   };
 
+  const handleCancelBottomSheet = () => {
+    setIsCancelBottomSheetOpen(true);
+  };
+
+  const handleCloseCancelBottomSheet = () => {
+    setIsCancelBottomSheetOpen(false);
+  };
+
   return (
     <>
       <DefaultPaddedContainer>
-        <Container direction="column" height="100dvh" justify="space-between">
+        <Container direction="column" height="100vh" justify="space-between">
           <Container direction="column">
-            <Container justify="space-between" align="center" height="55px">
+            <Container
+              justify="space-between"
+              align="center"
+              height="55px"
+              css={{
+                backgroundColor: 'white',
+                position: 'sticky',
+                top: 0,
+                zIndex: 10,
+              }}
+            >
               <Container align="center" gap="5px">
                 <img src={arrowBack} alt="arrow-back" />
                 <Heading.H3_5 weight="medium">헌터와의 채팅</Heading.H3_5>
@@ -161,9 +194,9 @@ function ChatPage() {
               }}
             >
               <Paragraph variant="xsmall">헬피는 자세한 주소와 공동현관 비밀번호 등을 알려줘야 해요.</Paragraph>
-              <Paragraph css={{ fontSize: '10px', textDecoration: 'underline' }}>*거래를 취소하고 싶나요?</Paragraph>
+              <Paragraph onClick={handleCancelBottomSheet} css={{ fontSize: '10px', textDecoration: 'underline' }}>*거래를 취소하고 싶나요?</Paragraph>
             </Container>
-            <Container width="100%" direction="column" css={{ marginBottom: '60px' }}>
+            <Container width="100%" direction="column" height={`calc(70% - ${resizeHeight}px)`} css={{ marginBottom: '60px', overflowY: 'auto' }}>
               {/* eslint-disable react/no-array-index-key */}
               {messages.map((msg, index) => (
                 <Container
@@ -199,7 +232,20 @@ function ChatPage() {
               ))}
             </Container>
           </Container>
-          <Container height="50px" padding="10px 20px" justify="space-between" align="center" gap="13px" css={chatStyle}>
+          <Container
+            height="50px"
+            padding="10px 20px"
+            justify="space-between"
+            align="center"
+            gap="13px"
+            css={{
+              position: 'fixed',
+              bottom: `${resizeHeight}px`,
+              left: 0,
+              zIndex: 10,
+              width: '100%',
+            }}
+          >
             <input
               type="text"
               value={messageInput}
@@ -221,6 +267,10 @@ function ChatPage() {
         </Container>
       </DefaultPaddedContainer>
       <HuntEndBottomSheet isOpen={isBottomSheetOpen} onClose={handleCloseBottomSheet} />
+      <CancelMatchingBottomSheet
+        isOpen={isCancelBottomSheetOpen}
+        onClose={handleCloseCancelBottomSheet}
+      />
     </>
   );
 }
@@ -245,14 +295,6 @@ const inputStyle = css`
     background-color: #E7EDF6;
     border: none;
     border-radius: 10px;
-`;
-
-const chatStyle = css`
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 10;
-    width: 100%;
 `;
 
 const timeStyle = css`
