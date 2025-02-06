@@ -191,12 +191,13 @@ function ChatPage() {
                 backgroundColor: 'white',
                 position: 'sticky',
                 top: 0,
+                marginTop: '10px',
                 zIndex: 10,
               }}
             >
-              <Container align="center" gap="5px">
+              <Container align="flex-end" height="100%" gap="5px">
                 <img src={arrowBack} alt="arrow-back" />
-                <Heading.H3_5 weight="medium">헌터와의 채팅</Heading.H3_5>
+                <Heading.H3_5 weight="medium" css={{ padding: '3px' }}>헌터와의 채팅</Heading.H3_5>
               </Container>
               <button type="button" css={btnStyle} onClick={handleOpenBottomSheet}>사냥 종료하기</button>
             </Container>
@@ -207,7 +208,7 @@ function ChatPage() {
                 width: '100vw',
                 height: '0.5px',
                 backgroundColor: 'rgba(116, 115, 115, 0.40)',
-                marginBottom: '15px',
+                margin: '10px 0',
               }}
             />
             <Container
@@ -220,7 +221,7 @@ function ChatPage() {
                 backgroundColor: theme.colors.primary.main, color: 'white', borderRadius: '8px', marginBottom: '26px',
               }}
             >
-              <Paragraph variant="xsmall">헬피는 자세한 주소와 공동현관 비밀번호 등을 알려줘야 해요.</Paragraph>
+              <Paragraph css={{ fontSize: '10px' }}>헬피는 자세한 주소와 공동현관 비밀번호 등을 알려줘야 해요.</Paragraph>
               <Paragraph onClick={handleCancelBottomSheet} css={{ fontSize: '10px', textDecoration: 'underline' }}>*거래를 취소하고 싶나요?</Paragraph>
             </Container>
             <Container width="100%" direction="column" height={`calc(70% - ${resizeHeight}px)`} css={{ marginBottom: '60px', overflowY: 'auto' }}>
@@ -309,7 +310,8 @@ const btnStyle = css`
     padding: 6px;
     border-radius: 3px;
     border: none;
-    width: 100px;
+    white-space: nowrap;
+    width: fit-content;
 `;
 
 const inputStyle = css`
