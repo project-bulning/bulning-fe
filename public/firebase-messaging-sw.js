@@ -34,6 +34,21 @@ self.addEventListener("push", (event) => {
             return;
         }
 
+        // 알림 타입이 trade_quited 일 때 클라이언트로 메시지 전송함.
+        if (payload.data.type === "trade_quited") {
+            self.clients.matchAll({ type: "window", includeUncontrolled: true }).then((clients) => {
+                clients.forEach((client) => {
+                    client.postMessage({
+                        type: "TRADE_QUITED",
+                        matchId: payload.data.matchId,
+                        role: payload.data.role,
+                    });
+                });
+            });
+            console.log("trade_quited 알림을 서비스워커에서 클라이언트로 전송함");
+            return;
+        }
+
         // 푸시 알림 생성
         const notificationTitle = payload.notification?.title || "벌닝 알림";
         const notificationOptions = {
@@ -57,10 +72,12 @@ self.addEventListener("notificationclick", (event) => {
         url = `/hunter-approval/${data.user}`;
     } else if (data.type === "hunter_accepted") {
         url = "/chat";
-    } else if (data.type === "hunter_ejected") {
-        url = "/";
+    } else if (data.type === "hunter_rejected") {
+        url = "/bug-report";
     } else if (data.type === "help_posted") {
-        url = "/";
+        url = "/bug-report";
+    } else if (data.type === "trade_quited") {
+        url = "/"
     }
 
     console.log(url);

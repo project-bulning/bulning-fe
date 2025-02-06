@@ -5,6 +5,7 @@ import { Heading, Paragraph } from '@components/text';
 import { css, useTheme } from '@emotion/react';
 import HuntEndBottomSheet from '@features/afterHunting/HuntEndBottomSheet';
 import CancelMatchingBottomSheet from '@features/hunterMatching/CancelMatchingBottomSheet';
+import { useNavigate } from 'react-router-dom';
 import { tokenStorage } from '@/utils/tokenStorage';
 import arrowBack from '@/assets/icons/arrow-back.svg';
 import sendBtn from '@/assets/icons/send.svg';
@@ -16,6 +17,7 @@ interface WriteChatRequest {
 
 function ChatPage() {
   const theme = useTheme();
+  const navigate = useNavigate();
   const [socket, setSocket] = useState<WebSocket | null>(null);
   const [messages, setMessages] = useState<{ type: 'received' | 'sent'; content: string; created_at: Date; status: string; }[]>([]);
   const [messageInput, setMessageInput] = useState('');
@@ -23,6 +25,23 @@ function ChatPage() {
   const [isCancelBottomSheetOpen, setIsCancelBottomSheetOpen] = useState<boolean>(false);
   const [resizeHeight, setResizeHeight] = useState<number>(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleServiceWorkerMessage = (event: MessageEvent) => {
+      const { type, role } = event.data;
+
+      if (type === 'TRADE_QUITED') {
+        console.log('trade_quited 메시지 클라이언트에서 수신', event.data);
+        navigate('/chat-cancel', { state: { role } });
+      }
+    };
+
+    navigator.serviceWorker.addEventListener('message', handleServiceWorkerMessage);
+
+    return () => {
+      navigator.serviceWorker.removeEventListener('message', handleServiceWorkerMessage);
+    };
+  }, [navigate]);
 
   useEffect(() => {
     if (containerRef.current) {
