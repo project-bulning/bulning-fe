@@ -17,6 +17,7 @@ import ProfilePage from '@pages/login/ProfilePage';
 import ReviewPage from '@pages/afterHunting/ReviewPage';
 import ChatPage from '@pages/chat/ChatPage';
 import NotificationPage from '@pages/notification/NotificationPage';
+import ChatCancelPage from '@pages/chat/ChatCancelPage';
 
 const router = createBrowserRouter([
   {
@@ -113,6 +114,12 @@ const router = createBrowserRouter([
     path: routePaths.CHAT,
     element: (
       <ChatPage />
+    ),
+  },
+  {
+    path: routePaths.CHAT_CANCEL,
+    element: (
+      <ChatCancelPage />
     ),
   },
   {
