@@ -21,6 +21,26 @@ export async function checkAndUpdateFcmToken(): Promise<void> {
   }
 }
 
+export async function AllowNotification() {
+  if (!('Notification' in window)) {
+    console.error('이 브라우저는 알림을 지원하지 않습니다.');
+    return;
+  }
+
+  try {
+    const permission = await Notification.requestPermission();
+
+    if (permission === 'granted') {
+      console.log('알림 권한이 부여되었습니다.');
+      await checkAndUpdateFcmToken();
+    } else {
+      console.warn('알림 권한이 거부되었습니다.');
+    }
+  } catch (error) {
+    console.error('알림 권한 요청 중 오류 발생:', error);
+  }
+}
+
 // foreground 메시지 처리
 export function initForegroundMessageListener() {
   const messaging = getMessaging(firebaseApp);
