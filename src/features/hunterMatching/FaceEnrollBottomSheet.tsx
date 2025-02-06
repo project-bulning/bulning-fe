@@ -12,20 +12,24 @@ import Container from '@components/container';
 import { Heading, Paragraph } from '@components/text';
 import routePaths from '@constants/routePaths';
 import useAfterHuntingPageStyle from '@pages/afterHunting/useAfterHuntingPageStyle';
-import { saveHunterImage, uploadHunterImage } from '@/api/hunterMatching';
-import { submitHunterAlarm } from '@/api/hunting';
+import { uploadHunterImage } from '@/api/hunterMatching';
+import { submitHunterAlarm, submitHunterInfoForm } from '@/api/hunting';
+import { HunterInfo } from '@/types/user/hunter';
 
 export interface FaceEnrollBottomSheetProps {
   reportId: number;
   isOpen: boolean;
   onClose: () => void;
+  formData: HunterInfo;
 }
 
 type ReactCropperElement = HTMLImageElement & {
   cropper: CropperJS;
 };
 
-function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSheetProps) {
+function FaceEnrollBottomSheet({
+  reportId, isOpen, onClose, formData,
+}: FaceEnrollBottomSheetProps) {
   const { btnPositionStyle } = useAfterHuntingPageStyle();
   const theme = useTheme();
   const overlayStyle = css`
@@ -75,8 +79,8 @@ function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSh
       const file = new File([blob], 'cropped-image.jpg', { type: 'image/jpeg' });
 
       try {
-        const imageUrl = await uploadHunterImage(file, reportId);
-        await saveHunterImage(imageUrl);
+        const imageUrl = await uploadHunterImage(file);
+        await submitHunterInfoForm(reportId, imageUrl, formData);
 
         await submitHunterAlarm(reportId);
         console.log('알림 요청 완료');
@@ -88,7 +92,7 @@ function FaceEnrollBottomSheet({ reportId, isOpen, onClose }: FaceEnrollBottomSh
         setIsUploading(false);
       }
     }, 'image/jpeg', 1);
-  }, [navigate, reportId]);
+  }, [navigate, reportId, formData]);
 
   return (
     <>

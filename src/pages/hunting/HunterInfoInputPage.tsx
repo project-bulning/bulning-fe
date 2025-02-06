@@ -14,8 +14,6 @@ import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import FaceEnrollBottomSheet from '@features/hunterMatching/FaceEnrollBottomSheet';
 import { HunterInfo } from '@/types/user/hunter';
-import { submitHunterInfoForm } from '@/api/hunting';
-import { HunterInfoPost } from '@/types/hunting';
 import { getHunterLocation } from '@/api/hunterMatching';
 
 export interface HunterInfoInputSectionProps {
@@ -107,37 +105,19 @@ function HunterInfoInputPage() {
   };
 
   const onSubmit = (data: HunterInfo) => {
-    setFormData(data);
     console.log('폼 데이터:', data);
     handleNextBtn(data);
   };
 
   const handleNextBtn = async (data?: HunterInfo) => {
     const hunterData = data || formData;
-
+    setFormData(hunterData);
     if (!reportId) {
       console.error('reportId가 없습니다.');
       return;
     }
     if (!hunterData) {
       console.error('formData가 없습니다.');
-      return;
-    }
-
-    const hunterInfo: HunterInfoPost = {
-      gender: hunterData.gender,
-      age_group: hunterData.age,
-      location_detail: hunterData.addressDetail,
-      pr_memo: memoValue,
-    };
-
-    try {
-      await submitHunterInfoForm(reportId, hunterInfo);
-      console.log('사냥 정보 제출 완료');
-
-      setIsBottomSheetOpen(true);
-    } catch (error) {
-      console.error('사냥 정보 제출 중 오류 발생:', error);
     }
   };
 
@@ -233,11 +213,15 @@ function HunterInfoInputPage() {
           </Container>
         </form>
       </DefaultPaddedContainer>
+      {formData && (
       <FaceEnrollBottomSheet
         reportId={reportId}
         isOpen={isBottomSheetOpen}
         onClose={closeBottomSheet}
+        formData={formData}
       />
+      )}
+
     </>
   );
 }
