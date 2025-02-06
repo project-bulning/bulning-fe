@@ -12,6 +12,8 @@ import KakaoMap from '@components/kakaoMap';
 import Spacing from '@components/spacing';
 import { DetailedBugReport } from '@/types/bug-report';
 import { getBugReportDetail } from '@/api/bugReports';
+import trash from '@/assets/icons/trash-alt.svg';
+import { deleteBugReport } from '@/api/hunting';
 
 function HuntingListDetailPage() {
   const theme = useTheme();
@@ -31,6 +33,7 @@ function HuntingListDetailPage() {
       .then((data) => {
         if (data) {
           setBugReport(data);
+          console.log(data);
         } else {
           console.error('bug_report 데이터가 없습니다.');
         }
@@ -43,12 +46,33 @@ function HuntingListDetailPage() {
   const handleBtnClick = () => {
     navigate(routePaths.HUNTER_INFO, { state: { id } });
   };
+
+  const handleDelete = async () => {
+    if (!bugReport?.id) return;
+
+    try {
+      await deleteBugReport(Number(bugReport.id));
+      navigate(routePaths.BUG_REPORT);
+    } catch (error) {
+      console.error('Error deleting bug report:', error);
+    }
+  };
   return (
     <DefaultPaddedContainer>
       <Container direction="column" padding="10px 0 10px 0">
-        <Link to={routePaths.BUG_REPORT}>
-          <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
-        </Link>
+        <Container justify="space-between" align="center">
+          <Link to={routePaths.BUG_REPORT}>
+            <img src={arrowBack} alt="back" css={{ width: '32px', height: '32px' }} />
+          </Link>
+          <img
+            role="presentation"
+            src={trash}
+            alt="delete"
+            css={{ width: '20px', height: '20px' }}
+            onClick={handleDelete}
+          />
+        </Container>
+
         {bugReport?.bug_image_url ? (
           <img src={bugReport.bug_image_url} alt="image_url" css={{ width: '100%', height: '180px', marginTop: '30px' }} />
         ) : (

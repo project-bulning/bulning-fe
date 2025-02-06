@@ -31,3 +31,13 @@ export async function submitHunterAlarm(reportId: number): Promise<void> {
     },
   });
 }
+
+export async function deleteBugReport(reportId: number): Promise<void> {
+  const url = `https://buln.ing/api/bug-reports/${reportId}`;
+
+  await axiosInstance.delete(url, {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
+}
