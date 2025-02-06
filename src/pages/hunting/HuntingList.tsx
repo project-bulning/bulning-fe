@@ -91,7 +91,7 @@ function HuntingList() {
         <Container justify="space-between" align="center" padding="6px 0">
           <Container justify="space-between" align="center">
             <Heading.H5 css={{ fontWeight: 600 }}>가까운 순</Heading.H5>
-            <a href={RoutePaths.NOTIFICATION}>
+            <a href={routePaths.NOTIFICATION}>
               <img
                 src={alarmLight}
                 alt="알림보기"
