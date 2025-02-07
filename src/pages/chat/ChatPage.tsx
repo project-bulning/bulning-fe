@@ -33,7 +33,7 @@ function ChatPage() {
     async function findHunter() {
       try {
         const data = await getMyInfo();
-        setIsHunter(data.role === 'hunter');
+        setIsHunter(data.match?.id === data.match?.hunter_id);
       } catch (err) {
         console.error(err);
       }
