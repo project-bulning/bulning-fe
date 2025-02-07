@@ -4,8 +4,10 @@ import Container from '@components/container';
 import Navbar from '@components/navbar';
 import { Heading, Paragraph } from '@components/text';
 import Spinner from '@components/fallback/Spinner';
+import Button from '@components/button';
 import { getMyInfo } from '@/api/user';
 import logo from '@/assets/bulning-logo.png';
+import { AllowNotification } from '@/api/firebase/firebaseCloudMessage';
 
 function ProfilePage() {
   const [info, setInfo] = useState<Record<string, any> | null>(null);
@@ -59,6 +61,7 @@ function ProfilePage() {
         padding: '20px',
       }}
     >
+
       <Container
         direction="column"
         justify="center"
@@ -114,6 +117,7 @@ function ProfilePage() {
             {info?.pr_memo || '소개글이 없습니다.'}
           </Paragraph>
         </Container>
+        <Button variant="select" onClick={AllowNotification}>알림 허용하기</Button>
       </Container>
       <Navbar />
     </DefaultPaddedContainer>
